@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+.login-join {
+	float: right;
+}
+.login-join li{
+	float: left;
+	margin: 0 7px;
+}
+.login-join li > a {
+	text-decoration: none;
+	font-size: 15px;
+}
+.logo{
+	width: 200px;
+	height: 40px;
+}
+.menu-Area {
+	margin: 0 auto;
+	padding: 0 auto;
+	width: 1200px;
+}
+.menu-bar {
+	right: 0;
+	width: 1200px;
+	height: 40px;
+	display: table-cell;
+	vertical-align: middle;
+}
+.menu-bar>li{
+	margin: 0 70px;
+	float: right;
+}
+
+.menu-bar > li:hover, .login-join li:hover{
+	font-weight:bold;
+	cursor:pointer;
+	text-shadow: 1px 1px 20px lightgray;
+	border-bottom: 2px solid black;
+}
+.logo:hover {
+	cursor: pointer;
+}
+
+.menu-bar a {
+	font-size: 14px;
+	color: #00A375;
+	text-decoration: none;
+}

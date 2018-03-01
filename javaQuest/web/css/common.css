@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+.container{
+	width: 1200px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.leftBox{
+	width: 200px;
+	float: left;
+	box-sizing: border-box;
+}
+.visiArea{
+	background: #00acee;
+	height: 120px;
+	margin-bottom: 5px;
+}
+.leftNav li{
+	padding-left: 30px;
+	line-height: 60px;
+	cursor: pointer;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	border-bottom: 0;
+}
+.leftNav li:last-child{
+	border-bottom: 1px solid #ddd;
+}
+.leftNav li:hover{
+	background: #00acee;
+	color: #fff;
+	border-color: #00acee;
+}
+.leftNav i{
+	margin-right: 10px;
+}
+
+
+
+.conArea{
+	width: 960px;
+	float: left;
+	margin-left: 40px;
+}
+.conArea h3{
+	font-size: 25px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}

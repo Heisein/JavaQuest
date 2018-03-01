@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+.msgWindow{
+	resize: none;
+	width: 100%;
+}
+
+.inputMsg{
+	width: 1200px;
+}

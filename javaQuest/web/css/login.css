@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+
+.title {
+	font-size: 20px;
+	font-weight:bold;
+}
+.login-form {
+	width: 400px;
+	height: 400px;
+	margin: 0 auto;
+	vertical-align: middle;
+	border: solid 1px #eee;
+	box-shadow: 0 0 3px #eee;
+}
+.login-form form {
+	color: #555;
+    padding: 50px;
+    background: #fefefe;
+    border: solid 1px #eee;
+    box-shadow: 0 0 3px #eee;
+	
+}
+.sub-title{
+	margin-left: 50px;
+	padding-top: 30px;
+	width: 300px;
+	height: 50px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 2px solid darkgray;
+}
+.radio-btn{
+	margin-top: -50px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+}
+
+.login-form input[type=text], .login-form input[type=password] {
+	width: 295px;
+	height: 20px;
+	font-size: 15px;
+	margin-bottom: 20px;
+}
+
+.id-pwd {
+	display: inline;
+	width: 150px;
+}
+.id-pwd>a{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;	
+}
+
+.btnArea {
+	float: right;
+}
+.login-btn {
+	font-size: 15px;
+	font-weight: bold;
+	width: 80px;
+	height: 30px;
+	background: blue;
+	border: 1px solid blue;
+	color: white;
+}
+
+
+.login-btn:hover{
+	cursor: pointer;
+	text-shadow: 1px 1px 20px lightgray;
+	color: black;
+}
+.id-pwd > a:hover {
+	text-shadow: 1px 1px 30px lightgray;
+	color: red;
+	border-bottom: 1px solid black;
+}
