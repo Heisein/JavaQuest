@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.jqt.member.model.vo.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,6 +196,12 @@ p, h1 {
 
 <!-- 테스트용 빈 공간 -->
 <div class = "tempClass">
+<script>
+	//테스트용 
+	<% if(loginUser != null) { %>
+		alert("<%= loginUser.getUserId() %>/님 환영합니다.")	;
+	<% } %>
+</script>
 	
 </div>
 </div>

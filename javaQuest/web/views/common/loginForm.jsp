@@ -23,11 +23,11 @@
 		<div class="sub-title">
 			로그인
 		</div>
-			<form>
+			<form action="<%= request.getContextPath() %>/login.me" method="post">
 				<div class="radio-btn">
-					<input type="radio" name="select" id="nomal" value="nomal"/>
+					<input type="radio" name="type" id="nomal" value="1" checked/>
 					<label for="nomal">일반 </label>
-					<input type="radio" name="select" id="company" value="company"/>
+					<input type="radio" name="type" id="company" value="2"/>
 					<label for="company">기업</label>
 				</div>
 				<div class="input-group">
@@ -38,7 +38,7 @@
 				</div>
 				<div>
 					<div class="id-pwd">
-						<a href="#">아이디</a>&nbsp;/&nbsp;<a href="#">비밀번호찾기</a>
+						<a href="#">아이디&nbsp;/&nbsp;비밀번호찾기</a>
 					</div>
 					<div class="btnArea">
 						<button class="login-btn">로그인</button>
