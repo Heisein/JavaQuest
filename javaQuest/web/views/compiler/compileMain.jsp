@@ -15,9 +15,6 @@
 	
 	if(q.getDefaultCode() != null) defaultcode = q.getDefaultCode(); // 해당 퀘스트의 기본코드 불러옴
 	
-	String result = String.valueOf(request.getAttribute("result"));
-	if(result.equals("null")) result = "이곳에 실행 결과가 표시됩니다.";
-	
 	float elapsedTime = 0;
 	if((request.getAttribute("elapsedTime")) != null){
 		elapsedTime = (float)request.getAttribute("elapsedTime");
@@ -40,17 +37,6 @@
 		margin:0px;
 		background-image:url("<%= request.getContextPath() %>/images/backvil1.jpg");
 		background-size:100% 100%;
-	}
-	.top-box{
-		background: lightgray;
-		float: top;
-		width:99%;
-		height:3%;
-		color:red;
-		background-color: rgba( 0, 0, 255, 0.8 );
-		border:2px solid lightgray;
-		margin:auto;
-		padding:5px;
 	}
 	.left-box{
 		color:black;
@@ -166,10 +152,8 @@
 	public void runMethod(){
 		//여기부터 시작!
 	}
-}<% }else if(!writedCode.equals("null")){ %><%= writedCode %><% } //기본코드는 없는데 작성중인 코드가 있으면 작성중인 코드를 출력한다
-	else{ %><%= q.getDefaultCode() %><% } %></textarea> <!-- 그외엔 기본코드를 출력해준다. --> 
-				<input type="hidden" value="<%= className %>" name="className">
-				<input type="hidden" value="<%= q.getQuestId() %>" name="qid">
+}<% }else{ %><%= q.getDefaultCode() %><% } %></textarea> <!-- 그외엔 기본코드를 출력해준다. --> 
+				<input type="hidden" value="<%= className %>" id="className" name="className">
 			</form>
 	</div> <!-- rightbox end -->
 		
@@ -177,23 +161,38 @@
 		<div style="color:#ffffff;width:100%;border-bottom:1px solid black;padding:0% 1% 0.5% 1%;"><p style="">실행 결과</p> </div>
 		<button value="제출" class="compilebtn" id="wpcnf">제출</button>
 		<button value="실행" class="compilebtn" id="tlfgod" onclick="goCompile()">실행</button>
-		<button value="제출" class="compilebtn" id="chrlghk">초기화</button>
+		<button value="제출" class="compilebtn" id="chrlghk" onclick="deleteAll()">초기화</button>
 		<button value="던지기" class="compilebtn" id="giveup">던지기</button>
-		<label style="color:white;">
-			<%= result %>
- 			<% if(elapsedTime > 0){ %>
-			<%= "<br><br> 실행시간: " + elapsedTime %>
-			<% } %>
-		</label>
+		<label style="color:white;" id="resultLabel">이곳에 실행 결과가 표시됩니다.</label>
 	</div> <!-- rightboxbottom end -->
 		
 	<script>
+		function deleteAll(){
+			var defaultStr = "public class HereWeGo {\n";
+			defaultStr += "	public void runMethod(){\n"
+			defaultStr += "		//여기부터 시작!\n";
+			defaultStr += "	}\n";
+			defaultStr += "}";
+			editor.setValue(defaultStr);
+		}
+	
 		function goCompile(){
-			var code = document.getElementById("compilearea").value;
+			var code = editor.getValue();
+			var className = $("#className").val();
 			
-			console.log(code);
-			
-			$("#comform").submit();
+			$.ajax({
+				url:"/jqt/compile.co",
+				data : { "code":code, "className":className }, // 전송할 코드
+				type:"post",
+				success:function(data){
+					var htmlStr = data["result"]; // html 내용물 채울 변수
+					if(data["elapsedTime"] != null)	htmlStr += ("<br><br>" + "경과시간 : " + data["elapsedTime"] + "초");
+					$("#resultLabel").html(htmlStr);
+				},
+				error:function(data){
+					console.log("컴파일 요청중 에러");
+				}
+			})// end of inner ajax
 			
 		}
 		

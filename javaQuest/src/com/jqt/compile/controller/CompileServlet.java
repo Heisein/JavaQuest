@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 import com.jqt.quest.model.service.QuestService;
 import com.jqt.quest.model.vo.Quest;
 
@@ -47,9 +50,12 @@ public class CompileServlet extends HttpServlet {
 		String code = request.getParameter("code");
 		String className = request.getParameter("className");
 
-		int qid = Integer.parseInt(request.getParameter("qid"));
+		System.out.println("code : " + code);
 		
-		Quest q = new QuestService().selectOne(qid);
+		JSONObject comResult = new JSONObject(); //결과값을 가져갈놈
+		//int qid = Integer.parseInt(request.getParameter("qid"));
+		
+		//Quest q = new QuestService().selectOne(qid);
 		
 		//컴파일된 파일이 저장될 경로
 		String javaFileDirectory = "C:/compile";
@@ -74,7 +80,7 @@ public class CompileServlet extends HttpServlet {
 	    long startTime = System.currentTimeMillis();
 	    
 	    // cmd에 입력할 커맨드, 인코딩 없으면 한글 깨짐, 프로젝트 설정마다 상이함
-		String command = "cmd /C javac " + javaFilePath + " -encoding UTF-8";
+		String command = "cmd /C javac " + javaFilePath;// + " -encoding UTF-8";
 		Process child = Runtime.getRuntime().exec(command); // runTime으로 cmd에 command넣고 실행
 
 		//저장된 process에서 에러스트림을 가져옴
@@ -91,10 +97,9 @@ public class CompileServlet extends HttpServlet {
 			
 			String errorStr = errSb.toString().replace("\n","<br>"); // 상동, html이니까 <br>로
 			
-			//에러메세지 전부 쌓았으면 돌려줌
-			request.setAttribute("q", q);
-			request.setAttribute("writedCode", code);
-			request.setAttribute("result", errorStr);
+			comResult.put("result", errorStr);
+			
+			System.out.println("에러" + errorStr);
 		} else {
 			//이하 에러스트림이 존재하지 않을 경우, 즉 컴파일에 성공한 경우
 			InputStreamReader in = new InputStreamReader(child.getInputStream());
@@ -145,11 +150,11 @@ public class CompileServlet extends HttpServlet {
 				long endTime = System.currentTimeMillis();
 				float elapsedTime = (endTime - startTime) / 1000.0f;
 				
-				//요청한곳에 경과시간, 작성코드, 실행한 결과 돌려줌
-				request.setAttribute("q", q);
-				request.setAttribute("elapsedTime", elapsedTime);
-				request.setAttribute("writedCode", code);
-				request.setAttribute("result", result);
+				comResult.put("result", result);
+				comResult.put("elapsedTime", elapsedTime);
+				
+				System.out.println(comResult + "컴리절트");
+				System.out.println(result + "그냥리절트");
 				
 			} catch (ClassNotFoundException e) {
 				System.out.println("클래스파일 찾기 실패");
@@ -167,9 +172,11 @@ public class CompileServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-	    
-		//에러던 아니던 요청페이지로 되돌아감
-		request.getRequestDispatcher("/views/compiler/compileMain.jsp").forward(request, response);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		// 제이슨 반환
+		new Gson().toJson(comResult, response.getWriter());
 	}
 
 	/**

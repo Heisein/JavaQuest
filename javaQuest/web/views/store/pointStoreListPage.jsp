@@ -228,7 +228,7 @@ tr, td, th {
 							//결제 성공시 결제 이력을 추가해야하므로 ajax를 추가호출
 							$.ajax({
 								url:"/jqt/insertPayed.st",
-								data : { "pc":pc, "impUid":rsp.imp_uid, "msg":msg }, // 결제성공 메세지, 선택한 상품, 결제 uid 저장	
+								data : { "givePoint":givePoint, "pc":pc, "impUid":rsp.imp_uid, "msg":msg }, // 금액, 결제성공 메세지, 선택한 상품, 결제 uid 저장	
 								type:"post",
 								success:function(data){
 									console.log("포인트 결제 이력 추가");

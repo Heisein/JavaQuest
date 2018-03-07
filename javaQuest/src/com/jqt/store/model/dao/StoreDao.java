@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.jqt.store.model.vo.PayedResume;
 import com.jqt.store.model.vo.PointProduct;
 import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
 
@@ -98,5 +99,33 @@ public class StoreDao {
 		
 		return p;
 	}
+
+	public int insertResume(Connection con, PayedResume ps) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = prop.getProperty("insertResume");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, ps.getUserNum());
+				pstmt.setString(2, ps.getPayUid());
+				pstmt.setInt(3, 1); // 결제성공여부 true
+				pstmt.setString(4, ps.getPayMsg());
+				pstmt.setInt(5, ps.getProductCode());
+				pstmt.setInt(6, 1); // 1포인트 2상품
+				pstmt.setInt(7, ps.getPointUpdown());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally{
+				close(pstmt);
+			}
+			
+			return result;
+		}
 
 }
