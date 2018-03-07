@@ -34,9 +34,9 @@ public class CommonFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		System.out.println("인코딩 완료");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("CommonFilter 인코딩 완료");
 		// System.out.println("doFilter() 호출됨...");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
