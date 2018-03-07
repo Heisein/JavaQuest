@@ -13,12 +13,14 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.jqt.quest.model.service.QuestService;
+import com.jqt.quest.model.vo.Quest;
 
 /**
  * Servlet implementation class CompileServlet
@@ -42,13 +44,12 @@ public class CompileServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		
-		System.out.println(request.getParameter("타이이입 type"));
-		
 		String code = request.getParameter("code");
 		String className = request.getParameter("className");
+
+		int qid = Integer.parseInt(request.getParameter("qid"));
 		
-		System.out.println(className);
-		System.out.println(code);
+		Quest q = new QuestService().selectOne(qid);
 		
 		//컴파일된 파일이 저장될 경로
 		String javaFileDirectory = "C:/compile";
@@ -91,6 +92,7 @@ public class CompileServlet extends HttpServlet {
 			String errorStr = errSb.toString().replace("\n","<br>"); // 상동, html이니까 <br>로
 			
 			//에러메세지 전부 쌓았으면 돌려줌
+			request.setAttribute("q", q);
 			request.setAttribute("writedCode", code);
 			request.setAttribute("result", errorStr);
 		} else {
@@ -144,6 +146,7 @@ public class CompileServlet extends HttpServlet {
 				float elapsedTime = (endTime - startTime) / 1000.0f;
 				
 				//요청한곳에 경과시간, 작성코드, 실행한 결과 돌려줌
+				request.setAttribute("q", q);
 				request.setAttribute("elapsedTime", elapsedTime);
 				request.setAttribute("writedCode", code);
 				request.setAttribute("result", result);
@@ -166,7 +169,7 @@ public class CompileServlet extends HttpServlet {
 		}
 	    
 		//에러던 아니던 요청페이지로 되돌아감
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/compiler/compileMain.jsp").forward(request, response);
 	}
 
 	/**

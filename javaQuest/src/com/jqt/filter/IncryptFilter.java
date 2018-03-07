@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-import com.kh.jsp.wrapper.LoginWrapper;
+import com.jqt.wrapper.LoginWrapper;
 
 /**
  * Servlet Filter implementation class IncryptFilter
