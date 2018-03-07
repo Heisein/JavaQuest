@@ -39,13 +39,8 @@
 				<li><a href="<%= request.getContextPath() %>/selectList.st">MY PAGE</a></li>
 				<li><a href="#">BOARD</a></li>
 				<li><a href="#">RANKING</a></li>
-<<<<<<< HEAD
-				<li><a href="<%= request.getContextPath() %>/views/game/gameMainPage.jsp">GAME</a></li>
-				<li><a href="<%= request.getContextPath() %>/selectList.qu">QUEST</a></li>
-=======
 				<li><a href="<%= request.getContextPath() %>/views/games/gameMainPage.jsp">GAME</a></li>
 				<li><a href="<%= request.getContextPath() %>/views/quest/questListPage.jsp">QUEST</a></li>
->>>>>>> origin/jo1
 			</ul>
 		</div>
 		<!-- menu-Area -->
