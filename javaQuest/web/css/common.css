@@ -2,7 +2,7 @@
 
 .container{
 	width: 1200px;
-	margin: 0 auto;
+	margin: 30px auto;
 	overflow: hidden;
 }
 
@@ -15,6 +15,7 @@
 	background: #00acee;
 	height: 120px;
 	margin-bottom: 5px;
+	
 }
 .leftNav li{
 	padding-left: 30px;
@@ -35,16 +36,20 @@
 .leftNav i{
 	margin-right: 10px;
 }
-
-
-
 .conArea{
 	width: 960px;
 	float: left;
 	margin-left: 40px;
 }
+
 .conArea h3{
 	font-size: 25px;
 	margin-bottom: 20px;
 	font-weight: bold;
 }
+.btn-Area {
+	width: 200px;
+	float: right;
+	botton: 0;
+} 
+

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../css/login.css">
 </head>
 <body>
+<<<<<<< HEAD
    <%@ include file="/views/common/menubar.jsp" %>
    <hr/>
    <div class="container">
@@ -49,5 +50,46 @@
    </div>
    <!-- container -->
    <%@ include file="/views/common/footer.jsp" %>
+=======
+	<%@ include file="/views/common/menubar.jsp" %>
+	<hr/>
+	<div class="container">
+	<p class="title">로그인</p>
+	</div>
+	<hr/>
+	<!-- container -->
+	<div class="container">
+		
+		<div class="login-form">
+		<div class="sub-title">
+			로그인
+		</div>
+			<form action="<%= request.getContextPath() %>/login.me" method="post">
+				<div class="radio-btn">
+					<input type="radio" name="type" id="nomal" value="1" checked/>
+					<label for="nomal">일반 </label>
+					<input type="radio" name="type" id="company" value="2"/>
+					<label for="company">기업</label>
+				</div>
+				<div class="input-group">
+					<input type="text" placeholder="아이디" name="userId"><br/>
+				</div>
+				<div class="input-group">
+					<input type="password" placeholder="비밀번호" name="userPwd">
+				</div>
+				<div>
+					<div class="id-pwd">
+						<a href="#">아이디&nbsp;/&nbsp;비밀번호찾기</a>
+					</div>
+					<div class="btnArea">
+						<button class="login-btn">로그인</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- container -->
+	<%@ include file="/views/common/footer.jsp" %>
+>>>>>>> origin/jo1
 </body>
 </html>

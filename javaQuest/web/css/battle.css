@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.chat {
+	position: absolute;
+	width: 100%;
+	height: 230px;
+	bottom: 0px;
+}
+#textArea {
+	width: 100%;
+}
+#inputMessage {
+	width: 90%;
+	
+}
