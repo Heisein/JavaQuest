@@ -47,7 +47,7 @@ public class CompileServlet extends HttpServlet {
 		String code = request.getParameter("code");
 		String className = request.getParameter("className");
 
-		System.out.println("code : " + code);
+		//System.out.println("code : " + code);
 		
 		JSONObject comResult = new JSONObject(); //결과값을 가져갈놈
 		//int qid = Integer.parseInt(request.getParameter("qid"));

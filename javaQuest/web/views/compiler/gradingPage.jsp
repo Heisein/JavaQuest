@@ -13,7 +13,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-	<h1>결과 확인중...</h1>
+	<h1><%= q.getQuestName() %> 결과 확인중...</h1>
 	<div class="storageOut"></div>
 	<input type="hidden" id="answer" name="answer" value="<%= q.getQuestAnswer() %>"> 
 	<table id="resultTable">
@@ -32,6 +32,12 @@
 		
 		var compileCount = 0;
 		
+		//sysout으로 찍었는지 확인하기. 추후 이럴때 어떻게 처리할지 정하기.
+		if (code.match(answer) && !code.match("Hello World")) {
+				console.log("sysout으로 찍었음");
+		}
+		
+		//1초에 한번씩 10번 체크하는 인터벌
 		var checkInterval = setInterval(function(){ 
 			
 			$.ajax({
@@ -46,40 +52,42 @@
 					resultBool[compileCount] = (result == answer);
 					elapsedTime[compileCount] = data['elapsedTime'];
 					
-					console.log(compileCount);
 					
-					var msg = "";
 					if(resultBool[compileCount]) {
-						msg = "통과";
-						$("#resultTable").append('<tr><td><font color="green">' + msg + '</font></td><td>' + elapsedTime[compileCount] +'초</td></tr>');
+						$("#resultTable").append('<tr><td><font color="green">통과</font></td><td>' + elapsedTime[compileCount] +'초</td></tr>');
 					}else{
-						msg = "실패";
-						$("#resultTable").append('<tr><td><font color="red">' + msg + '</font></td><td>' + elapsedTime[compileCount] +'초</td></tr>');
+						$("#resultTable").append('<tr><td><font color="red">실패</font></td><td>' + elapsedTime[compileCount] +'초</td></tr>');
 					}
 					compileCount++;
 					
 					//10번 다 실행됨
 					if(compileCount >= 10){
 						var isWrong = false;
+						var avr = 0.0;
+						
+						// 10번 확인해서 그중에 하나라도 틀렸으면
 						for(var j=0; j<10; j++){
+							avr += elapsedTime[j];
 							if(resultBool[j] == false) {
 								console.log("틀림");
 								isWrong = true;
 							}
 						}
 						
-						if(isWrong == false){
-							$("#clearDiv").text("퀘스트 클리어!");
-						}else{
+						if(isWrong == false){ // 성공시
+							$("#clearDiv").html("퀘스트 클리어!<br>평균 실행시간 : " + avr / elapsedTime.length + "초");
+						}else{ // 실패시
 							$("#failDiv").text("퀘스트 실패..");
 						}
+						
+						// 10번돌면 인터벌 삭제 
 						clearInterval(checkInterval);
 					}
-			},
+				},
 				error:function(data){
-					console.log("채점 컴파일 요청중 에러");
-					compileCount++;
-				}
+						console.log("채점 컴파일 요청중 에러");
+						compileCount++;
+					}
 			})// end of inner ajax
 			
 		}, 1000);

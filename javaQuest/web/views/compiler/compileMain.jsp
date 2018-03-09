@@ -199,8 +199,9 @@
 			
 		}
 		
+		//던지기
 		function goBack(){
-			
+			location.href="<%= request.getContextPath() %>/selectList.qu";
 		}
 		
 		//초기화
