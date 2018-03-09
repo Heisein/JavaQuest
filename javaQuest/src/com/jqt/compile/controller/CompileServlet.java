@@ -44,9 +44,6 @@ public class CompileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		
 		String code = request.getParameter("code");
 		String className = request.getParameter("className");
 
@@ -97,9 +94,8 @@ public class CompileServlet extends HttpServlet {
 			
 			String errorStr = errSb.toString().replace("\n","<br>"); // 상동, html이니까 <br>로
 			
+			//에러를 담는다
 			comResult.put("result", errorStr);
-			
-			System.out.println("에러" + errorStr);
 		} else {
 			//이하 에러스트림이 존재하지 않을 경우, 즉 컴파일에 성공한 경우
 			InputStreamReader in = new InputStreamReader(child.getInputStream());
@@ -150,11 +146,9 @@ public class CompileServlet extends HttpServlet {
 				long endTime = System.currentTimeMillis();
 				float elapsedTime = (endTime - startTime) / 1000.0f;
 				
+				//결과와 진행 시간을 담아온다
 				comResult.put("result", result);
 				comResult.put("elapsedTime", elapsedTime);
-				
-				System.out.println(comResult + "컴리절트");
-				System.out.println(result + "그냥리절트");
 				
 			} catch (ClassNotFoundException e) {
 				System.out.println("클래스파일 찾기 실패");
@@ -173,9 +167,9 @@ public class CompileServlet extends HttpServlet {
 			}
 		}
 		
+		// 인코딩 수정하고 제이슨 반환
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		// 제이슨 반환
 		new Gson().toJson(comResult, response.getWriter());
 	}
 

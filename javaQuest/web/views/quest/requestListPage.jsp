@@ -80,8 +80,8 @@
 		<!-- visiArea -->
 		
 		<ul class="leftNav">
-			<li onclick="questBtn(1);"><i class="fa fa-quora"></i>메인 퀘스트</li>
-			<li onclick="questBtn(2);"><i class="fa fa-quora"></i>서브 퀘스트</li>
+			<li onclick="<%= request.getContextPath() %>/selectList.qu""><i class="fa fa-quora"></i>메인 퀘스트</li>
+			<li onclick="<%= request.getContextPath() %>/selectList.qu""><i class="fa fa-quora"></i>서브 퀘스트</li>
 		</ul>
 		<br>
 		<ul class="leftNav">
