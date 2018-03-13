@@ -15,12 +15,13 @@ public class Quest {
 	private Date uploadDate;
 	private String questAnswer;
 	private String color;
+	private int isCleared;
 
 	public Quest() {
 	}
 
 	public Quest(int questId, int questType, int questNo, String questName, int questLevel, String questContents,
-			String questWriter, String defaultCode, int rewardExp, Date uploadDate, String questAnswer, String color) {
+			String questWriter, String defaultCode, int rewardExp, Date uploadDate, String questAnswer, String color, int isCleared) {
 		super();
 		this.questId = questId;
 		this.questType = questType;
@@ -34,6 +35,7 @@ public class Quest {
 		this.uploadDate = uploadDate;
 		this.questAnswer = questAnswer;
 		this.color = color;
+		this.isCleared = isCleared;
 	}
 
 	public int getQuestId() {
@@ -130,6 +132,14 @@ public class Quest {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	public int getIsCleared() {
+		return isCleared;
+	}
+
+	public void setIsCleared(int isCleared) {
+		this.isCleared = isCleared;
 	}
 
 	@Override
