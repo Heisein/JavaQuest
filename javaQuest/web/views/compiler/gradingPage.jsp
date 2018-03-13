@@ -39,7 +39,6 @@
 		
 		//1초에 한번씩 10번 체크하는 인터벌
 		var checkInterval = setInterval(function(){ 
-			
 			$.ajax({
 				url:"/jqt/compile.co",
 				data : { "code":code, "className":className }, // 전송할 코드
@@ -61,7 +60,10 @@
 					compileCount++;
 					
 					//10번 다 실행됨
-					if(compileCount >= 10){
+					if(compileCount == 10){
+						// 10번돌면 인터벌 삭제 
+						clearInterval(checkInterval);
+						
 						var isWrong = false;
 						var avr = 0.0;
 						
@@ -75,19 +77,20 @@
 						}
 						
 						if(isWrong == false){ // 성공시
-							$("#clearDiv").html("퀘스트 클리어!<br>평균 실행시간 : " + avr / elapsedTime.length + "초");
+							$("#clearDiv").html("퀘스트 클리어!<br>평균 실행시간 : " + avr / elapsedTime.length + "초<br>경험치 " + <%= q.getRewardExp() %> + " 획득.");
+						
+							setTimeout(function(){ // 2초 대기후 리절트창으로
+								location.href="<%= request.getContextPath() %>/questResult.qu";
+							}, 2000);
 						}else{ // 실패시
 							$("#failDiv").text("퀘스트 실패..");
 						}
-						
-						// 10번돌면 인터벌 삭제 
-						clearInterval(checkInterval);
 					}
 				},
 				error:function(data){
 						console.log("채점 컴파일 요청중 에러");
 						compileCount++;
-					}
+				}
 			})// end of inner ajax
 			
 		}, 1000);

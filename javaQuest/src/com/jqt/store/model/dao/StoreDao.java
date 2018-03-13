@@ -93,6 +93,7 @@ public class StoreDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
+			close(pstmt);
 			close(rset);
 		}
 		
@@ -126,6 +127,48 @@ public class StoreDao {
 			}
 			
 			return result;
+		}
+
+	public ArrayList<PayedResume> selectPointList(Connection con, int unum) {
+			PayedResume pr = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			ArrayList<PayedResume> list = new ArrayList<PayedResume>();
+			
+			String query = prop.getProperty("selectResume");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, unum);
+				pstmt.setInt(2, unum);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()){
+					pr = new PayedResume();
+					
+					pr.setPayDay(rset.getDate("pay_day"));
+					pr.setPayUid(rset.getString("pay_uid"));
+					pr.setPointUpdown(rset.getInt("point_updown"));
+					pr.setProductCode(rset.getInt("product_code"));
+					pr.setProductType(rset.getInt("product_type"));
+					pr.setPayMsg(rset.getString("product_name"));
+					pr.setPrice(rset.getInt("price"));
+					pr.setIsSuccess(rset.getInt("is_success"));
+					pr.setUserNum(rset.getInt("user_num"));
+					
+					list.add(pr);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally{
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			return list;
 		}
 
 }

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.jqt.member.model.vo.Member;
@@ -74,4 +75,67 @@ public class MemberDao {
 		
 	}
 
+	public ArrayList<Member> selectList(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				Member m = new Member();
+				
+				m.setUserNum(rset.getInt("user_num"));
+				m.setUserId(rset.getString("user_id"));
+				m.setNickName(rset.getString("user_nickname"));
+				m.setEmail(rset.getString("email"));
+				m.setPhone(rset.getString("phone"));
+				m.setExp(rset.getInt("user_exp"));
+				m.setType(rset.getInt("user_type"));
+				m.setEnrollDate(rset.getDate("enroll_date"));
+				m.setMsg(rset.getString("user_msg"));
+				m.setIsIdentified(rset.getString("is_identified"));
+				m.setIsWithdraw(rset.getString("is_withdraw"));
+				
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public int deleteMember(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, num);
+
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally{
+				close(pstmt);
+			}
+
+		return result;
+	}
 }

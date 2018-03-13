@@ -1,7 +1,6 @@
 package com.jqt.quest.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.service.QuestService;
 import com.jqt.quest.model.vo.Quest;
 
 /**
- * Servlet implementation class SelectRequestListServlet
+ * Servlet implementation class QuestResultServlet
  */
-@WebServlet("/selectRequest.qu")
-public class SelectRequestListServlet extends HttpServlet {
+@WebServlet("/questResult.qu")
+public class QuestResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectRequestListServlet() {
+    public QuestResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +32,25 @@ public class SelectRequestListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Quest> list = new QuestService().selectRequestList();
-		//여기서 request_num을 quest_no로 가져옴 : vo재활용할려고 이렇게함
+		Quest q = (Quest)request.getSession().getAttribute("q");
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		int result = new QuestService().questResult(q, m);
 		
 		String page = "";
-		if(list != null){
-			page = "views/quest/requestListPage.jsp";
-			request.setAttribute("list", list);
+		if(result > 0){
+			response.sendRedirect("/jqt/selectList.qu");
 		}else{
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "요청 리스트 조회 실패");
+			request.setAttribute("msg", "퀘스트 결과 전송 실패");
 		}
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

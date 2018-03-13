@@ -5,7 +5,7 @@
 	ArrayList<PointProduct> list = (ArrayList<PointProduct>) request.getAttribute("list");
 
 	DecimalFormat df = new DecimalFormat("#,###"); // 천단위마다 ,찍어주는처리
-
+	
 	String[] pdPriceComma = new String[list.size()]; // 실제로 화면에 뿌릴 포맷처리된 스트링
 
 	for (int i = 0; i < pdPriceComma.length; i++) {
@@ -22,16 +22,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/common.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/reset.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/reset.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <title>myPage</title>
 <style>
@@ -110,7 +105,7 @@ tr, td, th {
 				<li onclick="btnEvent(1);"><i class="fa fa-diamond"></i>포인트 구매</li>
 				<li onclick="btnEvent(2);"><i class="fa fa-shopping-cart"></i>상품
 					리스트</li>
-				<li onclick="btnEvent(3);"><i class="fa fa-list"></i>구매내역</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/selectResume.st'"><i class="fa fa-list"></i>구매내역</li>
 			</ul>
 		</div>
 		<!-- leftBox -->
@@ -184,7 +179,7 @@ tr, td, th {
 	</div>
 	<!-- container -->
 	<script>
-	function buy(){
+		function buy(){
 			var pc = $("input[name='pd']:checked").val(); // product code
 			var myPrice;
 			var givePoint;
@@ -212,32 +207,34 @@ tr, td, th {
 					    amount : parseInt(myPrice),
 					    buyer_name : '<%=loginUser.getNickName()%>',
 						m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-					}, function(rsp) {
+					},
+					function(rsp) {
 						if (rsp.success) {
 							var msg = '결제가 완료되었습니다.';
-							msg += '고유ID : ' + rsp.imp_uid;
-							msg += '상점 거래ID : ' + rsp.merchant_uid;
-							msg += '결제 금액 : ' + rsp.paid_amount;
-							msg += '카드 승인번호 : ' + rsp.apply_num;
+								msg += '고유ID : ' + rsp.imp_uid;
+								msg += '상점 거래ID : ' + rsp.merchant_uid;
+								msg += '결제 금액 : ' + rsp.paid_amount;
+								msg += '카드 승인번호 : ' + rsp.apply_num;
 						} else {
 							//결제 실패 해결이 불가능함, 임시로 결제 실패를 전제로 코딩해놓음
-							var msg = givePoint + '포인트 결제가 완료되었습니다.\n';
-							console.log('Message : ' + rsp.error_msg);
-							msg += '결제ID : ' + rsp.imp_uid;
-							
-							//결제 성공시 결제 이력을 추가해야하므로 ajax를 추가호출
-							$.ajax({
-								url:"/jqt/insertPayed.st",
-								data : { "givePoint":givePoint, "pc":pc, "impUid":rsp.imp_uid, "msg":msg }, // 금액, 결제성공 메세지, 선택한 상품, 결제 uid 저장	
-								type:"post",
-								success:function(data){
-									console.log("포인트 결제 이력 추가");
-								},
-								error:function(data){
-									console.log("포인트 결제 이력 ajax 에러");
-								}
-							})// end of inner ajax
+								var msg = givePoint + '포인트 결제가 완료되었습니다.\n';
+								console.log('Message : ' + rsp.error_msg);
+								msg += '결제ID : ' + rsp.imp_uid;
+
+								//결제 성공시 결제 이력을 추가해야하므로 ajax를 추가호출
+								$.ajax({
+									url : "/jqt/insertPayed.st",
+									data : {"givePoint" : givePoint,"pc" : pc,"impUid" : rsp.imp_uid,"msg" : msg }, // 금액, 결제성공 메세지, 선택한 상품, 결제 uid 저장	
+									type : "post",
+									success : function(data) {
+										console.log("포인트 결제 이력 추가");
+									},
+									error : function(data) {
+										console.log("포인트 결제 이력 ajax 에러");
+									}
+								})// end of inner ajax
 						}
+						
 						alert(msg);
 					}); // end of outer ajax
 				},
@@ -245,9 +242,8 @@ tr, td, th {
 					console.log("포인트 구매 실패..");
 				}
 			});
-			
-			
 		}
+		
 	</script>
 
 </body>

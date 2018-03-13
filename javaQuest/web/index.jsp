@@ -159,6 +159,8 @@ p, h1 {
 <!-- 중간 소개글 -->
 <div class = "tempClass" align = "center" >
 	<h1>JavaQuest</h1>
+	<button onclick="location.href='<%= request.getContextPath() %>/views/admin/selectAllResult.jsp'">관리자페이지</button>
+	<button onclick="location.href='<%= request.getContextPath() %>/selectList.st'">결제페이지</button>
 </div>
 
 <!-- 문제 수 영역  -->

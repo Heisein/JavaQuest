@@ -16,14 +16,14 @@ import com.jqt.quest.model.vo.Quest;
 /**
  * Servlet implementation class SelectRequestListServlet
  */
-@WebServlet("/selectRequest.qu")
-public class SelectRequestListServlet extends HttpServlet {
+@WebServlet("/selectRequest.ad")
+public class AdminSelectRequestListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectRequestListServlet() {
+    public AdminSelectRequestListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,10 +34,11 @@ public class SelectRequestListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Quest> list = new QuestService().selectRequestList();
 		//여기서 request_num을 quest_no로 가져옴 : vo재활용할려고 이렇게함
+		System.out.println("quest list : " + list);
 		
 		String page = "";
 		if(list != null){
-			page = "views/quest/requestListPage.jsp";
+			page = "views/admin/adminRequestPage.jsp";
 			request.setAttribute("list", list);
 		}else{
 			page = "views/common/errorPage.jsp";

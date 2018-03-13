@@ -1,4 +1,4 @@
-package com.jqt.quest.controller;
+package com.jqt.store.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.quest.model.service.QuestService;
-import com.jqt.quest.model.vo.Quest;
+import com.jqt.member.model.vo.Member;
+import com.jqt.store.model.service.StoreService;
+import com.jqt.store.model.vo.PayedResume;
 
 /**
- * Servlet implementation class SelectRequestListServlet
+ * Servlet implementation class SelectResumeListServlet
  */
-@WebServlet("/selectRequest.qu")
-public class SelectRequestListServlet extends HttpServlet {
+@WebServlet("/selectResume.st")
+public class SelectResumeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectRequestListServlet() {
+    public SelectResumeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +33,17 @@ public class SelectRequestListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Quest> list = new QuestService().selectRequestList();
-		//여기서 request_num을 quest_no로 가져옴 : vo재활용할려고 이렇게함
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+
+		ArrayList<PayedResume> list = new StoreService().selectResumeList(m.getUserNum());
 		
 		String page = "";
 		if(list != null){
-			page = "views/quest/requestListPage.jsp";
+			page = "views/store/storeResumePage.jsp";
 			request.setAttribute("list", list);
 		}else{
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "요청 리스트 조회 실패");
+			request.setAttribute("msg", "결제내역 조회 실패");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
@@ -52,6 +54,7 @@ public class SelectRequestListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }
