@@ -83,8 +83,8 @@
 		
 		</table>
 		<div>
-			<button>좋아요 <img src="views/images/like.PNG"/ width="25px" height="25px"></button>
-			<button>신고하기 <img src="views/images/unlike.png"/ width="25px" height="25px"></button>
+			<button> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
+			<button> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
 			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
 			<button>수정하기</button>
 		</div>
