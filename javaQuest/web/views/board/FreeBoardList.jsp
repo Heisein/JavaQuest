@@ -61,12 +61,12 @@ button{
 	<br>
 	
 	<div id="label1">
-		<label><a href="#공지사항">공지사항</a></label>/
+		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectFb.no">자유게시판</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
 	</div>
 	<table border="1" align="center" id="listArea">
-		<caption>공지사항</caption>
+		<caption>질문답게시판</caption>
 		<colgroup>
 			<col width="50" />
 			<col width="300" />
@@ -87,8 +87,7 @@ button{
 				<th align="center">작성일자</th>
 				<th align="center">조회수</th>
 			</tr>
-		</thead>
-			
+		</thead>	
 			<% for(board n: list){ %>
 			<tr>
 				<input type="hidden" value="<%= n.getBid() %>">
@@ -112,33 +111,30 @@ button{
 	<br>
 	<p align="center">
 		<input type="button" value="목록">
-		<% if(loginUser !=null && loginUser.getUserId().equals("admin")){ %>
-		<input type="button" value="글쓰기" onclick="location.href='views/board/noticeinsertForm.jsp'">
-		<% } %>
+		<input type="button" value="글쓰기" onclick="location.href='location.href='views/board/FrreBoardinsertForm.jsp'">
+		
 	</p>
-	
-	<%-- 페이징 처리!!!! --%>
 	<div class="text-center" class="pagination">
-		<button onclick="location.href='<%= request.getContextPath() %>/selectqaa.no?currentPage=1'"><<</button>
+		<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=1'"><<</button>
 		<% if(currentPage <= 1){ %>
 		<button disabled><</button>
 		<% }else{ %>
-		<button onclick="location.href='<%= request.getContextPath() %>/selectqaa.no?currentPage=<%= currentPage - 1 %>'"><</button>
+		<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=<%= currentPage - 1 %>'"><</button>
 		<% } %>
 		<% for(int p=startPage; p<= endPage; p++){
 				if(p == currentPage){ 
 		%>
 					<button disabled><%= p %></button>
 		<% 		}else{ %>
-					<button onclick="location.href='<%= request.getContextPath() %>/selectqaa.no?currentPage=<%= p %>'"><%= p %></button>
+					<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=<%= p %>'"><%= p %></button>
 		<%		} %>
 		<% } %>
 		<% if(currentPage > maxPage){ %>
 		<button disabled>></button>
 		<% }else{ %>
-		<button onclick="location.href='<%= request.getContextPath() %>/selectqaa.no?currentPage=<%= currentPage + 1 %>'">></button>
+		<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=<%= currentPage + 1 %>'">></button>
 		<% } %>
-		<button onclick="location.href='<%= request.getContextPath() %>/selectqaa.no?currentPage=<%= maxPage %>'">>></button>
+		<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=<%= maxPage %>'">>></button>
 		
 	</div>
 	
@@ -162,7 +158,7 @@ button{
 			$("#listArea td").click(function(){
 				var num = $(this).parent().children().eq(0).val();
 				console.log($(this).parent().children());
-				location.href="<%= request.getContextPath() %>/selectOneQaa.bo?num="+num;
+				location.href="<%= request.getContextPath() %>/selectOneFb.bo?num="+num;
 			});
 		});
 		

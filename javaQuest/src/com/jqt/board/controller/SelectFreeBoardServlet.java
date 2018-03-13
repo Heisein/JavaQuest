@@ -15,16 +15,16 @@ import com.jqt.board.model.vo.PageInfo;
 import com.jqt.board.model.vo.board;
 
 /**
- * Servlet implementation class SelectQaaServlet
+ * Servlet implementation class SelectFreeBoardServlet
  */
-@WebServlet("/selectqaa.no")
-public class SelectQaaServlet extends HttpServlet {
+@WebServlet("/selectFb.no")
+public class SelectFreeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectQaaServlet() {
+    public SelectFreeBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,6 @@ public class SelectQaaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//페이징처리추가
 		int currentPage; // 현재 페이지를 표시할 변수
 	    int limit; //한 페이지에 게시글이 몇개 보여질 것인지 
 	    int maxPage; //전체 페이지에서 가장 마지막 페이지 
@@ -73,24 +72,21 @@ public class SelectQaaServlet extends HttpServlet {
 	    
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 	    
-		ArrayList<board> list = new boardService().selectqaa(currentPage, limit);
-		System.out.println("리스트는?"+list);
+		ArrayList<board> list = new boardService().selectFb(currentPage,limit);
 		String page ="";
 		if(list !=null) {
-			page = "views/board/noticeList.jsp";
+			page = "views/board/FreeBoardList.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "공지사항안보여줌!");
+			request.setAttribute("msg", "게시판안보여줌!");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
-		
 	}
 
-	/**
+	/**asdf
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

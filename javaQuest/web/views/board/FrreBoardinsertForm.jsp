@@ -34,7 +34,7 @@
 	<%@ include file= "/views/common/menubar.jsp" %>
 	
 	<h1>글쓰기</h1>
-	<form action="<%= request.getContextPath() %>/insertQaa.bo" align="center" method="get">
+	<form action="<%= request.getContextPath() %>/insertFb.bo" align="center" method="get">
 		<table id="tableArea" width="700" align="center">
 			<tr>
 				<td>작성자</td>
@@ -56,7 +56,7 @@
 		</table>
 	
 	<div align="center">
-		<input type="submit" value="작성완료" id="insertQaa" >
+		<input type="submit" value="작성완료" id="insertFb" >
 		<input type="reset" value="작성취소">
 	</div>
 	</form>

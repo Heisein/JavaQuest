@@ -8,8 +8,9 @@ public class board {
 	private int bno;
 	private String btitle;
 	private String bcontext;
-	private int bwriter;
+	private String bwriter;
 	private int bcount;
+	private int bcount2;
 	private int ref_bid;
 	private int ref_ref_bid;
 	private int reply_level;
@@ -20,22 +21,43 @@ public class board {
 		
 	}
 
-	public board(int bid, int btype, int bno, String btitle, String bcontext, int bwriter, int bcount, int ref_bid,
-			int ref_ref_bid, int reply_level, Date bdate, String status) {
-		super();
-		this.bid = bid;
-		this.btype = btype;
-		this.bno = bno;
-		this.btitle = btitle;
-		this.bcontext = bcontext;
-		this.bwriter = bwriter;
-		this.bcount = bcount;
-		this.ref_bid = ref_bid;
-		this.ref_ref_bid = ref_ref_bid;
-		this.reply_level = reply_level;
-		this.bdate = bdate;
-		this.status = status;
+	
+
+	@Override
+	public String toString() {
+		return "board [bid=" + bid + ", btype=" + btype + ", bno=" + bno + ", btitle=" + btitle + ", bcontext="
+				+ bcontext + ", bwriter=" + bwriter + ", bcount=" + bcount + ", bcount2=" + bcount2 + ", ref_bid="
+				+ ref_bid + ", ref_ref_bid=" + ref_ref_bid + ", reply_level=" + reply_level + ", bdate=" + bdate
+				+ ", status=" + status + "]";
 	}
+
+
+
+	public Date getBdate() {
+		return bdate;
+	}
+
+
+
+	public void setBdate(Date bdate) {
+		this.bdate = bdate;
+	}
+
+
+
+	public int getBcount2() {
+		return bcount2;
+	}
+
+
+
+	public void setBcount2(int bcount2) {
+		this.bcount2 = bcount2;
+	}
+
+
+
+
 
 	public int getBid() {
 		return bid;
@@ -77,11 +99,11 @@ public class board {
 		this.bcontext = bcontext;
 	}
 
-	public int getBwriter() {
+	public String getBwriter() {
 		return bwriter;
 	}
 
-	public void setBwriter(int bwriter) {
+	public void setBwriter(String bwriter) {
 		this.bwriter = bwriter;
 	}
 
@@ -117,13 +139,8 @@ public class board {
 		this.reply_level = reply_level;
 	}
 
-	public Date getBdate() {
-		return bdate;
-	}
+	
 
-	public void setBdate(Date bdate) {
-		this.bdate = bdate;
-	}
 
 	public String getStatus() {
 		return status;
@@ -133,11 +150,8 @@ public class board {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "board [bid=" + bid + ", btype=" + btype + ", bno=" + bno + ", btitle=" + btitle + ", bcontext="
-				+ bcontext + ", bwriter=" + bwriter + ", bcount=" + bcount + ", ref_bid=" + ref_bid + ", ref_ref_bid="
-				+ ref_ref_bid + ", reply_level=" + reply_level + ", bdate=" + bdate + ", status=" + status + "]";
-	}
+
+
+	
 	
 }

@@ -100,7 +100,7 @@
 				</td>
 				<td>
 					<button id="addReply">작성</button>
-					<button type="button" onclick="location.href='<%= request.getContextPath() %>/selectqaa.no'">목록으로 돌아가기</button>
+					<button type="button" onclick="location.href='<%= request.getContextPath() %>/selectQuestion.bo'">목록으로 돌아가기</button>
 				</td>
 			</tr>
 			
