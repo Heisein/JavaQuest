@@ -166,11 +166,17 @@ public class CompileServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+<<<<<<< HEAD
 		
 		// 인코딩 수정하고 제이슨 반환
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(comResult, response.getWriter());
+=======
+	    
+		//에러던 아니던 요청페이지로 되돌아감
+		request.getRequestDispatcher("/views/games/countGame.jsp").forward(request, response);
+>>>>>>> origin/jo3
 	}
 
 	/**

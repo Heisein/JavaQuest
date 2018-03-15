@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @CHARSET "UTF-8";
 
 .title{
@@ -91,3 +92,99 @@
 	width: 95%;
 }
 
+=======
+@CHARSET "UTF-8";
+
+.title{
+	width: 100%;
+	font-size: 30px;
+	height: 40px;
+	text-align: center;
+}
+
+.exit{
+	background: red;
+}
+
+.quiz-ox {
+	border: 5px solid #dfdfdf;
+	padding: 0 30px;
+	width: 1200px;
+	height: 200px;
+	display: table-cell;
+	vertical-align: middle;
+	position: relative;
+	border-radius: 80px;
+}
+
+.O {
+	background: url(../images/O.jpg) no-repeat;
+	width: 595px;
+	height: 200px;
+	position : absolute;
+	top: 0;
+	left: 0;
+	z-index: 1px;
+	border-top-left-radius : 79px;
+	border-bottom-left-radius : 79px;
+	border: hidden;
+}
+.X {
+	background: url(../images/X.jpg) no-repeat right;
+	width: 595px;
+	height: 200px;
+	position : absolute;
+	z-index: 1px;
+	top: 0;
+	right: 0;
+	border-top-right-radius : 79px;
+	border-bottom-right-radius : 79px;
+	border: hidden;
+}
+.O:hover, .X:hover {
+	cursor: pointer;
+	
+}
+
+.quiz-no {
+	width: 200px;
+	text-align: center;
+	display: inline;
+	margin-right: 500px;
+	z-index: 1000px;
+}
+
+.quiz-ox-con {
+	font-size:24px;
+	text-align: center;
+}
+
+.answer{
+	overflow: hidden;
+}
+
+.answer li{
+	float: left;
+	width: 150px;
+	border: 5px solid #dfdfdf;
+	margin: 20px 25px 0 25px;
+	box-sizing: border-box;
+	padding: 20px;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 30px;
+}
+
+.answer li:hover {
+	cursor: pointer;
+}
+#textArea {
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+#inputMessage {
+	width: 95%;
+}
+
+>>>>>>> origin/jo3
