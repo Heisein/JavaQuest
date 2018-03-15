@@ -56,7 +56,12 @@
 	</div>
 	<!-- container -->
 	<script>
-		
+		//뒤로가기 막기
+		history.pushState(null, document.title, location.href); 
+		window.addEventListener('popstate', function(event) {
+			history.pushState(null, document.title, location.href); 
+		});	
+	
 		//새로고침 막기
 		function LockF5(){
 			if (event.keyCode == 116) {
@@ -207,6 +212,7 @@
 									}
 								}else {
 									clearInterval(content);
+									$(".btnArea").append("<button id='startBtn'>시작하기</button>");
 									alert("축하합니다  게임에서 우승하셨습니다.");
 								}
 							}, 5000); 
@@ -284,5 +290,4 @@
 		}
 	</script>
 </body>
->>>>>>> origin/jo3
 </html>
