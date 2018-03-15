@@ -1,165 +1,199 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.jqt.member.model.vo.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<style>
-	body {
-  		font-family: "Squada One",sans-serif;
-  		background: #000e12;
-  		color: #daf6ff;
-  	}
-
-	.bluelight {
-		display: table;
-		width: 250px;
-		height: 250px;
-		position: absolute;
-		left: 50%;
-		top: 40%;
-		transform: translate(-50%, -50%);
-	} 
-	.bluelight a {
-		display: table-cell;
-		font-size: 3em;
-		text-decoration: none;
-		text-align: center;
-		vertical-align: middle;
-		border-radius: 50%;
-		transition: background 1s, border-width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), text-shadow 0.5s;
-		color: #fff;
-		/* text-shadow: 0 0 50px #0aafe6, 0 0 50px #0aafe6; */
-		background-image: radial-gradient(ellipse cover at center, rgba(10, 175, 230, 0.3) 0%, rgba(10, 175, 230, 0) 60%);
-		box-shadow: 0 0 0 rgba(10, 175, 230, 0), inset 0 0 0 rgba(10, 175, 230, 0);
-		border: 0 dotted rgba(10, 175, 230, 0);
-	}
-
-	.bluelight a:hover {
-		color: #fff;
-		text-shadow: 0 0 50px #0aafe6, 0 0 50px #0aafe6;
-		background-image: radial-gradient(ellipse cover at center, rgba(10, 175, 230, 0.3) 0%, rgba(10, 175, 230, 0) 60%);
-	} 
-	
-	.bluelight:before,  .bluelight:after,  .bluelight a:before,  .bluelight a:after {
-		transition: 0.2s ease-in-out;
-		content: "";
-		display: block;
-		position: absolute;
-		border-radius: 50%;
-		border: 60px dashed transparent;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		color: #fff;
-		text-shadow: 0 0 50px #0aafe6, 0 0 50px #0aafe6;
-		background-image: radial-gradient(ellipse cover at center, rgba(10, 175, 230, 0.3) 0%, rgba(10, 175, 230, 0) 60%);
-	} 
-	
-	.bluelight:before {
-		animation: rotate 20s linear 0s infinite;
-		width: 180%;
-		height: 180%;
-		border: 3px dotted rgba(10, 175, 230, 0);
-		z-index: -1;
-		border-color: rgba(10, 175, 230, 0.3);/*  */
-	}
-	
-	.bluelight:after {
-		animation: rotate 10s linear 0s infinite reverse;
-		border: 80px dashed rgba(10, 175, 230, 0);
-		width: 160%;
-		height: 160%;
-		z-index: -2;
-		border-color: rgba(10, 175, 230, 0.1);/*  */
-	}
-	
-	.bluelight a:before {
-		animation: rotate 5s ease-in-out 0s infinite alternate;
-		width: 120%;
-		height: 120%;
-		border: 50px dashed rgba(10, 175, 230, 0);
-		border-color: rgba(10, 175, 230, 0.3);/*  */
-	}
- 
-	.bluelight a:after {
-		animation: rotate 5s linear 0s infinite;
-		border: 18px dashed rgba(10, 175, 230, 0);
-		width: 120%;
-		height: 120%;
-		border-color: rgba(10, 175, 230, 0.3);/*  */
-	}
-
-
-@keyframes rotate {
-	0% {
-		transform: translate(-50%, -50%) rotate(0deg);
-	}
-		100% {
-		transform: translate(-50%, -50%) rotate(360deg);
-	}
-}  
-	p.caption {
-		font-size: 30px;
-		text-align: center;
-		position: fixed;
-		width: 100%;
-		bottom: 0;
-		letter-spacing: 30px;
-		text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
-	}
-	.input_table {
-		margin-top : 38%;
-		text-align: center;
-	}
-
-	.input {
-		background : #000e12;
-		border-color : white;
-		color: white;
-	}
-</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style>
+
+
+
+/* 광고판 이미지 공간 */
+.carousel-inner {
+	width: 100%;
+	height: 500px;
+}
+
+.image {
+	height : auto;
+}
+
+/* 채점판  */
+.parallax-counter-v1 {
+	background: white;
+	width: 100%;
+	padding-top: 60px;
+	padding-right: 0px;
+	padding-bottom: 60px;
+	padding-left: 0px;
+}
+
+.parallax-counter-v1 .counters {
+	color: #fff;
+	padding: 15px 0 10px;
+	border: solid 1px #555;
+	border-top-color: rgb(85, 85, 85);
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-right-color: rgb(85, 85, 85);
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: rgb(85, 85, 85);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: rgb(85, 85, 85);
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-image-source: initial;
+	border-image-slice: initial;
+	border-image-width: initial;
+	border-image-outset: initial;
+	border-image-repeat: initial;
+}
+
+.container- {
+	width: 60%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.counters {
+	background: black;
+	text-align: center;
+	color: white;
+}
+
+.counter {
+	font-size: 30px;
+}
+
+.tempClass {
+	height: 150px;
+}
+
+.col-md-9 {
+	width: 100%;
+}
+
+/* 광고/공지판 버튼크기 */
+.carousel-control {
+	position: absolute;
+	top: 40%;
+	bottom: 0;
+	left: 0;
+	width: 5%;
+	height: 100px; font-size : 20px;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+	background-color: rgba(0, 0, 0, 0);
+	filter: alpha(opacity = 50);
+	opacity: .5;
+	font-size: 20px;
+}
+</style>
 </head>
 <body>
-	<form action = "<%= request.getContextPath() %>/login" method = "post">
-		<div class="bluelight">
-		<a onclick = "login();">login</a>
-		</div>
-		<div class = "input_table">
-			<table align = "center" >
-				<tr>
-					<td><label>ID</label></td>
-					<td colspan = "2"><input type = "text" name = "userId" class = "input"/></td>
-				</tr>	
-				<tr>
-					<td><label>PWD</label></td>
-					<td colspan = "2"><input type = "password" name = "password" class = "input"/></td>
-				</tr>
-				<tr>
-					<td colspan = "4">
-						<a href = "views/member/memberJoinForm.jsp" style = "color : white;">회원가입</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan = "4">
-						<a href = "#">아이디/비밀번호 찾기</a>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</form>
-<p class="caption">JavaQuest</p>
-<script>
-	/* $(function(){
-		location.href="/jqt/views/main/mainPage.jsp";
-	}); */
-	
-	function login(){
-		$('form').submit();
-	}
-</script>
 
+<%@ include file = "/views/common/menubar.jsp" %>
+<br/>
+<br/>
+
+<!-- 광고판/공지 영역 -->  
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
+<!-- 광고판 아래 순서표시 -->
+    	<ol class="carousel-indicators">
+		    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    		<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+    	</ol>
+		
+<!-- 광고판 실제 내용 -->
+		<div class="carousel-inner">
+	     	<div class="item active" >
+		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
+	     	</div>
+	
+      		<div class="item">
+	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
+        	</div>
+	    
+        	<div class="item">
+	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
+        	</div>
+    	</div>
+	
+<!-- 좌우 버튼 -->
+	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      		<span class="glyphicon glyphicon-chevron-left"></span>
+      		<span class="sr-only">Previous</span>
+    	</a>
+    	<a class="right carousel-control" href="#myCarousel" data-slide="next">
+      		<span class="glyphicon glyphicon-chevron-right"></span>
+      		<span class="sr-only">Next</span>
+    	</a>
+	</div>
+	
+<div class="container">	
+
+
+<!-- 중간 소개글 -->
+<div class = "tempClass" align = "center" >
+	<h1>JavaQuest</h1>
+</div>
+
+<!-- 문제 수 영역  -->
+<div class="parallax-counter-v1 parallaxBg">
+    <div class="container-">
+        <div class="row margin-bottom-10">
+            <div class="col-sm-3 col-xs-6">
+                <div class="counters">
+                    <span class="counter">14494</span>   
+                    <h4>전체 문제</h4>
+                </div>    
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="counters">
+                    <span class="counter">11989</span> 
+                    <h4>채점 가능한 문제</h4>
+                </div>    
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="counters">
+                    <span class="counter">9363</span>
+                    <h4>풀린 문제</h4>
+                </div>    
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="counters">
+                    <span class="counter">62</span>
+                    <h4>채점 가능한 언어</h4>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 테스트용 빈 공간 -->
+<div class = "tempClass">
+<script>
+	//테스트용 
+	<% if(loginUser != null) { %>
+		alert("<%= loginUser.getUserId() %>/님 환영합니다.")	;
+	<% } %>
+</script>
+	
+</div>
+</div>
+<!-- 제일 아래 푸터 -->
+<%@ include file = "/views/common/footer.jsp" %>     
 </body>
 </html>

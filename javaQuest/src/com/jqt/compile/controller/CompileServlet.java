@@ -166,7 +166,7 @@ public class CompileServlet extends HttpServlet {
 		}
 	    
 		//에러던 아니던 요청페이지로 되돌아감
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/games/countGame.jsp").forward(request, response);
 	}
 
 	/**

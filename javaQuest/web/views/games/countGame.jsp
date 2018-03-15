@@ -19,10 +19,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="/jqt/codemirror/lib/codemirror.js"></script>
-<link rel="stylesheet" href="/jqt/codemirror/lib/codemirror.css">
 <script src="/jqt/codemirror/mode/clike/clike.js"></script>
-<link rel="stylesheet" href="/jqt/codemirror/theme/eclipse.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/jqt/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/jqt/codemirror/theme/eclipse.css">
 <link rel="stylesheet" href="/jqt/css/countGame.css">
 <style>
 	html, body {
@@ -127,9 +127,14 @@
 </head>
 <body>
 		<!-- <button onclick="location.href='views/myPage.jsp'">이동하기</button> -->
-	<div class='left-box' style="position:relative;">
-			<div style="padding:0% 2% 2% 2%;"><p style="float:left;width:auto;">딕셔너리 정렬</p><div style="background-color:purple;width:40px;text-align:center;padding:5px;color:#ffffff;font-size:12px;border-radius:5px;font-weight:Bold;float:left;margin-top:13px;margin-left:5px;">Level 1</div></div>
-			<div id="left_bottom">처음 온 모험가를 환영하네! 자, 그럼 본격적으로 모험을 시작하기 전에 한가지 테스트를 해 보겠네. 물론 자네라면 어렵지 않게 넘어갈 수 있겠지만 쉬어간다고 생각하고 해보게나. 자, 오른쪽 대화창으로 'Hello World'를 출력해보게!</div>
+		<div class='left-box' style="position:relative;">
+			<div style="padding:0% 2% 2% 2%;">
+				<p style="float:left;width:auto;">딕셔너리 정렬</p>
+				<div style="background-color:purple;width:40px;text-align:center;padding:5px;color:#ffffff;font-size:12px;border-radius:5px;font-weight:Bold;float:left;margin-top:13px;margin-left:5px;">Level 1</div>
+			</div>
+			<div id="left_bottom">
+				처음 온 모험가를 환영하네! 자, 그럼 본격적으로 모험을 시작하기 전에 한가지 테스트를 해 보겠네. 물론 자네라면 어렵지 않게 넘어갈 수 있겠지만 쉬어간다고 생각하고 해보게나. 자, 오른쪽 대화창으로 'Hello World'를 출력해보게!
+			</div>
 			<div class="time-count">
 				시간 div
 			</div>
@@ -170,15 +175,28 @@
 				$("#comform").submit();
 				
 			}
-			
-		</script>
-	
-		<script>
+		
 			var editor = CodeMirror.fromTextArea(document.getElementById("compilearea"), {
 				lineNumbers: true,
 				theme:"eclipse",
 				mode:"text/x-java"
 			});
+			
+			var min = 5;
+			var sec = 59;
+			var counter = setInterval(function() {
+				if (sec >= -1) {
+					$(".time-count").html("남은시간<br/>" + min + " : " + sec);
+					sec--;
+					if(sec == -1){
+						min--;
+						sec = 59;
+					}
+				}else if(min == 0 && sec == 0){ 
+					clearInterval(counter);
+					$(".time-count").html("Timeout!!"); //카운트가 끝날때 디스플레이 멘트
+				}     
+			}, 1000); //1초에 한번씩 카운트
 		</script>
 		<br><br><br>
 </body>
