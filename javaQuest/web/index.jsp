@@ -82,7 +82,6 @@
 	width: 100%;
 }
 
-<<<<<<< HEAD
 p, h1 {
 	width: 60%;
 	padding-right: 15px;
@@ -95,8 +94,6 @@ p, h1 {
 	padding-left: 0px;
 }
 
-=======
->>>>>>> origin/jo3
 /* 광고/공지판 버튼크기 */
 .carousel-control {
 	position: absolute;
@@ -136,8 +133,6 @@ p, h1 {
 	     	<div class="item active" >
 		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
 	     	</div>
-<<<<<<< HEAD
-	
       		<div class="item">
 	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
         	</div>
@@ -146,19 +141,6 @@ p, h1 {
 	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
         	</div>
     	</div>
-	
-=======
-	
-      		<div class="item">
-	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
-        	</div>
-	    
-        	<div class="item">
-	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
-        	</div>
-    	</div>
-	
->>>>>>> origin/jo3
 <!-- 좌우 버튼 -->
 	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       		<span class="glyphicon glyphicon-chevron-left"></span>
@@ -172,21 +154,11 @@ p, h1 {
 	
 <div class="container">	
 
-<<<<<<< HEAD
-
 <!-- 중간 소개글 -->
 <div class = "tempClass" align = "center" >
 	<h1>JavaQuest</h1>
 </div>
 
-=======
-
-<!-- 중간 소개글 -->
-<div class = "tempClass" align = "center" >
-	<h1>JavaQuest</h1>
-</div>
-
->>>>>>> origin/jo3
 <!-- 문제 수 영역  -->
 <div class="parallax-counter-v1 parallaxBg">
     <div class="container-">
@@ -221,15 +193,12 @@ p, h1 {
 
 <!-- 테스트용 빈 공간 -->
 <div class = "tempClass">
-<<<<<<< HEAD
-=======
 <script>
 	//테스트용 
 	<% if(loginUser != null) { %>
 		alert("<%= loginUser.getUserId() %>/님 환영합니다.")	;
 	<% } %>
 </script>
->>>>>>> origin/jo3
 	
 </div>
 </div>
