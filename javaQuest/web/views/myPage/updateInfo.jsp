@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.jqt.member.model.vo.Member"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../css/common.css">
 <link rel="stylesheet" href="../../css/reset.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 .con-table {
 	width: 100%;
@@ -85,11 +86,19 @@ button:hover:before, button:hover:after {
 INPUT[type=text] {
 	width: 80px;
 }
+
+.updateBtn{
+		border: 0; 
+		width: 100px;
+		margin: 0;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-		<div class="container">
+<%@ include file = "/views/common/menubar.jsp" %>
+	<div class="container">
 		<div class="leftBox">
 			<div class="visiArea">회원</div>
 			<!-- visiArea -->
@@ -111,59 +120,68 @@ INPUT[type=text] {
 		</div>
 		<!-- leftBox -->
 		<div class="conArea">
-		<h3>회원 정보 수정</h3>
-		<form>
-		<table class="con-table">
-			<tr>
-				<th><label>아이디</label></th>
-				<td><input type="text" name="userId" readonly></td>
-			</tr>
-			<tr>
-				<th><label>비밀번호</label></th>
-				<td><input type="password" name="password"></td>
-			</tr>
-			<tr>
-				<th><label>비밀번호 확인</label></th>
-				<td><input type="password" name="password2"></td>
-			</tr>
-			<tr>
-				<th><label>닉네임</label></th>
-				
-				<td><input id="text" maxlength="13" name="nick_name"></td>
-			</tr>
-			<tr>
-				<th><label>이메일</label></th>
-				<td><input type="email" name="email"></td>
-			</tr>
-			<tr>
-				<th><label>핸드폰</label></th>
-				<td>
-					 <input type="text" maxlength="3" name="tel1" size="2"> ―
-   					 <input type="text" maxlength="4" name="tel2" size="2"> ―
-    				 <input type="text" maxlength="4" name="tel3" size="2">
-				</td>
-			</tr>
-			<tr>
-				<th><label>레벨</label></th>
-				<td><span></span></td>
-			</tr>
-			<tr>
-				<th><label>경험치</label></th>
-				<td><span></span></td>
-			</tr>
+			<h3>회원 정보 수정</h3>
+			<form id="updateForm" action="<%=request.getContextPath()%>/update.me" method="post">
+				<table class="con-table">
+					<tr>
+						<th><label>아이디</label></th>
+						<td><input type="text" name="userId"
+							value="<%=loginUser.getUserId()%>" readonly></td>
+					</tr>
+					<tr>
+						<th><label>비밀번호</label></th>
+						<td><input type="password" name="password"></td>
+					</tr>
+					<tr>
+						<th><label>비밀번호 확인</label></th>
+						<td><input type="password" name="password2"></td>
+					</tr>
+					<tr>
+						<th><label>닉네임</label></th>
 
-		</table>
-		
-		<div class="" align="center">
-  			<button type="button" onclick="location.href='#'">메인으로</button>&nbsp; &nbsp; &nbsp;
-            <button type="submit">수정하기</button>
-    	</div>
-		</form>
+						<td><input id="text" maxlength="13" name="nickname"
+							value="<%=loginUser.getNickName()%>"></td>
+					</tr>
+					<tr>
+						<th><label>이메일</label></th>
+						<td><input type="email" name="email"
+							value="<%=loginUser.getEmail()%>"></td>
+					</tr>
+					<tr>
+						<th><label>핸드폰</label></th>
+						<td><input type="tel" name="phone"
+							value="<%=loginUser.getPhone()%>"></td>
+
+					</tr>
+					<tr>
+						<th><label>레벨</label></th>
+						<td><span></span></td>
+					</tr>
+					<tr>
+						<th><label>경험치</label></th>
+						<td><input type="text" name="exp" value="<%=loginUser.getExp()%>" readonly></td>
+					</tr>
+
+				</table>
+
+				<div class="" align="center">
+					<div id="updateBtn" onclick="updateMember(); ">수정하기</div>
+				</div>
+			</form>
+		</div>
+		<!-- conArea -->
 	</div>
-	<!-- conArea -->
+	<!-- container -->
+	
+	<script>
+		function updateMember(){
+			$("#updateForm").submit();
+		}
+
+	
+	</script>
 	
 	
-</div>
-<!-- container -->
+	
 </body>
 </html>

@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.jqt.member.model.vo.*, java.util.*"%>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-%>
+    pageEncoding="UTF-8" import="com.jqt.member.model.vo.Member"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,10 +84,20 @@ button:hover:before, button:hover:after {
 	width: 100%;
 	transition: 800ms ease all;
 }
+
+input{
+border : 0;
+}
+
+
+
+
 </style>
 </head>
 <body>
-
+<%@ include file = "/views/common/menubar.jsp" %>
+<br/>
+<br/>
 	<div class="container">
 		<div class="leftBox">
 			<div class="visiArea">회원</div>
@@ -118,19 +125,24 @@ button:hover:before, button:hover:after {
 				<table class="con-table">
 					<tr>
 						<th><label>아이디</label></th>
-						<td><input type="text" value="" readonly id="userId"> </td>
+						<td><input type="text" value="<%= loginUser.getUserId()%>" readonly id="userId"> </td>
 					</tr>
 					<tr>
 						<th><label>닉네임</label></th>
-						<td><span></span></td>
+
+						<td><input type="text" maxlength="13" name="nick_name"
+							value="<%=loginUser.getNickName()%>" readonly></td>
 					</tr>
 					<tr>
 						<th><label>이메일</label></th>
-						<td><span></span></td>
+						<td><input type="email" name="email"
+							value="<%=loginUser.getEmail()%>" readonly></td>
 					</tr>
 					<tr>
 						<th><label>핸드폰</label></th>
-						<td><span></span></td>
+						<td><input type="tel" name="phone"
+							value="<%=loginUser.getPhone()%>" readonly></td>
+
 					</tr>
 					<tr>
 						<th><label>레벨</label></th>
@@ -138,10 +150,9 @@ button:hover:before, button:hover:after {
 					</tr>
 					<tr>
 						<th><label>경험치</label></th>
-						<td><span></span></td>
+						<td><input type="text" name="exp" value="<%=loginUser.getExp()%>" readonly></td>
 					</tr>
 				</table>
-
 
 			</form>
 		</div>
