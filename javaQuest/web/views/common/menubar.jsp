@@ -31,7 +31,7 @@
 		<% } %>
 		</div>
 		<div class="logo">
-			<a href="<%= request.getContextPath() %>/views/main/mainPage.jsp"><img src="/jqt/images/logo.png"/></a>
+			<a href="<%= request.getContextPath() %>/"><img src="/jqt/images/logo.png"/></a>
 		</div>		
 		<!-- menu-Area -->
 		<div class="menu-Area">

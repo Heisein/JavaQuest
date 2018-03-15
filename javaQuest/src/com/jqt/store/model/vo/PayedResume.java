@@ -12,12 +12,13 @@ public class PayedResume {
 	private int productType;
 	private int pointUpdown;
 	private Date payDay;
+	private int price;
 
 	public PayedResume() {
 	}
 
 	public PayedResume(int payNum, int userNum, String payUid, int isSuccess, String payMsg, int productCode,
-			int productType, int pointUpdown, Date payDay) {
+			int productType, int pointUpdown, Date payDay, int price) {
 		super();
 		this.payNum = payNum;
 		this.userNum = userNum;
@@ -28,6 +29,7 @@ public class PayedResume {
 		this.productType = productType;
 		this.pointUpdown = pointUpdown;
 		this.payDay = payDay;
+		this.price = price;
 	}
 
 	public int getPayNum() {
@@ -101,5 +103,15 @@ public class PayedResume {
 	public void setPayDay(Date payDay) {
 		this.payDay = payDay;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	
 
 }

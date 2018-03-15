@@ -107,13 +107,17 @@
 		
 	<script>
 		function agree(btn){
-			var rnum = $(btn).children('#qid').val();
-			location.href="<%= request.getContextPath() %>/agree.qu?rnum=" + rnum;
+			if(confirm("해당 퀘스트를 승인하시겠습니까?")){
+				var rnum = $(btn).children('#qid').val();
+				location.href="<%= request.getContextPath() %>/agree.qu?rnum=" + rnum;
+			}
 		}
 		
 		function reject(btn){
-			var rnum = $(btn).children('#qid').val();
-			location.href="<%= request.getContextPath() %>/reject.qu?rnum=" + rnum;
+			if(confirm("해당 퀘스트를 거절하시겠습니까?")){
+				var rnum = $(btn).children('#qid').val();
+				location.href="<%= request.getContextPath() %>/reject.qu?rnum=" + rnum;
+			}
 		}
 		
 		function detail(btn){
@@ -121,8 +125,9 @@
 			
 			var popUrl = "<%= request.getContextPath() %>/requestDetail.qu?rnum=" + rnum;
 
-			var popOption = "width=370, height=360,status=no,toolbar=no,scrollbars=no";    //팝업창 옵션(optoin)
-				window.open(popUrl,"",popOption);
+			var popOption = "width=700, height=410,status=no,toolbar=no,scrollbars=no";    //팝업창 옵션(optoin)
+			
+			window.open(popUrl,"",popOption);
 		}
 		
 		function questLi(li){
