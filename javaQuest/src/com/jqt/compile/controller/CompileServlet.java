@@ -146,9 +146,16 @@ public class CompileServlet extends HttpServlet {
 				long endTime = System.currentTimeMillis();
 				float elapsedTime = (endTime - startTime) / 1000.0f;
 				
+				//q가 존재하면 답도 같이 넘겨줌
+				if(request.getSession().getAttribute("q") != null){
+					Quest q = (Quest)request.getSession().getAttribute("q");
+					comResult.put("answer", q.getQuestAnswer());
+				}
+				
 				//결과와 진행 시간을 담아온다
 				comResult.put("result", result);
 				comResult.put("elapsedTime", elapsedTime);
+				
 				
 			} catch (ClassNotFoundException e) {
 				System.out.println("클래스파일 찾기 실패");

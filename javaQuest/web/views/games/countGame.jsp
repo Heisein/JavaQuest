@@ -35,7 +35,7 @@
 		height: 100%;
 		padding:0px;
 		margin:0px;
-		background-image:url("<%= request.getContextPath() %>/images/backvil1.jpg");
+		background-image:url('<%= request.getContextPath() %>/images/backvil1.jpg');
 	}
 	.left-box{
 		color:black;
@@ -183,24 +183,30 @@
 			sessionStorage.setItem("code",code);
 			sessionStorage.setItem("className",className);
 			
-			location.href="<%= request.getContextPath() %>/views/compiler/gradingPage.jsp";
+			//location.href="<%= request.getContextPath() %>/views/compiler/gradingPage.jsp";
 			
-			// ajax로 passInfo를 실행시켜서 지금 페이지에 저장되있는 정보를 넘겨서 그쪽에서 세션을 추가하게 한다
 			$.ajax({
-				url:"/jqt/passInfo.co",
+				url:"/jqt/compile.co",
 				data : { "code":code, "className":className }, // 전송할 코드
 				type:"post",
 				success:function(data){
-					//ajax의 결과가 돌아오면 세션이 추가된 상태니까 결과페이지로 넘어간다. 결과페이지에서 세션에서 사용한 속성들을 제거할것이다.
-					location.href="<%= request.getContextPath() %>/views/compiler/gradingPage.jsp";
+					var resultStr = data["result"].replace(/\n/gi,"").replace(/\r/gi,""); // 제출한 결과물
+					var answerStr = data["answer"].replace(/\n/gi,"").replace(/\r/gi,""); // 문제의 답
+					//공통적으로 개행문자랑 줄바꿈 제거
+					
+					console.log(resultStr);
+					console.log(answerStr);
+					
+					if(resultStr == answerStr){
+						alert("정답입니다!");
+					}else{
+						alert("오답입니다.");
+					}
 				},
 				error:function(data){
-					console.log("컴파일 제출중 에러");
-					$("#resultLabel").text("제출중 에러가 발생하였습니다!");
+					console.log("컴파일 요청중 에러");
 				}
 			})// end of inner ajax
-			
-			
 			
 		}
 		
