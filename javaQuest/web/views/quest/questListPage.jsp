@@ -17,6 +17,20 @@
 		width:100%;
 		height:100%;
 	}
+	.clearNameli{
+		line-height:25px !important;
+		padding-left: 0px !important;
+		padding-left: 60px;
+		line-height: 60px;
+		cursor: pointer;
+		font-size: 14px;
+		border: 1px solid #ddd;
+		float:left;
+		width:90%;
+		height:100%;
+		margin:10px;
+		background:lightgray;
+	} 
  	.questNameli{
 		line-height:25px !important;
 		padding-left: 0px !important;
@@ -99,7 +113,8 @@
 		margin-bottom: 0px;
 		padding: 0px 12px;
 		position: absolute;
-		width: auto;
+		width: 100%;
+		height: 100%;
 		min-width: 10px;
 		max-width: 300px;
 		word-wrap: break-word;
@@ -158,13 +173,17 @@
 		<p>
 			<ul id="mainQuestUl">
 				<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 1){ %> <!-- 메인퀘스트 출력 -->
+				   		if(q.getQuestType() == 1 && q.getCleared() == 0){ %> <!-- 메인퀘스트 출력 -->
 						<li class="questNameli">
 							<div onclick="questLi(this)" style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
 							<div class="questDetail"><%= q.getQuestContents() %><br><br><div id="okBtn" onclick="agree(this);">퀘스트 수락<input type="hidden" id="qid" value="<%= q.getQuestId() %>"></div></div>
 						</li>
-				<%   	}
-				   } %>
+						<% }else{ %>
+						<li class="clearNameli">
+							<div data-tooltip-text="이미 클리어한 퀘스트입니다." style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
+						</li>
+						<% } %>
+				<% } %>
 			</ul>
 		</p>
 	</div>

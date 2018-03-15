@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.jqt.member.model.vo.*"%>
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,6 +132,7 @@ p, h1 {
 	     	<div class="item active" >
 		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
 	     	</div>
+	
       		<div class="item">
 	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
         	</div>
@@ -141,6 +141,7 @@ p, h1 {
 	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
         	</div>
     	</div>
+	
 <!-- 좌우 버튼 -->
 	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       		<span class="glyphicon glyphicon-chevron-left"></span>
@@ -154,9 +155,12 @@ p, h1 {
 	
 <div class="container">	
 
+
 <!-- 중간 소개글 -->
 <div class = "tempClass" align = "center" >
 	<h1>JavaQuest</h1>
+	<button onclick="location.href='<%= request.getContextPath() %>/views/admin/selectAllResult.jsp'">관리자페이지</button>
+	<button onclick="location.href='<%= request.getContextPath() %>/selectList.st'">결제페이지</button>
 </div>
 
 <!-- 문제 수 영역  -->
@@ -193,12 +197,6 @@ p, h1 {
 
 <!-- 테스트용 빈 공간 -->
 <div class = "tempClass">
-<script>
-	//테스트용 
-	<% if(loginUser != null) { %>
-		alert("<%= loginUser.getUserId() %>/님 환영합니다.")	;
-	<% } %>
-</script>
 	
 </div>
 </div>

@@ -11,7 +11,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>에러페이지</h1>
-	<h2><%= msg %></h2>
+	<div class="container">
+		<%@ include file="/views/common/menubar.jsp"%>
+		<br/>
+		<br/>
+		
+		<div class="conArea" id="mainArea" align="center">
+			<label style="font-size:35px; bold;">에러가 발생했습니다.</label>
+			<br/>
+			<br/>
+			<label style="font-size:25px;"><%= msg %></label>
+			<br/>
+			<br/>
+			<button id="goMainBtn">메인으로 돌아가기</button>
+		</div>
+		<!-- conArea -->
+	</div>
+	<!-- container -->
+	
+	<script>
+		$(function(){
+			$("#goMainBtn").click(function(){
+				location.href="<%= request.getContextPath() %>";
+			})
+		})
+	</script>
 </body>
 </html>

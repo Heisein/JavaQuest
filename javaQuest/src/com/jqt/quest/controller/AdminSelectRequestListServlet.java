@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.service.QuestService;
 import com.jqt.quest.model.vo.Quest;
 
 /**
- * Servlet implementation class selectQuestListServlet
+ * Servlet implementation class SelectRequestListServlet
  */
-@WebServlet("/selectList.qu")
-public class SelectQuestListServlet extends HttpServlet {
+@WebServlet("/selectRequest.ad")
+public class AdminSelectRequestListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectQuestListServlet() {
+    public AdminSelectRequestListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +32,17 @@ public class SelectQuestListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		ArrayList<Quest> list = new QuestService().selectList(loginUser.getUserNum());
+		ArrayList<Quest> list = new QuestService().selectRequestList();
+		//여기서 request_num을 quest_no로 가져옴 : vo재활용할려고 이렇게함
+		System.out.println("quest list : " + list);
 		
 		String page = "";
 		if(list != null){
-			page = "views/quest/questListPage.jsp";
+			page = "views/admin/adminRequestPage.jsp";
 			request.setAttribute("list", list);
 		}else{
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "퀘스트 리스트 조회 실패");
+			request.setAttribute("msg", "요청 리스트 조회 실패");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);

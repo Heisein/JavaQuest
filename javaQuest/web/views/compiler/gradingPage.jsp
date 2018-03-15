@@ -51,7 +51,6 @@
 					resultBool[compileCount] = (result == answer);
 					elapsedTime[compileCount] = data['elapsedTime'];
 					
-					
 					if(resultBool[compileCount]) {
 						$("#resultTable").append('<tr><td><font color="green">통과</font></td><td>' + elapsedTime[compileCount] +'초</td></tr>');
 					}else{
