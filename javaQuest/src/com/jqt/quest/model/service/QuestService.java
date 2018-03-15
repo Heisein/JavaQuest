@@ -5,6 +5,7 @@ import static com.jqt.common.JDBCTemplet.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.dao.QuestDao;
 import com.jqt.quest.model.vo.Quest;
 
@@ -71,6 +72,19 @@ public class QuestService {
 		Connection con = getConnection();
 		
 		int result = new QuestDao().deleteRequest(con, rnum);
+		
+		if(result > 0) commit(con);
+		else rollback(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int questResult(Quest q, Member m) {
+		Connection con = getConnection();
+		
+		int result = new QuestDao().questResult(con, q, m);
 		
 		if(result > 0) commit(con);
 		else rollback(con);
