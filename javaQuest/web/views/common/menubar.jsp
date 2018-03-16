@@ -38,7 +38,7 @@
 			<ul class="menu-bar">
 				<li><a href="<%= request.getContextPath() %>/selectList.st">MY PAGE</a></li>
 				<li><a href="#">BOARD</a></li>
-				<li><a href="#">RANKING</a></li>
+				<li><a href="<%= request.getContextPath() %>/views/ranking/rankingList.jsp">RANKING</a></li>
 				<li><a href="<%= request.getContextPath() %>/views/games/gameMainPage.jsp">GAME</a></li>
 				<li><a href="<%= request.getContextPath() %>/selectList.qu">QUEST</a></li>
 			</ul>

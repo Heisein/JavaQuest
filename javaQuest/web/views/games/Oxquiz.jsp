@@ -78,7 +78,7 @@
 		
 		window.addEventListener("load", connect, false);    //창이 열리면 websocket 객체 호출
 		function connect() {                   // 웹소켓 생성
-			wsocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
+			wsocket = new WebSocket("ws://localhost:8005/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
 			wsocket.onmessage = onMessage;        // 메세지가 왔을때 호출할 메소드 지정
 		}
 		
@@ -271,7 +271,7 @@
 			//게임 시작 최소인원
 			if(user.length >= 1){ //시작 할때 대기방에 잠깐 들려 버튼막기
 				wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=start");
-				var webSocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
+				var webSocket = new WebSocket("ws://localhost:8005/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
 				
 				setTimeout(function() {
 					webSocket.close();

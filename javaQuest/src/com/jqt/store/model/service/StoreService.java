@@ -48,4 +48,14 @@ public class StoreService {
 		return result;
 	}
 
+	public ArrayList<PayedResume> selectResumeList(int unum) {
+		Connection con = getConnection();
+
+		ArrayList<PayedResume> list = new StoreDao().selectPointList(con, unum);
+
+		close(con);
+
+		return list;
+	}
+
 }
