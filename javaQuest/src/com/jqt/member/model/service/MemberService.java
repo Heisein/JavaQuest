@@ -40,4 +40,32 @@ public class MemberService {
 		return result;
 	}
 
+	public int insertMember(Member m) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertMember(con,m);
+		
+		return result;
+	}
+
+	public int idcheck(String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().idcheck(con,userId);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int nickcheck(String user_nickname) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().nickcheck(con,user_nickname);
+		
+		close(con);
+		
+		return result;
+	}
+
 }
