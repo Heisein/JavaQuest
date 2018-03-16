@@ -140,4 +140,32 @@ public class MemberDao {
 		return result;
 	}
 
+	//마이페이지 내에 회원정보 수정용 메소드 
+	
+		public int updateMember(Connection con, Member m) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			String query = prop.getProperty("updateMember");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				//pstmt.setString(1, m.getUserPwd());
+				pstmt.setString(1, m.getNickName());
+				pstmt.setString(2, m.getEmail());
+				pstmt.setString(3, m.getPhone());
+				pstmt.setString(4, m.getUserId());
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
 }

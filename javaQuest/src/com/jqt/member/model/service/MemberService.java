@@ -1,7 +1,6 @@
 package com.jqt.member.model.service;
 
-import static com.jqt.common.JDBCTemplet.close;
-import static com.jqt.common.JDBCTemplet.getConnection;
+import static com.jqt.common.JDBCTemplet.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -40,4 +39,16 @@ public class MemberService {
 		return result;
 	}
 
+	public int updateMember(Member m) {
+
+		Connection con = getConnection();
+
+		int result = new MemberDao().updateMember(con, m);
+		if(result > 0) commit(con);
+		else rollback(con);
+
+		close(con);
+		return result;
+
+	}
 }

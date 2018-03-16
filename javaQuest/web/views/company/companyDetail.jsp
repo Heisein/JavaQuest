@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="java.util.*, com.jqt.company.model.vo.*" %>
 <%
 	ArrayList<Company> list = (ArrayList<Company>)request.getAttribute("list");
-	session.setAttribute(arg0, arg1)
 %>
 <!DOCTYPE html>
 <html>
