@@ -29,16 +29,32 @@ public class MemberService {
 		return list;
 	}
 
+<<<<<<< HEAD
 	public int deleteMember(int num) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().deleteMember(con, num);
+=======
+	public int insertMember(Member m) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertMember(con,m);
+		
+		return result;
+	}
+
+	public int idcheck(String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().idcheck(con,userId);
+>>>>>>> origin/xogud22
 		
 		close(con);
 		
 		return result;
 	}
 
+<<<<<<< HEAD
 	public int updateMember(Member m) {
 
 		Connection con = getConnection();
@@ -51,4 +67,16 @@ public class MemberService {
 		return result;
 
 	}
+=======
+	public int nickcheck(String user_nickname) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().nickcheck(con,user_nickname);
+		
+		close(con);
+		
+		return result;
+	}
+
+>>>>>>> origin/xogud22
 }
