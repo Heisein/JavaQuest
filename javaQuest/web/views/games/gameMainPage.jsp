@@ -58,6 +58,19 @@
 				$("#con-title").text("카운트"); 
 				$("#account").text("저희 JAVA QUEST를 이용해주시는 회원님들간의 손이 너무가 더 빠른지 겨루는 게임입니다. 매주 한번씩 문제가 바뀌며 문제가 바뀌는 날에 1위를 하신 회원님에겐 소정의 상품을 드립니다.");
 				$(".game-start").attr("onclick", "location.href='<%= request.getContextPath() %>/countGame.g'");
+				$.ajax({
+					url: "/jqt/timeAttackUserList.g",
+					type: "get",
+					data: {"userNum": "<%= loginUser.getUserNum() %>"},
+					success: function(data){
+						if(data === "check"){
+							$(".game-start").attr("onclick", "alert('이번주 게임을 이미 참여하셨습니다 랭킹 페이지를 확인하세요.')");
+						}
+					},
+					error: function(msg){
+						
+					}
+				});
 				break;	
 			case "battle" : 
 				$("#con-title").text("배틀로얄"); 

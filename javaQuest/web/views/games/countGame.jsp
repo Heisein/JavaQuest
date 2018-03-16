@@ -172,6 +172,32 @@
 	</div> <!-- rightboxbottom end -->
 		
 	<script>
+		//새로고침 막기
+		function LockF5(){
+			if (event.keyCode == 116) {
+				event.keyCode = 0;
+				return false;
+			}
+		}
+		document.onkeydown = LockF5;
+	
+		var min = 4;
+		var sec = 59;
+		var counter = setInterval(function() {
+			if (sec >= -1) {
+				$(".time-count").html("남은시간<br/>" + min + " : " + sec);
+				sec--;
+				if(sec == -1){
+					min--;
+					sec = 59;
+				}
+			}else if(min == 0 && sec == 0){ 
+				clearInterval(counter);
+				$(".time-count").html("Timeout!!"); //카운트가 끝날때 디스플레이 멘트
+			}     
+		}, 1000); //1초에 한번씩 카운트
+	
+	
 		// 제출하기
 		function goSubmit(){
 			// 세션에 진행중인 퀘스트를 추가한다
@@ -198,7 +224,23 @@
 					console.log(answerStr);
 					
 					if(resultStr == answerStr){
-						alert("정답입니다!");
+						clearInterval(counter);
+						
+						var time = min * 60 + sec;
+						var minRecord = 4-min;
+						var secRecord = 60-sec;
+						var record = 5*60 - time;
+						if(minRecord === 0){
+							alert("정답입니다! 회원님의 기록은 " + secRecord + "초 입니다.");
+							
+							location.href = "<%= request.getContextPath() %>/timeAttack.g?record="+record+"&userNum=<%= loginUser.getUserNum() %>";
+						}else {
+							alert("정답입니다! 회원님의 기록은 " + minRecord + "분" + secRecord + "초 입니다.");
+						}
+						
+						
+						
+						
 					}else{
 						alert("오답입니다.");
 					}
@@ -252,21 +294,7 @@
 			mode:"text/x-java"
 		});
 		
-		var min = 5;
-		var sec = 59;
-		var counter = setInterval(function() {
-			if (sec >= -1) {
-				$(".time-count").html("남은시간<br/>" + min + " : " + sec);
-				sec--;
-				if(sec == -1){
-					min--;
-					sec = 59;
-				}
-			}else if(min == 0 && sec == 0){ 
-				clearInterval(counter);
-				$(".time-count").html("Timeout!!"); //카운트가 끝날때 디스플레이 멘트
-			}     
-		}, 1000); //1초에 한번씩 카운트
+		
 		
 	</script>
 	<br><br><br>
