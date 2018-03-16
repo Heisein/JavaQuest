@@ -16,7 +16,7 @@ import com.jqt.board.model.vo.Board;
 
 
 /**
- * Servlet implementation class InsertReplyServlet
+ * Servlet implementation class InsertReplyServlet 
  */
 @WebServlet("/insertReply.bo")
 public class InsertReplyServlet extends HttpServlet {
