@@ -2,6 +2,7 @@ package com.jqt.board.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.jqt.board.model.service.BoardService;
 import com.jqt.board.model.vo.Board;
 
@@ -31,36 +33,33 @@ public class ReportedServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*var rno = <%= loginUser.getUserNum() %>
-		var user_num = <%= n.getBno() %>
-		var bid = <%= n.getBid() %>
-		var date = <%= n.getBdate() %>*/
-		
 		String rno = request.getParameter("rno");
-		int user_num = Integer.parseInt(request.getParameter("user_num"));
 		int bid = Integer.parseInt(request.getParameter("bid"));
-		Date date = Date(request.getParameter("date"));
-		
-		System.out.println(rno);
-		System.out.println(user_num);
-		System.out.println(bid);
-		System.out.println(date);
+		System.out.println("신고한사람:"+rno);
+		System.out.println("신고당한게시글:"+bid);
 		
 		Board n = new Board();
 		n.setBwriter(rno);
-		n.setBno(user_num);
 		n.setBid(bid);
-		n.setBdate(date);
 		
-		int result = new BoardService().insertreported(n);
-		String page= "";
-		if(n != null) {
+		
+		System.out.println("n값:"+n);
+		int list = new BoardService().insertreported(n);
+		System.out.println("result값"+list);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(list,response.getWriter());
+		
+		
+		/*String page= "";
+		if(result>0) {
 			page = "views/board/noticedetailForm.jsp";
 			request.setAttribute("n", n);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("page","실패!");
-		}
+		}*/
 		
 		
 	}
