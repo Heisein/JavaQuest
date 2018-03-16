@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.vo.Quest;
 
 public class QuestDao {
@@ -32,16 +32,19 @@ private Properties prop = new Properties();
 		}
 	}
 
-	public ArrayList<Quest> selectList(Connection con) {
+	public ArrayList<Quest> selectList(Connection con, int unum) {
 		ArrayList<Quest> list = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectQuestAll");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, unum);
+			
+			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Quest>();
 			
@@ -59,6 +62,7 @@ private Properties prop = new Properties();
 				q.setUploadDate(rset.getDate("upload_date"));
 				q.setQuestName(rset.getString("quest_name"));
 				q.setColor(rset.getString("color"));
+				q.setCleared(rset.getInt("cleared"));
 				
 				list.add(q);
 			}
@@ -67,7 +71,7 @@ private Properties prop = new Properties();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
@@ -213,6 +217,82 @@ private Properties prop = new Properties();
 			
 			pstmt.setInt(1, rnum);
 			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Quest selectRequestOne(Connection con, int rnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Quest q = null;
+
+		String query = prop.getProperty("selectRequestOne");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rnum);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				q = new Quest();
+				
+				q.setQuestId(rset.getInt("request_num"));
+				q.setQuestName(rset.getString("quest_name"));
+				q.setQuestLevel(rset.getInt("quest_level"));
+				q.setQuestContents(rset.getString("quest_contents"));
+				q.setQuestWriter(rset.getString("user_nickname"));
+				q.setDefaultCode(rset.getString("default_code"));
+				q.setQuestAnswer(rset.getString("quest_answer"));
+				q.setUploadDate(rset.getDate("request_date"));
+				q.setColor(rset.getString("color"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return q;
+	}
+	
+	public int questResult(Connection con, Quest q, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//먼저 퀘스트 이력부터 추가한다
+		String query = prop.getProperty("insertQuestResume");
+		//유저 경험치도 증가시켜준다
+		String query2 = prop.getProperty("updateUserExp");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, q.getQuestId());
+			pstmt.setInt(2, q.getQuestType());
+			pstmt.setInt(3, m.getUserNum());
+			
+			result = pstmt.executeUpdate();
+			
+			close(pstmt);
+			
+			if(result > 0){
+				pstmt = con.prepareStatement(query2);
+				
+				pstmt.setInt(1, q.getRewardExp());
+				pstmt.setInt(2, m.getUserNum());
+				pstmt.setInt(3, m.getUserNum());
+				
+				result = pstmt.executeUpdate();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

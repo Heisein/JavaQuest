@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+
+.roomArea {
+	width: 1190px;
+	height: 700px;
+	border: 5px solid gray;
+	position:relative;
+}
+.titleArea {
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.room{
+	overflow: hidden;
+}
+.room li{
+	float: left;
+	width: 400px;
+	border: 5px solid #dfdfdf;
+	margin: 70px 100px 0 100px;
+	box-sizing: border-box;
+	padding: 20px;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 30px;
+}
+.room li:nth-child(2n){
+	margin-right: 0;
+}
+.room li:hover{
+	cursor: pointer;
+	color: red;
+	border: 5px solid black;
+	box-shadow : 4px 4px 2px 1px #808080;
+}
+
+.btnArea {
+	position: absolute; 
+	right: 0px;
+	bottom: 0px;
+}
+
+ 
+ 
+#modalLayer {
+	display: none; 
+	position: relative;
+}
+#modalLayer .modalContent {
+	width: 440px; 
+	height: 200px; 
+	padding: 20px; 
+	border: 5px solid #ccc; 
+	position: fixed; 
+	left: 50%; 
+	top: 50%; 
+	z-index: 11; 
+	background: black;
+	
+}
+#modalLayer .modalContent button {
+	padding: 0 5px;
+	position: absolute; 
+	right: 0; 
+	bottom: 0; 
+	cursor: pointer;
+}
+
+.contentA {
+	width: 100%;
+	
+}
+
+.contentA tr {
+	text-align: center;
+	font-size: 40px;
+}
+
+.title {
+	width: 80%;
+	height: 50px;
+}

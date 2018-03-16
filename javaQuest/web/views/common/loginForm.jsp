@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="../../css/login.css">
 </head>
 <body>
-<<<<<<< HEAD
    <%@ include file="/views/common/menubar.jsp" %>
    <hr/>
    <div class="container">

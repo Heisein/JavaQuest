@@ -1,10 +1,12 @@
 package com.jqt.member.model.service;
 
-import com.jqt.member.model.dao.MemberDao;
-import com.jqt.member.model.vo.Member;
 import static com.jqt.common.JDBCTemplet.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.jqt.member.model.dao.MemberDao;
+import com.jqt.member.model.vo.Member;
 public class MemberService {
 
 	public Member loginCheck(Member m) {
@@ -16,5 +18,65 @@ public class MemberService {
 		
 		return loginUser;
 	}
+	
+	public ArrayList<Member> selectList() {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectList(con);
+		
+		close(con);
+		
+		return list;
+	}
 
+<<<<<<< HEAD
+	public int deleteMember(int num) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().deleteMember(con, num);
+=======
+	public int insertMember(Member m) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertMember(con,m);
+		
+		return result;
+	}
+
+	public int idcheck(String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().idcheck(con,userId);
+>>>>>>> origin/xogud22
+		
+		close(con);
+		
+		return result;
+	}
+
+<<<<<<< HEAD
+	public int updateMember(Member m) {
+
+		Connection con = getConnection();
+
+		int result = new MemberDao().updateMember(con, m);
+		if(result > 0) commit(con);
+		else rollback(con);
+
+		close(con);
+		return result;
+
+	}
+=======
+	public int nickcheck(String user_nickname) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().nickcheck(con,user_nickname);
+		
+		close(con);
+		
+		return result;
+	}
+
+>>>>>>> origin/xogud22
 }

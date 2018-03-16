@@ -131,15 +131,15 @@ p, h1 {
 <!-- 광고판 실제 내용 -->
 		<div class="carousel-inner">
 	     	<div class="item active" >
-		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
+		        <img src="/jqt/images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
 	     	</div>
 	
       		<div class="item">
-	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
+	        	<img src="/jqt/images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
         	</div>
 	    
         	<div class="item">
-	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
+	        	<img src="/jqt/images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
         	</div>
     	</div>
 	

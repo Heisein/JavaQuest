@@ -57,10 +57,19 @@
 .answer li:hover{
 	cursor: pointer;
 	color: red;
+	border: 5px solid black;
+	box-shadow : 4px 4px 2px 1px #808080;
 }
 .next {
-	width: 200px;
+	width: 150px;
 	height: 50px;
-	background: green;
+	background: white;
+	border: 5px solid #dfdfdf;
+	border-radius: 30px;
+}
+.next:hover {
+	cursor: pointer;
+	border: 5px solid black;
+	box-shadow : 4px 4px 2px 1px #808080;
 }
 

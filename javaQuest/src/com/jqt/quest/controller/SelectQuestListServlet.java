@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.service.QuestService;
 import com.jqt.quest.model.vo.Quest;
 
@@ -32,7 +33,8 @@ public class SelectQuestListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Quest> list = new QuestService().selectList();
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		ArrayList<Quest> list = new QuestService().selectList(loginUser.getUserNum());
 		
 		String page = "";
 		if(list != null){

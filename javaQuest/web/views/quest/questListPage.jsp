@@ -17,6 +17,20 @@
 		width:100%;
 		height:100%;
 	}
+	.clearNameli{
+		line-height:25px !important;
+		padding-left: 0px !important;
+		padding-left: 60px;
+		line-height: 60px;
+		cursor: pointer;
+		font-size: 14px;
+		border: 1px solid #ddd;
+		float:left;
+		width:90%;
+		height:100%;
+		margin:10px;
+		background:lightgray;
+	} 
  	.questNameli{
 		line-height:25px !important;
 		padding-left: 0px !important;
@@ -74,6 +88,51 @@
 	.levelNav label:hover{
 		cursor:pointer;
 	}
+	
+	[data-tooltip-text]:hover {
+		position: relative;
+	}
+
+	[data-tooltip-text]:after {
+		-webkit-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+		-moz-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+		transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	
+		background-color: rgba(0, 0, 0, 0.8);
+	
+	  	-webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+		-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+		box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+		
+	  	-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		
+	 	color: #FFFFFF;
+		font-size: 12px;
+		margin-bottom: 0px;
+		padding: 0px 12px;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		min-width: 10px;
+		max-width: 300px;
+		word-wrap: break-word;
+	
+		z-index: 9999;
+	
+		opacity: 0;
+		left: -9999px;
+	  	top: 50%;
+		
+		content: attr(data-tooltip-text);
+	}
+	
+	[data-tooltip-text]:hover:after {
+		top: 0%;
+		left: 0;
+		opacity: 1;
+	}
 </style>
 </head>
 <body>
@@ -93,7 +152,11 @@
 		</ul>
 		<br>
 		<ul class="leftNav">
+		<% if(loginUser == null || loginUser.getExp() <= 400 && loginUser.getType() != 3){ %> <!-- 레벨5 이하거나 로그인중이 아니면 퀘스트 작성버튼 비활성화 -->
+			<li style="padding-left:0px;" data-tooltip-text="레벨6 이상만 작성할 수 있습니다."><div style="border-left:6px solid black; background:darkgray;">&nbsp;<i class="fa fa-plus-circle"></i> 퀘스트 작성하기</div></li>
+		<%}else{ %>
 			<li style="padding-left:0px;" onclick="location.href='<%= request.getContextPath() %>/views/quest/addQuestPage.jsp'"><div style="border-left:6px solid black">&nbsp;<i class="fa fa-plus-circle"></i> 퀘스트 작성하기</div></li>
+		<% } %>
 			<li style="padding-left:0px;" onclick="location.href='<%= request.getContextPath() %>/selectRequest.qu'"><div style="border-left:6px solid black">&nbsp;<i class="fa fa-plus-circle"></i> 요청중인 퀘스트</div></li>
 		</ul>
 	</div>
@@ -110,13 +173,17 @@
 		<p>
 			<ul id="mainQuestUl">
 				<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 1){ %> <!-- 메인퀘스트 출력 -->
+				   		if(q.getQuestType() == 1 && q.getCleared() == 0){ %> <!-- 메인퀘스트 출력 -->
 						<li class="questNameli">
 							<div onclick="questLi(this)" style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
 							<div class="questDetail"><%= q.getQuestContents() %><br><br><div id="okBtn" onclick="agree(this);">퀘스트 수락<input type="hidden" id="qid" value="<%= q.getQuestId() %>"></div></div>
 						</li>
-				<%   	}
-				   } %>
+						<% }else if(q.getQuestType() == 1 && q.getCleared() != 0){ %>
+						<li class="clearNameli">
+							<div data-tooltip-text="이미 클리어한 퀘스트입니다." style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
+						</li>
+						<% } %>
+				<% } %>
 			</ul>
 		</p>
 	</div>
@@ -130,14 +197,17 @@
 			<br>
 			<ul id="subQuestUl">
 				<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2){ %>
+					if(q.getQuestType() == 2 && q.getCleared() == 0){ %> <!-- 서브퀘스트 출력 -->
 						<li class="questNameli">
-							<input type="hidden" value="<%= q.getQuestId() %>">
 							<div onclick="questLi(this)" style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
 							<div class="questDetail"><%= q.getQuestContents() %><br><br><div id="okBtn" onclick="agree(this);">퀘스트 수락<input type="hidden" id="qid" value="<%= q.getQuestId() %>"></div></div>
 						</li>
-				<%   	}
-				   } %>
+						<% }else if(q.getQuestType() == 2 && q.getCleared() != 0){ %>
+						<li class="clearNameli">
+							<div data-tooltip-text="이미 클리어한 퀘스트입니다." style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %><br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
+						</li>
+					<% } %>
+			<% } %>
 			</ul>
 		</p>
 	</div>
@@ -193,80 +263,102 @@
 				switch(lv){
 					case "0":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 					   	break;
 					case "1":
-						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 1){ %>
+				   		<% for(Quest q : list){ 
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 1){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 1){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 					   	break;
 					case "2":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 2){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 2){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 2){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "3":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 3){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 3){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 3){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "4":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 4){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 4){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 4){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "5":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 5){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 5){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 5){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "6":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 6){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 6){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 6){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "7":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 7){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 7){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 7){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "8":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 8){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 8){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 8){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "9":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 9){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 9){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 9){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 					case "10":
 						<% for(Quest q : list){ 
-					   		if(q.getQuestType() == 1 && q.getQuestLevel() == 10){ %>
+					   		if(q.getQuestType() == 1 && q.getCleared() == 0 &&  q.getQuestLevel() == 10){ %>
 						   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-					   		<% }
-					   		}%>
+					   		<% }else if(q.getQuestType() == 1 && q.getCleared() != 0 && q.getQuestLevel() == 10){ %>
+					   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+					   		<%}%>
+					   	<%}%>
 						break;
 				}
 			}else{
@@ -276,82 +368,104 @@
 				switch(lv){
 				case "0":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 				   	break;
 				case "1":
-					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 1){ %>
+			   		<% for(Quest q : list){ 
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 1){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 1){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 				   	break;
 				case "2":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 2){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 2){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 2){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "3":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 3){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 3){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 3){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "4":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 4){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 4){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 4){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "5":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 5){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 5){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 5){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "6":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 6){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 6){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 6){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "7":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 7){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 7){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 7){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "8":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 8){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 8){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 8){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "9":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 9){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 9){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 9){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
 				case "10":
 					<% for(Quest q : list){ 
-				   		if(q.getQuestType() == 2 && q.getQuestLevel() == 10){ %>
+				   		if(q.getQuestType() == 2 && q.getCleared() == 0 &&  q.getQuestLevel() == 10){ %>
 					   		$ul.append($("<li class='questNameli'>").html("<div onclick='questLi(this)' style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div><div class='questDetail'><%= q.getQuestContents() %><br><br><div id='okBtn' onclick='agree(this);''>퀘스트 수락<input type='hidden' id='qid' value='<%= q.getQuestId() %>'></div></div></li>"));
-				   		<% }
-				   		}%>
+				   		<% }else if(q.getQuestType() == 2 && q.getCleared() != 0 && q.getQuestLevel() == 10){ %>
+				   			$ul.append($("<li class='clearNameli'>").html("<div data-tooltip-text='이미 클리어한 퀘스트입니다.'  style='border-left:6px solid <%= q.getColor() %>; height:100%;'>&nbsp;<%= q.getQuestName() %><br><label class='innerInfo'>&nbsp;Level <%= q.getQuestLevel() %></label></div></li>"));
+				   		<%}%>
+				   	<%}%>
 					break;
-				}
+			}
 			}
 		}
 			

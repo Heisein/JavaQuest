@@ -15,12 +15,13 @@ public class Quest {
 	private Date uploadDate;
 	private String questAnswer;
 	private String color;
+	private int cleared;
 
 	public Quest() {
 	}
 
 	public Quest(int questId, int questType, int questNo, String questName, int questLevel, String questContents,
-			String questWriter, String defaultCode, int rewardExp, Date uploadDate, String questAnswer, String color) {
+			String questWriter, String defaultCode, int rewardExp, Date uploadDate, String questAnswer, String color, int cleared) {
 		super();
 		this.questId = questId;
 		this.questType = questType;
@@ -34,6 +35,7 @@ public class Quest {
 		this.uploadDate = uploadDate;
 		this.questAnswer = questAnswer;
 		this.color = color;
+		this.cleared = cleared;
 	}
 
 	public int getQuestId() {
@@ -131,14 +133,21 @@ public class Quest {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	
+	public int getCleared() {
+		return cleared;
+	}
+
+	public void setCleared(int cleared) {
+		this.cleared = cleared;
+	}
 
 	@Override
 	public String toString() {
 		return "Quest [questId=" + questId + ", questType=" + questType + ", questNo=" + questNo + ", questName="
 				+ questName + ", questLevel=" + questLevel + ", questContents=" + questContents + ", questWriter="
 				+ questWriter + ", defaultCode=" + defaultCode + ", rewardExp=" + rewardExp + ", uploadDate="
-				+ uploadDate + ", questAnswer=" + questAnswer + ", color=" + color + "]";
+				+ uploadDate + ", questAnswer=" + questAnswer + ", color=" + color + ", cleared=" + cleared + "]";
 	}
-
 	
 }
