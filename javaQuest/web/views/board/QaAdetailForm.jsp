@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.jqt.board.model.vo.*" %>
-<% board n = (board)request.getAttribute("n"); %>
+<% Board n = (Board)request.getAttribute("n"); %>
 
 <!DOCTYPE html>
 <html>

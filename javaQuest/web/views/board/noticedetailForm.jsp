@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.jqt.board.model.vo.*, java.util.*" %>
 <% 
-	board n = (board)request.getAttribute("n"); 
+	Board n = (Board)request.getAttribute("n"); 
 	ArrayList<String> list = n.getBcount3();
 	
 %>

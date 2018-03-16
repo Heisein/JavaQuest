@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.jqt.board.model.vo.*" %>
 <%
-	ArrayList<board> list = (ArrayList<board>)request.getAttribute("list");
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
@@ -87,7 +87,7 @@ button{
 			</tr>
 		</thead>
 			
-			<% for(board n: list){ %>
+			<% for(Board n: list){ %>
 			<tr>
 				<input type="hidden" value="<%= n.getBid() %>">
 				<td><%= n.getBno() %></td>
