@@ -118,17 +118,21 @@
 		});
 		$("#reportArea").click(function(){
 			alert("게시물이 신고 되었습니다.");
-			
 			var rno = <%= loginUser.getUserNum() %>
-			var user_num = <%= n.getBno() %>
 			var bid = <%= n.getBid() %>
-			var date = <%= n.getBdate() %>
-			console.log(rno);
-			console.log(bid);
-			console.log(user_num);
-			console.log(date);
-			
-			location.href="<%= request.getContextPath() %>/reportbd.bo";
+			 console.log(rno);
+			 console.log(bid);
+			 $.ajax({
+				url:"/jqt/reportbd.bo",
+				data:{"rno":rno,"bid":bid},
+				tpye:"post",
+				succeess:function(){
+					location.href="<%= request.getContextPath() %>/selectOneQaa.bo";
+				},
+				error:function(msg){
+					console.log("msg");
+				}
+			 });
 		});
 		
 		$(function(){
@@ -146,7 +150,7 @@
 				success:function(data){
 					var $replyArea = $("#replyArea");
 					$("#reply2").text(data.length + "개의 댓글");
-					for(var key in data){
+						for(var key in data){
 						var $tr = $("<tr>");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","");
 						var $contentTd = $("<td>").text(data[key].bcontext);
@@ -183,7 +187,6 @@
 					$replyArea.find('tr[id != "notRemoveThis"]').remove();
 					console.log(data);
 					$("#reply2").text(data.length + "개의 댓글");
-					
 					for(var key in data){
 						console.log(data[0]);
 						var $tr = $("<tr>");

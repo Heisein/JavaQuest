@@ -190,10 +190,15 @@ public class BoardService {
 	}
 
 	public int insertreported(Board n) {
-		
-		
-		
-		return 0;
+		Connection con = getConnection();
+		int result = new BoardDao().insertreported(con,n);
+		System.out.println("서비스:"+result);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
 	}
 
 
