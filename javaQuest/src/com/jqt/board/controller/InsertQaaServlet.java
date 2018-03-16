@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
+
 
 /**
  * Servlet implementation class InsertQaaServlet
@@ -39,13 +40,13 @@ public class InsertQaaServlet extends HttpServlet {
 		System.out.println("bcontent:" + bcontent);
 		System.out.println("nick:"+ bwriter);
 		
-		board m = new board();
+		Board m = new Board();
 		m.setBwriter(uno);
 		m.setBtitle(btitle);
 		m.setBcontext(bcontent);
 		
 		
-		int result = new boardService().insertqaa(m);
+		int result = new BoardService().insertqaa(m);
 		System.out.println(result);
 		String page="";
 		if(result>0) {

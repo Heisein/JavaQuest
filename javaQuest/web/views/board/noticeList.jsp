@@ -9,8 +9,6 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -61,7 +59,7 @@ button{
 	<br>
 	
 	<div id="label1">
-		<label><a href="#공지사항">공지사항</a></label>/
+		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectFb.no">자유게시판</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
 	</div>
@@ -95,12 +93,14 @@ button{
 				<td><%= n.getBno() %></td>
 				<td><%= n.getBtitle() %></td>
 				<td><%= n.getBwriter() %></td>
-				<td><%= n.getBcount() %></td>
-				<td><%= n.getBcount() %></td>
+				<td><%= n.getBcount3() %></td>
+				<td><%= n.getBcount2() %></td>
 				<td><%= n.getBdate() %></td>
 				<td><%= n.getBcount() %></td>
 			</tr>
 			<% } %>
+			
+			
 		<tfoot>
 			<tr>
 				<td align="center" colspan="7">

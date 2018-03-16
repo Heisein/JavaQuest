@@ -66,7 +66,7 @@ button{
 		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
 	</div>
 	<table border="1" align="center" id="listArea">
-		<caption>질문답게시판</caption>
+		<caption>자유게시판</caption>
 		<colgroup>
 			<col width="50" />
 			<col width="300" />
@@ -94,7 +94,7 @@ button{
 				<td><%= n.getBno() %></td>
 				<td><%= n.getBtitle() %></td>
 				<td><%= n.getBwriter() %></td>
-				<td><%= n.getBcount() %></td>
+				<td><%= n.getBcount3() %></td>
 				<td><%= n.getBcount() %></td>
 				<td><%= n.getBdate() %></td>
 				<td><%= n.getBcount() %></td>
@@ -111,8 +111,7 @@ button{
 	<br>
 	<p align="center">
 		<input type="button" value="목록">
-		<input type="button" value="글쓰기" onclick="location.href='location.href='views/board/FrreBoardinsertForm.jsp'">
-		
+		<input type="button" value="글쓰기" onclick="location.href='views/board/FrreBoardinsertForm.jsp'">
 	</p>
 	<div class="text-center" class="pagination">
 		<button onclick="location.href='<%= request.getContextPath() %>/selectFb.no?currentPage=1'"><<</button>
@@ -153,7 +152,6 @@ button{
 </div>
 
 	<script>
-	
 		$(function(){
 			$("#listArea td").click(function(){
 				var num = $(this).parent().children().eq(0).val();

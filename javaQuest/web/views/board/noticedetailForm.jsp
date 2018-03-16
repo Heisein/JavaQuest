@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.jqt.board.model.vo.*" %>
-<% board n = (board)request.getAttribute("n"); %>
-
+    pageEncoding="UTF-8" import="com.jqt.board.model.vo.*, java.util.*" %>
+<% 
+	board n = (board)request.getAttribute("n"); 
+	ArrayList<String> list = n.getBcount3();
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +45,7 @@
 </head>
 <body>
 	<%@ include file= "/views/common/menubar.jsp" %>
-	<h1>내용상세보기</h1>
+	<h1>공지사항 상세보기</h1>
 	
 	
 	<div class="tableArea" >
@@ -83,13 +86,14 @@
 		
 		</table>
 		<div>
-			<button> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
-			<button> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
+			<!-- 좋아요 기능 보류 ...다른기능부터 -->
+			
+			<button id="likeArea"> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
+			<button id="reportArea"> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
 			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
 			<button>수정하기</button>
 		</div>
 		<br>
-		
 		<table id="replyArea">
 			<tr id="notRemoveThis">
 				<td id="reply2"></td>	
@@ -107,10 +111,30 @@
 		</table>
 	</div>
 	<script>
+		$("#likeArea").click(function(){
+			var num = $(this).val();
+			console.log(num);
+			location.href="<%= request.getContextPath() %>/selectOneQaa.bo?num="+num;
+		});
+		$("#reportArea").click(function(){
+			alert("게시물이 신고 되었습니다.");
+			
+			var rno = <%= loginUser.getUserNum() %>
+			var user_num = <%= n.getBno() %>
+			var bid = <%= n.getBid() %>
+			var date = <%= n.getBdate() %>
+			console.log(rno);
+			console.log(bid);
+			console.log(user_num);
+			console.log(date);
+			
+			location.href="<%= request.getContextPath() %>/reportbd.bo";
+		});
+		
 		$(function(){
-			var count = <%= n.getBcount2()  %>
-			var writer = <%= loginUser.getUserNum() %>;
-			var bid = <%= n.getBid() %>;
+			var count = <%= n.getRef_bid()  %>
+			var writer = <%= loginUser.getUserNum() %>
+			var bid = <%= n.getBid() %>
 			var content = $("#replyContent").val();
 			console.log(count);
 			console.log(writer);
@@ -121,10 +145,9 @@
 				type:"post",
 				success:function(data){
 					var $replyArea = $("#replyArea");
+					$("#reply2").text(data.length + "개의 댓글");
 					for(var key in data){
-						
 						var $tr = $("<tr>");
-						$("#reply2").text("댓글"+data.count+"개");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","");
 						var $contentTd = $("<td>").text(data[key].bcontext);
 						var $dateTd = $("<td>").text(data[key].bdate);
@@ -133,20 +156,24 @@
 						$tr.append($contentTd);
 						$tr.append($dateTd);
 						$replyArea.append($tr);	
+						
 					}	
+					
 				}
 			});
 		})
 	
 		$("#addReply").click(function(){
 			//-- 1. 댓글수  2.작성자. 3.작성내용 . 4.작성날짜 --
-			var count = <%= n.getBcount2()  %>
-			var writer = <%= loginUser.getUserNum() %>;
-			var bid = <%= n.getBid() %>;
+			var count = <%= n.getRef_bid() %>
+			var writer = <%= loginUser.getUserNum() %>
+			var bid = <%= n.getBid() %>
 			console.log(count);
 			console.log(writer);
 			console.log(bid);
 			var content = $("#replyContent").val();
+			
+			
 			$.ajax({
 				url:"/jqt/insertReply.bo",
 				data:{"count":count,"writer":writer,"bid":bid,"content":content},
@@ -155,11 +182,11 @@
 					var $replyArea = $("#replyArea");
 					$replyArea.find('tr[id != "notRemoveThis"]').remove();
 					console.log(data);
+					$("#reply2").text(data.length + "개의 댓글");
 					
 					for(var key in data){
 						console.log(data[0]);
 						var $tr = $("<tr>");
-						$("#reply2").text("댓글"+data.count+"개").css("width","100px");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","50px");
 						var $contentTd = $("<td>").text(data[key].bcontext).css("width","200px");
 						var $dateTd = $("<td>").text(data[key].bdate).css("width","100px");
@@ -175,7 +202,7 @@
 				}
 			});
 		});
-	
+
 	</script>
 </body>
 </html>

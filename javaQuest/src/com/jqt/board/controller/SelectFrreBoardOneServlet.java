@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
+
 
 /**
  * Servlet implementation class SelectFrreBoardOneServlet
@@ -32,7 +33,7 @@ public class SelectFrreBoardOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String num = request.getParameter("num");
-		board n = new boardService().selectOnebd(num);
+		Board n = new BoardService().selectOnebd(num);
 		String page ="";
 		
 		if(n != null) {

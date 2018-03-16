@@ -42,7 +42,7 @@
 </head>
 <body>
 	<%@ include file= "/views/common/menubar.jsp" %>
-	<h1>내용상세보기</h1>
+	<h1>질문답게시판 상세보기</h1>
 	
 	
 	<div class="tableArea" >
@@ -83,7 +83,7 @@
 		
 		</table>
 		<div>
-			<button> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
+			<button id="likeArea"> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
 			<button> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
 			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
 			<button>수정하기</button>
@@ -107,8 +107,14 @@
 		</table>
 	</div>
 	<script>
+		$("#likeArea").click(function(){
+			var num = $(this).val();
+			console.log(num);
+			location.href="<%= request.getContextPath() %>/"
+		});
+		
 		$(function(){
-			var count = <%= n.getBcount2()  %>
+			var count = <%= n.getRef_bid()  %>
 			var writer = <%= loginUser.getUserNum() %>;
 			var bid = <%= n.getBid() %>;
 			var content = $("#replyContent").val();
@@ -121,10 +127,9 @@
 				type:"post",
 				success:function(data){
 					var $replyArea = $("#replyArea");
+					$("#reply2").text(data.length + "개의 댓글");
 					for(var key in data){
-						
 						var $tr = $("<tr>");
-						$("#reply2").text("댓글"+data.count+"개");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","");
 						var $contentTd = $("<td>").text(data[key].bcontext);
 						var $dateTd = $("<td>").text(data[key].bdate);
@@ -140,7 +145,7 @@
 	
 		$("#addReply").click(function(){
 			//-- 1. 댓글수  2.작성자. 3.작성내용 . 4.작성날짜 --
-			var count = <%= n.getBcount2()  %>
+			var count = <%= n.getRef_bid() %>
 			var writer = <%= loginUser.getUserNum() %>;
 			var bid = <%= n.getBid() %>;
 			console.log(count);
@@ -155,11 +160,10 @@
 					var $replyArea = $("#replyArea");
 					$replyArea.find('tr[id != "notRemoveThis"]').remove();
 					console.log(data);
-					
+					$("#reply2").text(data.length + "개의 댓글");
 					for(var key in data){
 						console.log(data[0]);
 						var $tr = $("<tr>");
-						$("#reply2").text("댓글"+data.count+"개").css("width","100px");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","50px");
 						var $contentTd = $("<td>").text(data[key].bcontext).css("width","200px");
 						var $dateTd = $("<td>").text(data[key].bdate).css("width","100px");

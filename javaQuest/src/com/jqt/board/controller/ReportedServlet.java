@@ -1,7 +1,6 @@
 package com.jqt.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.jqt.board.model.service.BoardService;
 import com.jqt.board.model.vo.Board;
 
-
 /**
- * Servlet implementation class InsertReplyServlet
+ * Servlet implementation class ReportedServlet
  */
-@WebServlet("/insertReply.bo")
-public class InsertReplyServlet extends HttpServlet {
+@WebServlet("/reportbd.bo")
+public class ReportedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertReplyServlet() {
+    public ReportedServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,31 +31,42 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*var rno = <%= loginUser.getUserNum() %>
+		var user_num = <%= n.getBno() %>
+		var bid = <%= n.getBid() %>
+		var date = <%= n.getBdate() %>*/
 		
-		int count = Integer.parseInt(request.getParameter("count"));
-		String writer = request.getParameter("writer");
+		String rno = request.getParameter("rno");
+		int user_num = Integer.parseInt(request.getParameter("user_num"));
 		int bid = Integer.parseInt(request.getParameter("bid"));
-		String content = request.getParameter("content");
 		Date date = Date(request.getParameter("date"));
-	
-		Board b = new Board();
-		b.setBid(bid);
-		b.setRef_bid(bid);
-		b.setBcount2(count);
-		b.setBwriter(writer);
-		b.setBcontext(content);
-		b.setBdate(date);
 		
-		ArrayList<Board> replyList = new BoardService().insertReply(b);
+		System.out.println(rno);
+		System.out.println(user_num);
+		System.out.println(bid);
+		System.out.println(date);
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(replyList,response.getWriter());
+		Board n = new Board();
+		n.setBwriter(rno);
+		n.setBno(user_num);
+		n.setBid(bid);
+		n.setBdate(date);
+		
+		int result = new BoardService().insertreported(n);
+		String page= "";
+		if(n != null) {
+			page = "views/board/noticedetailForm.jsp";
+			request.setAttribute("n", n);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("page","실패!");
+		}
+		
 		
 	}
 
 	private Date Date(String parameter) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 

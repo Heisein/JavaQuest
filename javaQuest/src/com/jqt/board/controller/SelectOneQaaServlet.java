@@ -1,6 +1,7 @@
 package com.jqt.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
+
 
 /**
  * Servlet implementation class SelectOneQaaServlet
@@ -31,9 +33,10 @@ public class SelectOneQaaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String num = request.getParameter("num");
 		System.out.println(num);
-		board n = new boardService().selectOne(num);
+		Board n = new BoardService().selectOne(num);
 		System.out.println(n);
 		String page = "";
 		

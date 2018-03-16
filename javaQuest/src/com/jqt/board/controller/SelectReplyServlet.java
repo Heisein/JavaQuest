@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.jqt.board.model.service.boardService;
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
+
 
 /**
  * Servlet implementation class SelectReplyServlet
@@ -34,22 +35,25 @@ public class SelectReplyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int count = Integer.parseInt(request.getParameter("count"));
 		String writer = request.getParameter("writer");
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		String content = request.getParameter("content");
 		Date date = Date(request.getParameter("date"));
 		
-		board b = new board();
+		System.out.println("댓글작성자:"+writer);
+		System.out.println("댓글bid"+bid);
+		System.out.println("댓글내용"+content);
+		
+		Board b = new Board();
 		b.setBid(bid);
-		b.setRef_bid(bid);	
-		b.setBcount2(count);
+		//b.setRef_bid(bid);	
 		b.setBwriter(writer);
 		b.setBcontext(content);
 		b.setBdate(date);
-				
-		ArrayList<board> replyList = new boardService().selectReply(b);
-				
+		
+		ArrayList<Board> replyList = new BoardService().selectReply(b);
+		System.out.println("자유게시판"+replyList);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(replyList,response.getWriter());

@@ -1,27 +1,30 @@
 package com.jqt.board.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.jqt.board.model.service.BoardService;
-import com.jqt.board.model.vo.Board;
 
 
 /**
- * Servlet implementation class InsertQuestionServlet
+ * Servlet implementation class SelectReplyCountServlet
  */
-@WebServlet("/insertQuestion.bo")
-public class InsertQuestionServlet extends HttpServlet {
+@WebServlet("/replyCount.bo")
+public class SelectReplyCountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertQuestionServlet() {
+    public SelectReplyCountServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +33,19 @@ public class InsertQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String btitle = request.getParameter("title");
-		String bcontent = request.getParameter("content");
-		String uno = request.getParameter("uno");
+		int bid = Integer.parseInt(request.getParameter("bid"));
 		
-		Board m = new Board();
-		m.setBwriter(uno);
-		m.setBtitle(btitle);
-		m.setBcontext(bcontent);
+		int count = new BoardService().selectCountReply(bid);
 		
-		int result = new BoardService().inserquestion(m);
-		String page ="";
-		if(result>0) {
-			response.sendRedirect(request.getContextPath()+"/selectQuestion.bo");
-		}else {
-			request.setAttribute("msg", "질문답 글쓰기실패!!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(count,response.getWriter());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

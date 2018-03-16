@@ -42,7 +42,7 @@
 </head>
 <body>
 	<%@ include file= "/views/common/menubar.jsp" %>
-	<h1>내용상세보기</h1>
+	<h1>자유게시판 상세보기</h1>
 	
 	
 	<div class="tableArea" >
@@ -71,7 +71,6 @@
 						<span><%= n.getBdate() %></span>
 					</td>
 				</tr>
-				
 				<tr>
 					<td colspan="6">내용</td>
 				</tr>
@@ -83,13 +82,12 @@
 		
 		</table>
 		<div>
-			<button> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
+			<button id="likeArea"> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
 			<button> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
 			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
 			<button>수정하기</button>
 		</div>
 		<br>
-		
 		<table id="replyArea">
 			<tr id="notRemoveThis">
 				<td id="reply2"></td>	
@@ -103,13 +101,21 @@
 					<button type="button" onclick="location.href='<%= request.getContextPath() %>/selectFb.no'">목록으로 돌아가기</button>
 				</td>
 			</tr>
+			
 		</table>
 	</div>
 <script>
+	$("#likeArea").click(function(){
+		var num = $(this).val();
+		location.href="<%= request.getContextPath() %>/selectOneQaa.bo?=num"+num;
+		
+	});
+
+
 $(function(){
-	var count = <%= n.getBcount2()  %>
-	var writer = <%= loginUser.getUserNum() %>;
-	var bid = <%= n.getBid() %>;
+	var count = <%= n.getRef_bid() %>
+	var writer = <%= loginUser.getUserNum() %>
+	var bid = <%= n.getBid() %>
 	var content = $("#replyContent").val();
 	console.log(count);
 	console.log(writer);
@@ -120,10 +126,9 @@ $(function(){
 		type:"post",
 		success:function(data){
 			var $replyArea = $("#replyArea");
+			$("#reply2").text(data.length + "개의 댓글");
 			for(var key in data){
-				
 				var $tr = $("<tr>");
-				$("#reply2").text("댓글"+data.count+"개");
 				var $writerTd = $("<td>").text(data[key].bwriter).css("width","");
 				var $contentTd = $("<td>").text(data[key].bcontext);
 				var $dateTd = $("<td>").text(data[key].bdate);
@@ -137,7 +142,7 @@ $(function(){
 	});
 })
 	$("#addReply").click(function(){
-		var count = <%= n.getBcount2()  %>
+		var count = <%= n.getRef_bid()  %>
 		var writer = <%= loginUser.getUserNum() %>;
 		var bid = <%= n.getBid() %>;
 		console.log(count);
@@ -152,13 +157,12 @@ $(function(){
 				var $replyArea = $("#replyArea");
 				$replyArea.find('tr[id != "notRemoveThis"]').remove();
 				console.log(data);
-				
+				$("#reply2").text(data.length + "개의 댓글");
 				for(var key in data){
 					console.log(data[0]);
 					var $tr = $("<tr>");
-					$("#reply2").text("댓글"+data[key].count+"개");
-					var $writerTd = $("<td>").text(data[key].bwriter).css("width","100px");
-					var $contentTd = $("<td>").text(data[key].bcontext).css("width","600px");
+					var $writerTd = $("<td>").text(data[key].bwriter).css("width","50px");
+					var $contentTd = $("<td>").text(data[key].bcontext).css("width","200px");
 					var $dateTd = $("<td>").text(data[key].bdate).css("width","100px");
 					
 					$tr.append($writerTd);

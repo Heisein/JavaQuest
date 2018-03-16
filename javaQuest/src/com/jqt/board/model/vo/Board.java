@@ -1,23 +1,25 @@
 package com.jqt.board.model.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public class board {
-	private int bid;
-	private int btype;
-	private int bno;
-	private String btitle;
-	private String bcontext;
-	private String bwriter;
-	private int bcount;
-	private int bcount2;
-	private int ref_bid;
-	private int ref_ref_bid;
-	private int reply_level;
-	private Date bdate;
-	private String status;
+public class Board {
+	private int bid;	//게시글 고유번호
+	private int btype;	//0공지 1자유 2 qaa
+	private int bno;	//게시글 번호 인데 ... insert할떄 자체적으로 타입 넣어둠 
+	private String btitle;	//글 제목
+	private String bcontext;	//글 내용, 제목 내용
+	private String bwriter;		//닉네임
+	private int bcount;			//조회수
+	private int bcount2;		//댓글 조회수
+	private ArrayList bcount3;	//좋아요 횟수.... 
+	private int ref_bid;		//글에 대한 댓글 번호들
+	private int ref_ref_bid;	//대댓글 ->아직 
+	private int reply_level;	//0글  1 댓글 2 대댓글 -->> null
+	private Date bdate;			// 날짜
+	private String status;		//y,n
 	
-	public board() {
+	public Board() {
 		
 	}
 
@@ -29,18 +31,6 @@ public class board {
 				+ bcontext + ", bwriter=" + bwriter + ", bcount=" + bcount + ", bcount2=" + bcount2 + ", ref_bid="
 				+ ref_bid + ", ref_ref_bid=" + ref_ref_bid + ", reply_level=" + reply_level + ", bdate=" + bdate
 				+ ", status=" + status + "]";
-	}
-
-
-
-	public Date getBdate() {
-		return bdate;
-	}
-
-
-
-	public void setBdate(Date bdate) {
-		this.bdate = bdate;
 	}
 
 
@@ -57,7 +47,25 @@ public class board {
 
 
 
+	public ArrayList getBcount3() {
+		return bcount3;
+	}
 
+
+
+	public void setBcount3(ArrayList bcount3) {
+		this.bcount3 = bcount3;
+	}
+
+
+
+	public Date getBdate() {
+		return bdate;
+	}
+
+	public void setBdate(Date bdate) {
+		this.bdate = bdate;
+	}
 
 	public int getBid() {
 		return bid;

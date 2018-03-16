@@ -12,15 +12,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.vo.Board;
 
 import static com.jqt.common.JDBCTemplet.*;
 
-public class boardDao {
+public class BoardDao {
 	Properties prop = new Properties();
 	
-	public boardDao() {
-		String fileName = boardDao.class.getResource("/sql/board/board-query.properties").getPath();
+	public BoardDao() {
+		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -32,8 +32,8 @@ public class boardDao {
 	}
 	
 	//공지사항 셀렉트~
-	public ArrayList<board> selectqaa(Connection con, int currentPage, int limit) {
-		ArrayList<board> list = null;
+	public ArrayList<Board> selectqaa(Connection con, int currentPage, int limit) {
+		ArrayList<Board> list = null;
 		//Statement stmt =null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -53,16 +53,14 @@ public class boardDao {
 			
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<board>();
+			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				board n = new board();
+				Board n = new Board();
 				
-				//n.setBno(rset.getInt("bno"));
-				n.setBid(rset.getInt("bid"));
+				n.setBid(rset.getInt("bid"));	//추가
 				n.setBno(rset.getInt("bn"));
 				n.setBtitle(rset.getString("bt"));
-				//n.setBwriter(rset.getString("bwriter"));
 				n.setBwriter(rset.getString("un"));
 				n.setBcount(rset.getInt("bc"));
 				n.setBdate(rset.getDate("de"));
@@ -78,7 +76,7 @@ public class boardDao {
 		return list;
 	}
 
-	public int insertqaa(Connection con, board m) {
+	public int insertqaa(Connection con, Board m) {
 		PreparedStatement pstmt = null;
 		int result= 0;
 		
@@ -101,11 +99,11 @@ public class boardDao {
 		return result;
 	}
 
-	public board selectOne(Connection con, String num) {
+	public Board selectOne(Connection con, String num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		board n = null;
+		Board n = null;
 		
 		String query = prop.getProperty("selectQaa");
 		
@@ -116,7 +114,7 @@ public class boardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				n = new board();
+				n = new Board();
 				
 				n.setBid(rset.getInt("bid"));
 				n.setBno(rset.getInt("bno"));
@@ -124,6 +122,7 @@ public class boardDao {
 				n.setBwriter(rset.getString("user_nickname"));
 				n.setBcount(rset.getInt("bcount"));
 				n.setBdate(rset.getDate("bdate"));
+				n.setBtype(rset.getInt("btype"));
 				n.setBcontext(rset.getString("bcontent"));
 			}
 			
@@ -131,8 +130,8 @@ public class boardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		
 		return n;
@@ -152,7 +151,6 @@ public class boardDao {
 			result= pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -178,7 +176,54 @@ public class boardDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+	public int getListCount1(Connection con) {
+		Statement stmt = null;
+		int listCount =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount1");
+		
+		try {
+			stmt= con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);	//첫번째 컬럼값을 가져옴
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+	public int getListCount2(Connection con) {
+		Statement stmt = null;
+		int listCount =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount2");
+		
+		try {
+			stmt= con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);	//첫번째 컬럼값을 가져옴
+			}
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -187,11 +232,12 @@ public class boardDao {
 		return listCount;
 	}
 
-	public int insertReply(Connection con, board b) {
+	public int insertReply(Connection con, Board b) {
 		PreparedStatement pstmt =null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertReply");
+			
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -211,10 +257,10 @@ public class boardDao {
 		return result;
 	}
 
-	public ArrayList<board> selectReply(Connection con, int bid) {
+	public ArrayList<Board> selectReply(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<board> list = null;
+		ArrayList<Board> list = null;
 		
 		String query = prop.getProperty("selectReplyList");
 		
@@ -222,12 +268,12 @@ public class boardDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, bid);
 			
-			list = new ArrayList<board>();
+			list = new ArrayList<Board>();
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				board b = new board();
+				Board b = new Board();
 				
 				b.setBid(rset.getInt("bid"));
 				b.setBcontext(rset.getString("bcontent"));
@@ -239,6 +285,7 @@ public class boardDao {
 				
 				list.add(b);
 			}
+			System.out.println("댓글리스트카운트확인하자:"+list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -249,8 +296,8 @@ public class boardDao {
 		return list;
 	}
 
-	public ArrayList<board> selectFb(Connection con, int currentPage, int limit) {
-		ArrayList<board> list = null;
+	public ArrayList<Board> selectFb(Connection con, int currentPage, int limit) {
+		ArrayList<Board> list = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
@@ -267,10 +314,10 @@ public class boardDao {
 			
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<board>();
+			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				board n = new board();
+				Board n = new Board();
 				
 				n.setBid(rset.getInt("bid"));
 				n.setBno(rset.getInt("bn"));
@@ -291,7 +338,7 @@ public class boardDao {
 		return list;
 	}
 
-	public int insertFb(Connection con, board m) {
+	public int insertFb(Connection con, Board m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertFb");
@@ -313,10 +360,10 @@ public class boardDao {
 		return result;
 	}
 
-	public board selectOnebd(Connection con, String num) {
+	public Board selectOnebd(Connection con, String num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		board n = null;
+		Board n = null;
 		String query = prop.getProperty("selectOneFd");
 		
 		try {
@@ -324,7 +371,7 @@ public class boardDao {
 			pstmt.setString(1, num);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				n = new board();
+				n = new Board();
 			
 				n.setBid(rset.getInt("bid"));
 				n.setBno(rset.getInt("bno"));
@@ -344,8 +391,8 @@ public class boardDao {
 		return n;
 	}
 
-	public ArrayList<board> selectQuestion(Connection con, int currentPage, int limit) {
-		ArrayList<board> list = null;
+	public ArrayList<Board> selectQuestion(Connection con, int currentPage, int limit) {
+		ArrayList<Board> list = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
@@ -360,10 +407,10 @@ public class boardDao {
 			
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<board>();
+			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				board n = new board();
+				Board n = new Board();
 				n.setBid(rset.getInt("bid"));
 				n.setBno(rset.getInt("bn"));
 				n.setBtitle(rset.getString("bt"));
@@ -384,7 +431,7 @@ public class boardDao {
 		return list;
 	}
 
-	public int insertquestion(Connection con, board m) {
+	public int insertquestion(Connection con, Board m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertquestion");
@@ -406,17 +453,17 @@ public class boardDao {
 		return result;
 	}
 
-	public board selectOneQuestion(Connection con, String num) {
+	public Board selectOneQuestion(Connection con, String num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		board n = null;
+		Board n = null;
 		String query = prop.getProperty("selectOneQuestion");
 		try {
 			pstmt=con.prepareStatement(query);
 			pstmt.setString(1, num);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				n = new board();
+				n = new Board();
 			
 				n.setBid(rset.getInt("bid"));
 				n.setBno(rset.getInt("bno"));
@@ -435,5 +482,67 @@ public class boardDao {
 		}
 		return n;
 	}
+
+	//좋아요리스트 보류--------다른기능먼저...
+	public ArrayList<String> likeList(Connection con, String num, int btype) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+		
+		String query = prop.getProperty("likeList");
+		list = new ArrayList<String>();
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, num);
+			pstmt.setInt(2, btype);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				String like = rset.getString("bcount3");
+				String[] likes = like.split(", ");
+				for(int i = 0; i < likes.length; i++) {
+					list.add(likes[i]);
+				}
+				System.out.println("좋아요 수 : " + list.size());
+			}
+			System.out.println("라스트:"+list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int selectCountReply(Connection con, int ref_bid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectCountReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, ref_bid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);	//count(*) 컬럼값가져온다~
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
 
 }

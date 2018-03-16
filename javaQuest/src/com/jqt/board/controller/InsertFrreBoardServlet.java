@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
-import com.jqt.board.model.vo.board;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
+
+
 
 /**
  * Servlet implementation class InsertFrreBoardServlet
@@ -34,12 +36,12 @@ public class InsertFrreBoardServlet extends HttpServlet {
 		String bcontent = request.getParameter("content");
 		String uno = request.getParameter("uno");
 		
-		board m = new board();
+		Board m = new Board();
 		m.setBwriter(uno);
 		m.setBtitle(btitle);
 		m.setBcontext(bcontent);
 		
-		int result = new boardService().insertFb(m);
+		int result = new BoardService().insertFb(m);
 		System.out.println(result);
 		String page="";
 		if(result>0) {

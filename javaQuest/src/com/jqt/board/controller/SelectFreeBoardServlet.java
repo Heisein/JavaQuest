@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
 import com.jqt.board.model.vo.PageInfo;
-import com.jqt.board.model.vo.board;
+
 
 /**
  * Servlet implementation class SelectFreeBoardServlet
@@ -49,8 +50,8 @@ public class SelectFreeBoardServlet extends HttpServlet {
 	    limit = 10;
 	    
 	    //전체 목록 갯수를 리턴한다
-	    boardService bs = new boardService();
-	    int listCount = bs.getListCount();
+	    BoardService bs = new BoardService();
+	    int listCount = bs.getListCount1();
 	    System.out.println("목록 갯수들:"+listCount);
 	    //총 페이지수 계산 
 	    //예를 들면, 목록 수가 123개 이면  13페이지가 필요함 , 짜투리 목록이 최소 한개일때, 1page로 처리가기 위해서
@@ -72,7 +73,7 @@ public class SelectFreeBoardServlet extends HttpServlet {
 	    
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 	    
-		ArrayList<board> list = new boardService().selectFb(currentPage,limit);
+		ArrayList<Board> list = new BoardService().selectFb(currentPage,limit);
 		String page ="";
 		if(list !=null) {
 			page = "views/board/FreeBoardList.jsp";

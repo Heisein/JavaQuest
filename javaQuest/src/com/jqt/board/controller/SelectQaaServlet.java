@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jqt.board.model.service.boardService;
+import com.jqt.board.model.service.BoardService;
+import com.jqt.board.model.vo.Board;
 import com.jqt.board.model.vo.PageInfo;
-import com.jqt.board.model.vo.board;
 
 /**
  * Servlet implementation class SelectQaaServlet
@@ -50,7 +50,7 @@ public class SelectQaaServlet extends HttpServlet {
 	    limit = 10;
 	    
 	    //전체 목록 갯수를 리턴한다
-	    boardService bs = new boardService();
+	    BoardService bs = new BoardService();
 	    int listCount = bs.getListCount();
 	    System.out.println("목록 갯수들:"+listCount);
 	    //총 페이지수 계산 
@@ -72,9 +72,11 @@ public class SelectQaaServlet extends HttpServlet {
 	    }
 	    
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-	    
-		ArrayList<board> list = new boardService().selectqaa(currentPage, limit);
+	
+	    ArrayList<Board> list = new BoardService().selectqaa(currentPage, limit);
+		
 		System.out.println("리스트는?"+list);
+		System.out.println("PI?"+pi);
 		String page ="";
 		if(list !=null) {
 			page = "views/board/noticeList.jsp";
