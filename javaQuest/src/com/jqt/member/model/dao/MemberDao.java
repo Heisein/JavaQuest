@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -247,6 +248,80 @@ public class MemberDao {
 		
 		
 		return result;
+	}
+
+	public Member searchId(Connection con, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("searchId");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				m = new Member();
+				m.setUserNum(rset.getInt("user_num"));
+				m.setUserId(rset.getString("user_id"));
+				m.setUserPwd(rset.getString("user_pwd"));
+				m.setNickName(rset.getString("user_nickname"));
+				m.setEmail(rset.getString("email"));
+				m.setPhone(rset.getString("phone"));
+				m.setExp(rset.getInt("user_exp"));
+				m.setType(rset.getInt("user_type"));
+				m.setMsg(rset.getString("user_msg"));
+				m.setIsIdentified(rset.getString("is_identified"));
+				m.setLastIp(rset.getString("last_ip"));
+				m.setEnrollDate(rset.getDate("enroll_date"));
+				m.setIsWithdraw(rset.getString("is_withdraw"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return m;
+	}
+
+	public Member searchPwd(Connection con, String id, String email) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("searchPwd");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				m = new Member();
+				m.setUserNum(rset.getInt("user_num"));
+				m.setUserId(rset.getString("user_id"));
+				m.setUserPwd(rset.getString("user_pwd"));
+				m.setNickName(rset.getString("user_nickname"));
+				m.setEmail(rset.getString("email"));
+				m.setPhone(rset.getString("phone"));
+				m.setExp(rset.getInt("user_exp"));
+				m.setType(rset.getInt("user_type"));
+				m.setMsg(rset.getString("user_msg"));
+				m.setIsIdentified(rset.getString("is_identified"));
+				m.setLastIp(rset.getString("last_ip"));
+				m.setEnrollDate(rset.getDate("enroll_date"));
+				m.setIsWithdraw(rset.getString("is_withdraw"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return m;
 	}
 
 }

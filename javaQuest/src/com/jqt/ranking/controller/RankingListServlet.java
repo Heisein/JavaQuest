@@ -39,19 +39,13 @@ public class RankingListServlet extends HttpServlet {
 			list = new RankingService().TimeAttackRanking();
 		}
 		
-		//DB �����ڵ� �����ϰ� ������ �����ؾ���
 		if(type.equals("Quiz")){
-			code = 3;
-			list = new RankingService().QuizRanking(code);
-		}
-		//���� ����
-		if(type.equals("RealTime")){
-			code = 4;
+			code = 1;
 			list = new RankingService().QuizRanking(code);
 		}
 		
 		if(type.equals("OX")){
-			code = 5;
+			code = 2;
 			list = new RankingService().QuizRanking(code);
 		}
 		
@@ -62,7 +56,7 @@ public class RankingListServlet extends HttpServlet {
 			request.setAttribute("type", type);
 			page = "views/ranking/rankingList.jsp";
 		}else{
-			request.setAttribute("msg", "��ȸ����");
+			request.setAttribute("msg", "에러");
 			page = "views/common/errorPage.jsp";
 		}
 		

@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.jqt.ranking.model.service.RankingService;
 import com.jqt.ranking.model.vo.Ranking;
 
-/**
- * Servlet implementation class SearchNickNameServlet
- */
 @WebServlet("/searchNickName.ro")
 public class SearchNickNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,11 +41,6 @@ public class SearchNickNameServlet extends HttpServlet {
 		}
 		
 		if(type.equals("OX")){
-			order = "quiz_time";
-			list = new RankingService().SearchNickName(nickName, order);
-		}
-		
-		if(type.equals("Realtime")){
 			order = "quiz_time";
 			list = new RankingService().SearchNickName(nickName, order);
 		}
