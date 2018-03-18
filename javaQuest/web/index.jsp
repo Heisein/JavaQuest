@@ -195,7 +195,7 @@
 	            </div>
 	            <div class="col-sm-3 col-xs-6">
 	                <div class="counters">
-	                    <span class="counter">9663</span>
+	                    <span class="counter">9999</span>
 	                    <h4>풀린 문제</h4>
 	                </div>    
 	            </div>
