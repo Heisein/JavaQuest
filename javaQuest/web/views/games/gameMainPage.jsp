@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
+	<%@ include file="../common/loginOnly.jsp" %>
 	<!-- container -->
 	<div class="container">
 

@@ -79,6 +79,7 @@ public class MemberDao {
 	public ArrayList<Member> selectList(Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		ResultSet rset2 = null;
 		ArrayList<Member> list = new ArrayList<Member>();
 		
 		String query = prop.getProperty("selectList");
@@ -87,6 +88,10 @@ public class MemberDao {
 			pstmt = con.prepareStatement(query);
 			
 			rset = pstmt.executeQuery();
+			
+			pstmt = con.prepareStatement(query);
+			
+			rset2 = pstmt.executeQuery();
 			
 			while(rset.next()){
 				Member m = new Member();

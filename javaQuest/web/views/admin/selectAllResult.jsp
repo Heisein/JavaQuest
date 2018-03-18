@@ -55,6 +55,7 @@ table {
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp" %>
+	<%@ include file="/views/common/loginOnly.jsp" %>
 	<br>
 	<div class="container">
 		<div class="leftBox">
@@ -89,7 +90,7 @@ table {
 				<table class="searchall">
 					<thead class="selectThead">
 						<tr>
-							<th>UNO</th>
+							<th>No.</th>
 							<th>아이디</th>
 							<th>닉네임</th>
 							<th>이메일</th>
@@ -140,7 +141,7 @@ table {
 						else typeStr = "관리자";
 						var $typeTd = $("<td>").text(typeStr);
 						var $enrollTd = $("<td>").text(data[key].enrollDate);
-						var $reportedTd = $("<td>").text('0');
+						var $reportedTd = $("<td>").text("0");
 						var $leavebtnTd =$("<td>").html("<div id='leaveBtn' onclick='leave(" + data[key].userNum + ")'>강퇴</div>");
 						
 						$tr.append($unTd);

@@ -22,8 +22,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/reset.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -93,26 +91,25 @@ tr, td, th {
 </style>
 </head>
 <body>
+	<%@ include file="/views/common/loginOnly.jsp"%>
+	<%@ include file="/views/common/menubar.jsp"%>
+	<br/> 
+	
 	<div class="container">
-		<%@ include file="/views/common/loginOnly.jsp"%>
-		<%@ include file="/views/common/menubar.jsp"%>
 
 		<div class="leftBox">
 			<div class="visiArea">웹사이트 회원</div>
 			<!-- visiArea -->
 
 			<ul class="leftNav">
-				<li onclick="btnEvent(1);"><i class="fa fa-diamond"></i>포인트 구매</li>
-				<li onclick="btnEvent(2);"><i class="fa fa-shopping-cart"></i>상품
-					리스트</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/selectList.st'"><i class="fa fa-diamond"></i>포인트 구매</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/views/store/productStoreListPage.jsp'"><i class="fa fa-shopping-cart"></i>상품 리스트</li>
 				<li onclick="location.href='<%= request.getContextPath() %>/selectResume.st'"><i class="fa fa-list"></i>구매내역</li>
 			</ul>
 		</div>
 		<!-- leftBox -->
 
 		<div class="conArea" id="mainArea">
-			<h3>메뉴 출력될공간?</h3>
-
 			<div class="innerPointDiv">
 				<br>
 				<div class="innerTopText">&nbsp;&nbsp;&nbsp;포인트 상품 선택</div>
@@ -123,17 +120,11 @@ tr, td, th {
 					for (PointProduct pp : list) {
 				%>
 				<!-- 크기만큼 데이터 가져와서 화면에 뿌려주기 -->
-				<input type="radio" name="pd" id="<%=pp.getProductCode()%>"
-					value="<%=pp.getProductCode()%>"><label
-					for="<%=pp.getProductCode()%>">&nbsp;<%=pp.getGivePoint()%>포인트
-					- <%=pdPriceComma[i++]%>원
-				</label>
+				<input type="radio" name="pd" id="<%=pp.getProductCode()%>"	value="<%=pp.getProductCode()%>">
+				<label for="<%=pp.getProductCode()%>">&nbsp;<%=pp.getGivePoint()%>포인트	- <%=pdPriceComma[i++]%>원</label>
 				<hr>
 				<!-- 가로줄 -->
-				<br>
-				<%
-					}
-				%>
+				<% } %>
 				<button onclick="buy()">구매하기</button>
 			</div>
 

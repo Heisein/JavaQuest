@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jqt.member.model.vo.Member;
 import com.jqt.quest.model.service.QuestService;
 import com.jqt.quest.model.vo.Quest;
 
@@ -31,6 +32,7 @@ public class InsertRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		String questName = request.getParameter("questName");
 		String questContents = request.getParameter("questContents");
 		String defaultCode = request.getParameter("defaultCode");
@@ -52,7 +54,7 @@ public class InsertRequestServlet extends HttpServlet {
 		String page = "";
 		if(result > 0){
 			page = "views/quest/questListPage.jsp";
-			request.setAttribute("list", new QuestService().selectList());
+			request.setAttribute("list", new QuestService().selectList(loginUser.getUserNum()));
 		}else{
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "퀘스트 요청에 실패했습니다.");

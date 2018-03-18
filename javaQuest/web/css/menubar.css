@@ -5,7 +5,7 @@
 }
 .login-join li{
 	float: left;
-	margin: 0 7px;
+	margin: 0 5px;
 }
 .login-join li > a {
 	text-decoration: none;
@@ -15,27 +15,24 @@
 	width: 200px;
 	height: 80px;
 	float: left;
-    margin-top: 20px;
 }
 .logo img {
 	width: 200px;
 	height: 80px;
 }
 .menu-Area {
-	margin: 0 auto;
-    width: 970px;
-    float: right;
-    margin-top: 20px;
+    width: 1050px;
+    float:right;
 }
 .menu-bar {
 	right: 0;
-	width: 970px;
-	height: 40px;
+	width: 1050px;
+	height: 65px;
 	display: table-cell;
-	vertical-align: middle;
+	vertical-align: bottom;
 }
 .menu-bar>li{
-	margin: 0 70px;
+	margin: 0 30px;
 	float: right;
 }
 

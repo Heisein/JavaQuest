@@ -56,9 +56,9 @@ button{
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file= "/views/common/menubar.jsp" %>
+<br>
 <div class="container">
-	<%@ include file= "/views/common/menubar.jsp" %>
-	<br>
 	
 	<div id="label1">
 		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/

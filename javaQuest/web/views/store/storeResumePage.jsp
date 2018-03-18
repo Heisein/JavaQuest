@@ -79,27 +79,31 @@ table{
 	border:1px solid black;
 }
 th, td{
-	text-align:center;
+	text-align:center !important;
+}
+tr:nth-child(2n){
+	background:#ededed;
 }
 tr:hover{
 	background:#68a2ff;
-	color:red;
 }
 </style>
 </head>
 <body>
+	<%@ include file="/views/common/loginOnly.jsp"%>
+	<%@ include file="/views/common/menubar.jsp"%>
+	<br/>
+	
 	<div class="container">
-		<%@ include file="/views/common/loginOnly.jsp"%>
-		<%@ include file="/views/common/menubar.jsp"%>
 
 		<div class="leftBox">
 			<div class="visiArea">웹사이트 회원</div>
 			<!-- visiArea -->
 
 			<ul class="leftNav">
-				<li onclick="btnEvent(1);"><i class="fa fa-diamond"></i>포인트 구매</li>
-				<li onclick="btnEvent(2);"><i class="fa fa-shopping-cart"></i>상품 리스트</li>
-				<li onclick="btnEvent(3);"><i class="fa fa-list"></i>구매내역</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/selectList.st'"><i class="fa fa-diamond"></i>포인트 구매</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/views/store/productStoreListPage.jsp'"><i class="fa fa-shopping-cart"></i>상품 리스트</li>
+				<li onclick="location.href='<%= request.getContextPath() %>/selectResume.st'"><i class="fa fa-list"></i>구매내역</li>
 			</ul>
 		</div>
 		<!-- leftBox -->
@@ -112,9 +116,9 @@ tr:hover{
 				<br>
 
 				<!-- 마찬가지로 크기만큼 데이터 가져오기 -->
-				<table style="border: 1px solid black;">
+				<table style="border-bottom: 1px solid black;">
 					<!-- 여긴 테이블로 -->
-					<tr style="border: 1px solid black;">
+					<tr style="border-bottom: 1px solid black;">
 						<th>상품명</th>
 						<th>결제번호</th>
 						<th>가격</th>
@@ -133,7 +137,7 @@ tr:hover{
 						<td><%= df.format(pr.getPrice()) %>P</td>
 						<% }
 						if(pr.getPointUpdown() > 0){%>
-						<td style="color:blue;"><%= pr.getPointUpdown() %></td>
+						<td style="color:blue;">+<%= pr.getPointUpdown() %></td>
 						<% }else{ %>
 						<td style="color:red;"><%= pr.getPointUpdown() %></td>
 						<% } %>

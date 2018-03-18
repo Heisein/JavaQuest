@@ -96,6 +96,7 @@ border : 0;
 </head>
 <body>
 <%@ include file = "/views/common/menubar.jsp" %>
+<%@ include file="../common/loginOnly.jsp" %>
 <br/>
 <br/>
 	<div class="container">

@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .container{
-	width: 1200px;
+	width: 1280px;
     margin: 10px auto 0px auto;
     overflow: hidden;
 }
@@ -37,9 +37,10 @@
 	margin-right: 10px;
 }
 .conArea{
-	width: 960px;
+	width: 900px;
 	float: left;
-	margin-left: 40px;
+	margin-left: 30px;
+	margin-top:0px;
 }
 
 .conArea h3{

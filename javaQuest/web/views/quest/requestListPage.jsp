@@ -93,21 +93,20 @@
 	
 
 	<div class="conArea" id="mainArea">
-		<h3>현재 요청중인 퀘스트</h3>
+		<h3>내가 요청한 퀘스트</h3>
 		<% if(list.size() <= 0){ %>
 		<h3>가 없네요. </h3>
 		<% } %>
 		
-		<p>
-			<ul>
-				<% for(Quest q : list){ %> <!-- 요청중인 퀘스트 출력 -->
-						<li class="questNameli">
-							<div onclick="questLi(this)" style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %> &nbsp;(<%= q.getQuestWriter() %>)<br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
-							<div class="questDetail"><%= q.getQuestContents() %><br><br><div id="okBtn" onclick="agree(this);">승인<input type="hidden" id="qid" value="<%= q.getQuestId() %>"></div><div id="okBtn" onclick="reject(this);">거절<input type="hidden" id="qid" value="<%= q.getQuestId() %>"></div></div>
-						</li>
-				<% } %>
-			</ul>
-		</p>
+		<ul>
+			<% for(Quest q : list){ 
+				if(!q.getQuestWriter().equals(loginUser.getNickName())) continue;%> <!-- 요청중인 퀘스트 출력 -->
+					<li class="questNameli">
+						<div onclick="questLi(this)" style="border-left:6px solid <%= q.getColor() %>; height:100%;">&nbsp;<%= q.getQuestName() %> &nbsp;(<%= q.getQuestWriter() %>)<br><label class="innerInfo">&nbsp;Level <%= q.getQuestLevel() %></label></div>
+						<div class="questDetail"><%= q.getQuestContents() %></div>
+					</li>
+			<% } %>
+		</ul>
 	</div>
 	<!-- conArea -->
 	

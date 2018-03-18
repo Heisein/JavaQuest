@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../css/reset.css">
-<link rel="stylesheet" href="../../css/common.css">
-<link rel="stylesheet" href="../../css/login.css">
+<link rel="stylesheet" href="/jqt/css/reset.css">
+<link rel="stylesheet" href="/jqt/css/common.css">
+<link rel="stylesheet" href="/jqt/css/login.css">
 </head>
 <body>
    <%@ include file="/views/common/menubar.jsp" %>
-   <hr/>
    <div class="container">
    <p class="title">로그인</p>
    </div>
@@ -21,7 +20,7 @@
       
       <div class="login-form">
       <div class="sub-title">
-         로그인
+              로그인
       </div>
          <form action="<%= request.getContextPath() %>/login.me" method="post">
             <div class="radio-btn">
@@ -41,7 +40,7 @@
                   <a href="#">아이디&nbsp;/&nbsp;비밀번호찾기</a>
                </div>
                <div class="btnArea">
-                  <button class="login-btn">로그인</button>
+                  <button type="submit" class="btn btn-danger">로그인</button>
                </div>
             </div>
          </form>

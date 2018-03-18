@@ -33,10 +33,22 @@ public class SelectQuestListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		Member loginUser = null;
+		String page = "";
+		
+		if(request.getSession().getAttribute("loginUser") != null){
+			loginUser = (Member)request.getSession().getAttribute("loginUser");
+		}else{
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "로그인이 필요한 서비스입니다.");
+			
+			RequestDispatcher view = request.getRequestDispatcher(page);
+			view.forward(request, response);
+		}
+		
 		ArrayList<Quest> list = new QuestService().selectList(loginUser.getUserNum());
 		
-		String page = "";
+		
 		if(list != null){
 			page = "views/quest/questListPage.jsp";
 			request.setAttribute("list", list);

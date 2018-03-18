@@ -11,21 +11,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
-		<%@ include file="/views/common/menubar.jsp"%>
+	<%@ include file="/views/common/menubar.jsp"%>
+	<br/>
+	
+	<div class="container alert alert-danger" role="alert" align="center">
 		<br/>
 		<br/>
-		
-		<div class="conArea" id="mainArea" align="center">
-			<label style="font-size:35px; bold;">에러가 발생했습니다.</label>
+		<label style="font-size:35px; bold;">에러가 발생했습니다</label>
 			<br/>
 			<br/>
 			<label style="font-size:25px;"><%= msg %></label>
 			<br/>
 			<br/>
-			<button id="goMainBtn">메인으로 돌아가기</button>
-		</div>
-		<!-- conArea -->
+			<button class="btn btn-primary" id="goMainBtn">메인으로 돌아가기</button>
 	</div>
 	<!-- container -->
 	

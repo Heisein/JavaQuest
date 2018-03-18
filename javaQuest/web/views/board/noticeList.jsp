@@ -54,16 +54,15 @@ button{
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-	<%@ include file= "/views/common/menubar.jsp" %>
-	<br>
-	
-	<div id="label1">
+<%@ include file= "/views/common/menubar.jsp" %>
+<br/>
+<div class="container" align="center">
+	<div id="label1" align="left">
 		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectFb.no">자유게시판</a></label>/
 		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
 	</div>
-	<table border="1" align="center" id="listArea">
+	<table border="1" id="listArea">
 		<caption>공지사항</caption>
 		<colgroup>
 			<col width="50" />

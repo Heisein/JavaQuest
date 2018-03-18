@@ -79,7 +79,7 @@
 			</ul>
 		</div>
 		<!-- leftBox -->
-		<div class="conArea" id="mainArea">
+		<div class="conArea" id="mainArea"  style="overflow:scroll; overflow-x: hidden;">
 			<h3>현재 요청중인 퀘스트</h3>
 			<% if(list.size() <= 0){ %>
 			<h3>가 없네요. </h3>

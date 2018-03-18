@@ -11,7 +11,6 @@
 <style>
 
 
-
 /* 광고판 이미지 공간 */
 .carousel-inner {
 	width: 100%;
@@ -24,17 +23,20 @@
 
 /* 채점판  */
 .parallax-counter-v1 {
-	background: white;
+	background: gray;
 	width: 100%;
 	padding-top: 60px;
 	padding-right: 0px;
 	padding-bottom: 60px;
+	margin-top:20px;
 	padding-left: 0px;
+
 }
 
 .parallax-counter-v1 .counters {
 	color: #fff;
-	padding: 15px 0 10px;
+	/*padding: 15px 0 10px;*/
+	padding:15px 10px;
 	border: solid 1px #555;
 	border-top-color: rgb(85, 85, 85);
 	border-top-style: solid;
@@ -56,32 +58,41 @@
 }
 
 .container- {
-	width: 60%;
-	padding-right: 15px;
-	padding-left: 15px;
+	width: 75%;
+	/*padding-right: 15px;
+	padding-left: 15px;*/
 	margin-right: auto;
 	margin-left: auto;
 }
 
 .counters {
+	font-family:"맑은 고딕";
 	background: black;
 	text-align: center;
 	color: white;
+	font-weight:650;
 }
 
+/*
+.counters h4{
+	font-size:16px;
+}*/
+
 .counter {
-	font-size: 30px;
+	font-size: 2.5em;
 }
 
 .tempClass {
-	height: 150px;
+	margin:0 auto;
+	width:250px;
+	/*height: 110px;*/
 }
 
 .col-md-9 {
 	width: 100%;
 }
 
-p, h1 {
+/*p, h1 {
 	width: 60%;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -91,7 +102,7 @@ p, h1 {
 	padding-right: 0px;
 	padding-bottom: 60px;
 	padding-left: 0px;
-}
+}*/
 
 /* 광고/공지판 버튼크기 */
 .carousel-control {
@@ -109,25 +120,32 @@ p, h1 {
 	opacity: .5;
 	font-size: 20px;
 }
+	.javaquest{
+		font-size:42px;
+		margin-top:42px;
+	}
+	
+	.counters h4 {
+		font-size:1.4em;
+	}
+
 </style>
 </head>
 <body>
-
-<%@ include file = "/views/common/menubar.jsp" %>
-<br/>
-<br/>
-
-<!-- 광고판/공지 영역 -->  
+	<%@ include file = "/views/common/menubar.jsp" %>
+	<br/>
+	<br/>
+	<!-- 광고판/공지 영역 -->  
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
     
-<!-- 광고판 아래 순서표시 -->
+		<!-- 광고판 아래 순서표시 -->
     	<ol class="carousel-indicators">
 		    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     		<li data-target="#myCarousel" data-slide-to="1"></li>
 			<li data-target="#myCarousel" data-slide-to="2"></li>
     	</ol>
 		
-<!-- 광고판 실제 내용 -->
+		<!-- 광고판 실제 내용 -->
 		<div class="carousel-inner">
 	     	<div class="item active" >
 		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
@@ -142,7 +160,7 @@ p, h1 {
         	</div>
     	</div>
 	
-<!-- 좌우 버튼 -->
+		<!-- 좌우 버튼 -->
 	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       		<span class="glyphicon glyphicon-chevron-left"></span>
       		<span class="sr-only">Previous</span>
@@ -153,54 +171,50 @@ p, h1 {
     	</a>
 	</div>
 	
-<div class="container">	
-
-
-<!-- 중간 소개글 -->
-<div class = "tempClass" align = "center" >
-	<h1>JavaQuest</h1>
-	<button onclick="location.href='<%= request.getContextPath() %>/views/admin/selectAllResult.jsp'">관리자페이지</button>
-	<button onclick="location.href='<%= request.getContextPath() %>/selectList.st'">결제페이지</button>
-</div>
-
-<!-- 문제 수 영역  -->
-<div class="parallax-counter-v1 parallaxBg">
-    <div class="container-">
-        <div class="row margin-bottom-10">
-            <div class="col-sm-3 col-xs-6">
-                <div class="counters">
-                    <span class="counter">14494</span>   
-                    <h4>전체 문제</h4>
-                </div>    
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="counters">
-                    <span class="counter">11989</span> 
-                    <h4>채점 가능한 문제</h4>
-                </div>    
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="counters">
-                    <span class="counter">9363</span>
-                    <h4>풀린 문제</h4>
-                </div>    
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="counters">
-                    <span class="counter">62</span>
-                    <h4>채점 가능한 언어</h4>
-                </div>    
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 테스트용 빈 공간 -->
-<div class = "tempClass">
+	<div class="container" style="width:100%;padding-right:0px;padding-left:0px;">	
 	
-</div>
-</div>
-<!-- 제일 아래 푸터 -->
-<%@ include file = "/views/common/footer.jsp" %>     
+	<!-- 중간 소개글 -->
+	<div class = "tempClass" align = "center" >
+		<h1 class="javaquest">JavaQuest</h1>
+	</div>
+	<!-- 문제 수 영역  -->
+	<div class="parallax-counter-v1 parallaxBg">
+	    <div class="container-">
+	        <div class="row margin-bottom-10">
+	            <div class="col-sm-3 col-xs-6">
+	                <div class="counters">
+	                    <span class="counter">14494</span>   
+	                    <h4>전체 문제</h4>
+	                </div>
+	            </div>
+	            <div class="col-sm-3 col-xs-6">
+	                <div class="counters">
+	                    <span class="counter">11989</span> 
+	                    <h4>채점 가능한 문제</h4>
+	                </div>    
+	            </div>
+	            <div class="col-sm-3 col-xs-6">
+	                <div class="counters">
+	                    <span class="counter">9363</span>
+	                    <h4>풀린 문제</h4>
+	                </div>    
+	            </div>
+	            <div class="col-sm-3 col-xs-6">
+	                <div class="counters">
+	                    <span class="counter">62</span>
+	                    <h4>채점 가능한 언어</h4>
+	                </div>    
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 테스트용 빈 공간 -->
+	<div class = "tempClass">
+		
+	</div>
+	</div>
+	<!-- 제일 아래 푸터 -->
+	<%@ include file = "/views/common/footer.jsp" %>     
 </body>
 </html>
