@@ -133,7 +133,7 @@ table {
 						var $nickTd = $("<td>").text(data[key].nickName);
 						var $emailTd = $("<td>").text(data[key].email);
 						var $phoneTd = $("<td>").text(data[key].phone);
-						var $lvTd = $("<td>").text(data[key].exp);
+						var $lvTd = $("<td>").text(data[key].level);
 						var $expTd = $("<td>").text(data[key].exp);
 						var typeStr = "";
 						if(data[key].type == 1) typeStr = "일반";

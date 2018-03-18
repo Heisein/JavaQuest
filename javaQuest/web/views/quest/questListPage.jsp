@@ -143,7 +143,6 @@
 <body>
 	<%@ include file = "/views/common/menubar.jsp" %>
 	<%@ include file = "/views/common/loginOnly.jsp" %>
-	<br/>
 	<div class="container">
 		<!-- 메뉴 바는 불러올것  -->
 		<div class="leftBox">
@@ -487,14 +486,15 @@
 					   		<%}%>
 					   	<%}%>
 						break;
-				}
+					}
 				}
 			}
-				
 		</script>
 	
 	</div>
 	<!-- container -->
+	
+	<%@ include file = "/views/common/footer.jsp" %>
 
 </body>
 </html>

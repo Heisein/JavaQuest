@@ -16,7 +16,7 @@
 	<div class="copyright">
         <div class="container">
 	        <div class="row">
-		        <div class="col-md-9 col-sm-12">
+		        <div class="col-md-12 col-sm-12">
 			        <p>
               &copy; 2018 All Rights Reserved. <a href = "http://www.iei.or.kr">KH아카데미</a> | 
 			        <a href = "/terms">서비스 약관</a> | 

@@ -44,13 +44,20 @@
 				<li><a href="<%= request.getContextPath() %>/views/admin/selectAllResult.jsp">ADMIN PAGE</a></li>
 			<%} %>
 				<li><a href="<%= request.getContextPath() %>/selectList.st">STORE</a></li>
-				<li><a href="<%= request.getContextPath() %>/rankingList.ro?type=level">RANKING</a></li>
+				<li><a href="<%= request.getContextPath() %>/rankingList.ro?type=Level">RANKING</a></li>
 				<li><a href="<%= request.getContextPath() %>/selectqaa.no">BOARD</a></li>
 				<li><a href="<%= request.getContextPath() %>/views/games/gameMainPage.jsp">GAME</a></li>
-				<li><a href="<%= request.getContextPath() %>/selectList.qu">QUEST</a></li>
+				<li id="questLi"><a href="<%= request.getContextPath() %>/selectList.qu">QUEST</a></li>
 			</ul>
 		</div>
 		<!-- menu-Area -->
+		<script>
+			$(function(){
+				<% if(request.getRequestURL().indexOf("quest") > 0){ %>
+					document.getElementById("questLi").id = "selectedLi";
+				<% } %>
+			})
+		</script>
 	</div>
 	<hr>
 	

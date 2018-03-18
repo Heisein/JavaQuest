@@ -31,9 +31,11 @@
 	display: table-cell;
 	vertical-align: bottom;
 }
-.menu-bar>li{
+.menu-bar>li{ 
 	margin: 0 30px;
 	float: right;
+	height:22px;
+	
 }
 
 .menu-bar > li:hover, .login-join li:hover{
@@ -50,4 +52,10 @@
 	font-size: 14px;
 	color: #00A375;
 	text-decoration: none;
+}
+
+#selectedLi{
+	text-decoration:none;
+	border-bottom:8px solid lightgray;
+	box-shadow: 4px 3px #888888;
 }

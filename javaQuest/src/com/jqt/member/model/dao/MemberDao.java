@@ -122,6 +122,19 @@ public class MemberDao {
 				m.setIsIdentified(rset.getString("is_identified"));
 				m.setIsWithdraw(rset.getString("is_withdraw"));
 				
+				// 레벨 설정
+				int exp = m.getExp();
+				
+				if(exp >= 6400) m.setLevel(10);
+				else if(exp >= 3200) m.setLevel(9);
+				else if(exp >= 1600) m.setLevel(8);
+				else if(exp >= 800) m.setLevel(7);
+				else if(exp >= 400) m.setLevel(6);
+				else if(exp >= 200) m.setLevel(5);
+				else if(exp >= 100) m.setLevel(4);
+				else if(exp >= 50) m.setLevel(3);
+				else if(exp >= 10) m.setLevel(2);
+				else  m.setLevel(1);
 				
 				list.add(m);
 			}

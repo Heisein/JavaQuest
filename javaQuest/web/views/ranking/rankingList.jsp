@@ -81,7 +81,7 @@
 	tr:nth-child(2n){
 		background:#ededed;
 	}
-	tr:hover{
+	#rankInnerTr:hover{
 		background:#68a2ff;
 	}
 </style>
@@ -93,15 +93,26 @@
 	<div class="container">
 		<!-- 카테고리 -->
 		<div class="wrap">
-			<% if(type.equals("level")){ %>
+			<% if(type.equals("Level")){ %>
 			<input type="button" class="choice nowType" name="level" value="Level">
 			<% }else{ %>
 			<input type="button" class="choice" name="level" value="Level">
 			<% } %>
-			<input type="button" class="choice" name="ox" value="OX">
+			<% if(type.equals("Quiz")){ %>
+			<input type="button" class="choice nowType" name="multichoice" value="Quiz">
+			<% }else{ %>
 			<input type="button" class="choice" name="multichoice" value="Quiz">
+			<% } %>
+			<% if(type.equals("TimeAttack")){ %>
+			<input type="button" class="choice nowType" name="timeAttack" value="TimeAttack">
+			<% }else{ %>
 			<input type="button" class="choice" name="timeAttack" value="TimeAttack">
-			<input type="button" class="choice" name="realtime" value="Realtime">
+			<% } %>
+			<% if(type.equals("BattleRoyale")){ %>
+			<input type="button" class="choice nowType" name="battle" value="BattleRoyale">
+			<% }else{ %>
+			<input type="button" class="choice" name="battle" value="BattleRoyale">
+			<% } %>
 		</div>
 		<br/>
 		<br/>
@@ -122,7 +133,7 @@
 				<%	int count = 1;
 					if(list != null){ %>
 					<%for (Ranking r : list){ %>
-					<tr>
+					<tr id="rankInnerTr">
 						<td><%= count++ %></td>
 						<td><%= r.getUserLevel() %></td>
 						<td><%= r.getUserExp() %></td>

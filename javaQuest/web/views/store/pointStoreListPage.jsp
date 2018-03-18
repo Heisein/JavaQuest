@@ -11,12 +11,6 @@
 	for (int i = 0; i < pdPriceComma.length; i++) {
 		pdPriceComma[i] = df.format(list.get(i).getPrice());
 	}
-
-	int[] pdCode2 = {1, 2, 3, 4};
-	int[] pdPrice2 = {20, 30, 40, 50};
-	int[] pdAmount = {2, 2, 2, 2};
-	String[] pdName = {"AG70", "키보-드", "temp", "피규어"};
-	String[] pdContext = {"겁나 죠습니다", "요즘 유행하는 조약돌 키보드입니다", "Data Error", "재고처리중입니다"};
 %>
 <!DOCTYPE html>
 <html>
@@ -111,10 +105,8 @@ tr, td, th {
 
 		<div class="conArea" id="mainArea">
 			<div class="innerPointDiv">
-				<br>
 				<div class="innerTopText">&nbsp;&nbsp;&nbsp;포인트 상품 선택</div>
 				<br>
-
 				<%
 					int i = 0;
 					for (PointProduct pp : list) {
@@ -128,43 +120,6 @@ tr, td, th {
 				<button onclick="buy()">구매하기</button>
 			</div>
 
-			<div class="innerProductDiv" style="display: none;">
-				<br>
-				<div class="innerTopText">&nbsp;&nbsp;&nbsp;현재 구매 가능한 상품들입니다 :
-				</div>
-				<br>
-
-				<!-- 마찬가지로 크기만큼 데이터 가져오기 -->
-				<table style="border: 1px solid black;">
-					<!-- 여긴 테이블로 -->
-					<tr>
-						<th colspan="2" width="150px" align="center">사진</th>
-						<th>이름</th>
-						<th>설명</th>
-						<th>수량</th>
-						<th>가격</th>
-						<th></th>
-					</tr>
-					<%
-						for (int j = 0; j < pdCode2.length; j++) {
-					%>
-					<tr>
-						<td colspan="2" height="150px" align="center"
-							style="line-height: 150px;">사진</td>
-						<td><%=pdName[j]%></td>
-						<td><%=pdContext[j]%></td>
-						<td><%=pdAmount[j]%>개</td>
-						<td><%=pdPrice2[j]%> 포인트</td>
-						<td>
-							<div id="buyBtn">구매하기</div> <br> <br>
-							<div id="detailBtn">자세히보기</div>
-						</td>
-					</tr>
-					<%
-						}
-					%>
-				</table>
-			</div>
 		</div>
 		<!-- conArea -->
 	</div>

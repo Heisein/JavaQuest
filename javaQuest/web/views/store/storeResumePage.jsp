@@ -110,7 +110,6 @@ tr:hover{
 
 		<div class="conArea" id="mainArea">
 			<div class="resumeDiv">
-				<br>
 				<div class="innerTopText">&nbsp;&nbsp;&nbsp;구매 내역 : 
 				</div>
 				<br>

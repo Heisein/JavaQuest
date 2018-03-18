@@ -32,25 +32,25 @@ public class RankingListServlet extends HttpServlet {
 		System.out.println(type);
 		
 		int code = 0;
-		if(type.equals("level")){
+		if(type.equals("Level")){
 			list = new RankingService().RankingList();			
 		}
 		
-		if(type.equals("timeattack")){
+		if(type.equals("TimeaAttack")){
 			list = new RankingService().TimeAttackRanking();
 		}
 		
-		if(type.equals("quiz")){
+		if(type.equals("Quiz")){
 			code = 3;
 			list = new RankingService().QuizRanking(code);
 		}
 		
-		if(type.equals("realTime")){
+		if(type.equals("RealTime")){
 			code = 4;
 			list = new RankingService().QuizRanking(code);
 		}
 		
-		if(type.equals("ox")){ 
+		if(type.equals("Battle")){ 
 			code = 5;
 			list = new RankingService().QuizRanking(code);
 		}
@@ -62,7 +62,7 @@ public class RankingListServlet extends HttpServlet {
 			request.setAttribute("type", type);
 			page = "views/ranking/rankingList.jsp";
 		}else{
-			request.setAttribute("msg", "��ȸ����");
+			request.setAttribute("msg", "잘못된 접근입니다.");
 			page = "views/common/errorPage.jsp";
 		}
 		
