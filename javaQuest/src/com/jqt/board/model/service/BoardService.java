@@ -200,6 +200,33 @@ public class BoardService {
 		}
 		return result;
 	}
+	//좋아요 갯수 리턴 받기!
+	public int insertlike(Board n) {
+		Connection con = getConnection();
+		int result = new BoardDao().insertlike(con,n);
+		System.out.println("service:"+result);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int selectLike(int bid) {
+		Connection con = getConnection();
+		int result = new BoardDao().selectLike(con,bid);
+		close(con);
+		return result;
+	}
+	//공지사항 리스트 댓글수 보여주기~
+	public int selectcomments(Board b) {
+		Connection con = getConnection();
+		int result = new BoardDao().selectcomments(con,b);
+		System.out.println("댓글갯수서비스:"+result);
+		close(con);
+		return result;
+	}
 
 
 

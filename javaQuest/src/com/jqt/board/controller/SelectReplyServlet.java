@@ -46,7 +46,7 @@ public class SelectReplyServlet extends HttpServlet {
 		
 		Board b = new Board();
 		b.setBid(bid);
-		//b.setRef_bid(bid);	
+		//b.setRef_bid(bid);
 		b.setBwriter(writer);
 		b.setBcontext(content);
 		b.setBdate(date);

@@ -88,14 +88,15 @@ button{
 				<th align="center">조회수</th>
 			</tr>
 		</thead>	
+			<% int templ = 0; %>
 			<% for(Board n: list){ %>
-			<tr>
+			<tr id="selectTr<%= templ++ %>">
 				<input type="hidden" value="<%= n.getBid() %>">
 				<td><%= n.getBno() %></td>
 				<td><%= n.getBtitle() %></td>
 				<td><%= n.getBwriter() %></td>
-				<td><%= n.getBcount() %></td>
-				<td><%= n.getBcount() %></td>
+				<td id="selectCt"></td>
+				<td id="selectcomment"></td>
 				<td><%= n.getBdate() %></td>
 				<td><%= n.getBcount() %></td>
 			</tr>
@@ -110,7 +111,7 @@ button{
 	</table>
 	<br>
 	<p align="center">
-		<input type="button" value="목록">
+		
 		<input type="button" value="글쓰기" onclick="location.href='views/board/QaAinsertForm.jsp'">
 		
 	</p>
@@ -152,7 +153,50 @@ button{
 </div>
 
 	<script>
-	
+	$(function(){
+		<% int iii = 0; // Tr을 가리킬 위치
+		for(Board n : list){ %>
+			var bid = <%= n.getBid() %>;
+			console.log("댓글수~bid:"+bid);
+			$.ajax({
+				url:"/jqt/selectcomment.bo",
+				data:{"bid":bid},
+				type:"post",
+				success:function(data){
+					console.log(data);
+					<% for(int i = 0; i< templ; i++){  // 게시글의 수
+						if(i == iii){ // 지금 반복문이 i번째 게시글을 가리킬때 %>
+							$('#selectTr<%= iii++ %>').find('#selectcomment').text(data);
+							console.log("#selectcomment<%= i %>");
+							<% i = templ; // 반복문을 종료함 (인덱스를 범위 밖으로 넘겨버려서 강제종료) %>
+						<% }
+					} %>
+				}
+			});
+		
+		<% } %>
+	});
+	$(function(){
+		<% int ii = 0; // Tr을 가리킬 위치
+		for(Board n : list){ %>
+			var bid = <%= n.getBid() %>;
+			console.log("좋아요bid:"+bid);
+			$.ajax({
+				url:"/jqt/likeArea.bo",
+				data:{"bid":bid},
+				type:"post",
+				success:function(data){
+					<% for(int i = 0; i< templ; i++){  // 게시글의 수
+						if(i == ii){ // 지금 반복문이 i번째 게시글을 가리킬때 %>
+							$('#selectTr<%= ii++ %>').find('#selectCt').text(data);
+							<% i = templ; // 반복문을 종료함 (인덱스를 범위 밖으로 넘겨버려서 강제종료) %>
+						<% }
+					} %>
+				}
+			});
+		
+		<% } %>
+	});
 		$(function(){
 			$("#listArea td").click(function(){
 				var num = $(this).parent().children().eq(0).val();
