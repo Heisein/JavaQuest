@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" import="java.util.*, com.jqt.ranking.model.vo.Ranking"%>
 <% 
 	ArrayList<Ranking> list = (ArrayList<Ranking>)request.getAttribute("list");
-	String type = (String)request.getAttribute("type");
+	String type = (String)request.getParameter("type");
+	System.out.println(type);
 %>
 <!DOCTYPE>
 <html>
@@ -10,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.outer {
+/* 	.outer {
 		border:2px solid black;
 		width:901px;
 		height:700px;
@@ -18,21 +19,31 @@
 		margin-left:auto;
 		margin-top:10px;
 		margin-bottom:10px;
+	} */
+	.wrap {
+		display:inline-block;
 	}
-
 	.choice {
-		width:100px;
-		height:70px;
 		text-align:center;
-		vertical-align:middle;
+		width:auto;
+		padding:0 30px;
 	}
-	.tableArea {
+	.nowType{
+		background:#428bca;
+		color:white;
+	}
+	.choice:hover{
+		text-decoration:underline;
+		cursor:pointer;
+		background:lightgray;
+	}
+/* 	.tableArea {
 		margin-top:5px;
 		height:600px;
 		border:1px solid black;
-	}
+	} */
 	table {
-		width:900px;
+		width:100%;
 		text-align:center;
 		border:1px solid black;
 	}
@@ -40,6 +51,7 @@
 		border-bottom:2px solid black;
 		height:50px;
 		vertical-align:middle;
+		text-align:center;
 	}
 	table tr {
 		border-top:1px solid black;
@@ -55,12 +67,6 @@
 		margin-bottom:5px;
 		vertical-align:middle;
 	}
-	
-	.wrap {
-		border-top:1px solid black;
-		width:900px;
-	}
-	
 	input {
 		width:170px;
 		height:30px;
@@ -72,95 +78,82 @@
 		height:30px;
 		font-size:20px;
 	}
+	tr:nth-child(2n){
+		background:#ededed;
+	}
+	tr:hover{
+		background:#68a2ff;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
 	
-	<div class="outer">
-		<br>
-		<h2 align="center" id="title">Ranking</h2>
+	<!-- 컨테이너 영역 -->
+	<div class="container">
+		<!-- 카테고리 -->
+		<div class="wrap">
+			<% if(type.equals("level")){ %>
+			<input type="button" class="choice nowType" name="level" value="Level">
+			<% }else{ %>
+			<input type="button" class="choice" name="level" value="Level">
+			<% } %>
+			<input type="button" class="choice" name="ox" value="OX">
+			<input type="button" class="choice" name="multichoice" value="Quiz">
+			<input type="button" class="choice" name="timeAttack" value="TimeAttack">
+			<input type="button" class="choice" name="realtime" value="Realtime">
+		</div>
+		<br/>
+		<br/>
+		
+		<!-- 테이블 -->
 		<div class="tableArea">
-			<div class="wrap">
-				<input type="button" id="choice" name="level" value="Level">
-				<input type="button" id="choice" name="ox" value="OX">
-				<input type="button" id="choice" name="multichoice" value="Quiz">
-				<input type="button" id="choice" name="timeAttack" value="Timeattack">
-				<input type="button" id="choice" name="realtime" value="Realtime">
-			</div>
-			<table align="center">
+			<!-- 랭킹 테이블 시작 -->
+			<table id="rankTable" align="center">
 				<tr>
-					<th width="150px">랭킹</th>
-					<th width="150px">닉네임</th>
-					<th width="500px">상태메세지</th>
-					<%if(type == "Level"){ %>
-					<th width="150px">레벨</th>
-					<% }else if(type == "Timeattack"){ %>
-					<th width="150px">기록</th>
-					<% }else{ %>
-					<th width="150px">승리</th>
-					<% } %>
+					<th width="50px;">랭킹</th>
+					<th width="50px;">레벨</th>
+					<th width="70px;">경험치</th>
+					<th>닉네임</th>
+					<th>상태메세지</th>
+					<th>클리어 퀘스트</th>
+					<th>승수</th>
 				</tr>
-				<tr class="myRank">
-					<td>내랭킹</td>
-					<td>내닉네임</td>
-					<td>내 메세지</td>
-					<%if(type == "Level"){ %>
-					<td>내레벨</td>
-					<% }else if(type == "Timeattack"){ %>
-					<td>내 기록</td>
-					<% }else{ %>
-					<td>내 승수</td>
+				<%	int count = 1;
+					if(list != null){ %>
+					<%for (Ranking r : list){ %>
+					<tr>
+						<td><%= count++ %></td>
+						<td><%= r.getUserLevel() %></td>
+						<td><%= r.getUserExp() %></td>
+						<td><%= r.getUserNickName() %></td>
+						<% if(r.getUserMsg() == null){ %>
+						<td></td>
+						<% }else{ %>
+						<td><%= r.getUserMsg() %></td>
+						<% } %>
+						<td><%= r.getClearQuest() %></td>
+						<td><%= r.getWinRate() %></td>
+					</tr>
 					<% } %>
-				</tr>
-				<%if(list != null){ %>
-				<%for (Ranking r : list){ %>
-				<tr>
-					<td><%= r.getrNum() %></td>
-					<td><%= r.getUserNickName() %></td>
-					<td><%= r.getUserMsg() %></td>
-					<%if(type == "Level"){ %>
-					<td><%= r.getUserLevel() %></td>
-					<% }else if(type == "Timeattack"){ %>
-					<td><%= r.getTimeAttack() %></td>
-					<% }else{ %>
-					<td><%= r.getWinRate() %></td>
-					<% } %>
-				</tr>
-				<% } %>
 				<% } %>
 			</table>
 		</div>
-		<% if(type != null){ %>
+		<%-- <% if(type != null){ %>
 		<form action="<%= request.getContextPath() %>/searchNickName.ro?type=<%= type %>" method="post">
-		<div class="searchArea" name="searchArea" align="center">
-			<label>닉네임 검색 : </label>
-			<input type="search" name="nickName">
-			<button type="submit">검색</button>
-		</div>
+			<div class="searchArea" name="searchArea" align="center">
+				<label>닉네임 검색 : </label>
+				<input type="search" name="nickName">
+				<button type="submit">검색</button>
+			</div>
 		</form>
-		<% } %>
-	</div>
-	
+		<% } %> --%>
+	<!-- end of container -->
+	</div> 
 	
 	<script>
 		$(function(){
-			$(".tableArea td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
-			}).mouseout(function(){
-				$(this).parent().css({"background":"white"});
-			}).click(function(){
-				<%-- var num = $(this).parent().children("input").val();
-				location.href="<%= request.getContextPath() %>/selectOne.bo?num=" + num; --%>
-			});
-		});
-		
-		$(function(){
-			$(".wrap input").mouseenter(function(){
-				$(this).css({"text-decoration":"underline", "cursor":"pointer"});
-			}).mouseout(function(){
-				$(this).css({"background":"white", "text-decoration":"none"});
-			}).click(function(){
+			$(".wrap input").click(function(){
 				var type = $(this).val();
 				location.href="/jqt/rankingList.ro?type=" + type;
 			});

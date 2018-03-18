@@ -62,6 +62,20 @@ public class MemberDao {
 				loginUser.setEnrollDate(rset.getDate("enroll_date"));
 				loginUser.setIsWithdraw(rset.getString("is_withdraw"));
 				
+				// 레벨 설정
+				int exp = loginUser.getExp();
+				
+				if(exp >= 6400) loginUser.setLevel(10);
+				else if(exp >= 3200) loginUser.setLevel(9);
+				else if(exp >= 1600) loginUser.setLevel(8);
+				else if(exp >= 800) loginUser.setLevel(7);
+				else if(exp >= 400) loginUser.setLevel(6);
+				else if(exp >= 200) loginUser.setLevel(5);
+				else if(exp >= 100) loginUser.setLevel(4);
+				else if(exp >= 50) loginUser.setLevel(3);
+				else if(exp >= 10) loginUser.setLevel(2);
+				else  loginUser.setLevel(1);
+				
 				System.out.println("MemberDao loginCheck(loginUser) : " + loginUser);
 			}
 			

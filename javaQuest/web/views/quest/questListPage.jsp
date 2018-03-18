@@ -168,10 +168,8 @@
 		</div>
 		<!-- leftBox -->
 		
-		<br>
-	
 		<div class="conArea" id="mainArea" style="overflow:scroll; overflow-x: hidden;">
-			<h3>Select Your Quest</h3>
+			<h3 style="margin-top:0;">Select Your Quest</h3>
 			<div class="levelNav">
 				 <label id="l1-0" onclick="levelBtn(this)">All</label>
 				 <label id="l1-1" onclick="levelBtn(this)">Level1</label>

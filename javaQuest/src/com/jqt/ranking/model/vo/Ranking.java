@@ -10,11 +10,13 @@ public class Ranking implements java.io.Serializable{
 	private String isWithDraw;
 	private int timeAttack;
 	private int winRate;
+	private int userExp;
+	private int clearQuest;
 	
 	public Ranking(){}
 
 	public Ranking(int rNum, int userNum, String userNickName, int userLevel, int userType, String userMsg,
-			String isWithDraw, int timeAttack, int winRate) {
+			String isWithDraw, int timeAttack, int winRate, int userExp, int clearQuest) {
 		super();
 		this.rNum = rNum;
 		this.userNum = userNum;
@@ -25,43 +27,24 @@ public class Ranking implements java.io.Serializable{
 		this.isWithDraw = isWithDraw;
 		this.timeAttack = timeAttack;
 		this.winRate = winRate;
+		this.userExp = userExp;
+		this.clearQuest = clearQuest;
 	}
-	
-	
 
-	public Ranking(int rNum, int userNum, String userNickName, int userLevel, int userType, String userMsg,
-			String isWithDraw) {
-		super();
-		this.rNum = rNum;
-		this.userNum = userNum;
-		this.userNickName = userNickName;
-		this.userLevel = userLevel;
-		this.userType = userType;
-		this.userMsg = userMsg;
-		this.isWithDraw = isWithDraw;
+	public int getClearQuest() {
+		return clearQuest;
 	}
-	
 
-	public Ranking(int rNum, int userNum, String userNickName, int userType, String userMsg, String isWithDraw,
-			int timeAttack) {
-		super();
-		this.rNum = rNum;
-		this.userNum = userNum;
-		this.userNickName = userNickName;
-		this.userType = userType;
-		this.userMsg = userMsg;
-		this.isWithDraw = isWithDraw;
-		this.timeAttack = timeAttack;
+	public void setClearQuest(int clearQuest) {
+		this.clearQuest = clearQuest;
 	}
-	
 
-	public Ranking(int rNum, int userNum, String userNickName, String userMsg, int winRate) {
-		super();
-		this.rNum = rNum;
-		this.userNum = userNum;
-		this.userNickName = userNickName;
-		this.userMsg = userMsg;
-		this.winRate = winRate;
+	public int getUserExp() {
+		return userExp;
+	}
+
+	public void setUserExp(int userExp) {
+		this.userExp = userExp;
 	}
 
 	public int getrNum() {

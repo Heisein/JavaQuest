@@ -26,31 +26,31 @@ public class RankingListServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
+		
 		String page = "";
 		ArrayList<Ranking> list = null;
 		System.out.println(type);
 		
 		int code = 0;
-		if(type.equals("Level")){
+		if(type.equals("level")){
 			list = new RankingService().RankingList();			
 		}
 		
-		if(type.equals("Timeattack")){
+		if(type.equals("timeattack")){
 			list = new RankingService().TimeAttackRanking();
 		}
 		
-		//DB �����ڵ� �����ϰ� ������ �����ؾ���
-		if(type.equals("Quiz")){
+		if(type.equals("quiz")){
 			code = 3;
 			list = new RankingService().QuizRanking(code);
 		}
-		//���� ����
-		if(type.equals("RealTime")){
+		
+		if(type.equals("realTime")){
 			code = 4;
 			list = new RankingService().QuizRanking(code);
 		}
 		
-		if(type.equals("OX")){
+		if(type.equals("ox")){
 			code = 5;
 			list = new RankingService().QuizRanking(code);
 		}

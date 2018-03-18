@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 		if(loginUser != null){
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			page = "views/main/mainPage.jsp";
+			page = "";
 			
 		}else {
 			page = "views/common/errorPage.jsp";

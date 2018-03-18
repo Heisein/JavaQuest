@@ -16,12 +16,13 @@ public class Member {
 	private String lastIp;
 	private Date enrollDate;
 	private String isWithdraw;
+	private int level;
 
 	public Member() {
 	}
 
 	public Member(int userNum, String userId, String userPwd, String nickName, String email, String phone, int exp,
-			int type, String msg, String isIdentified, String lastIp, Date enrollDate, String isWithdraw) {
+			int type, String msg, String isIdentified, String lastIp, Date enrollDate, String isWithdraw, int level) {
 		super();
 		this.userNum = userNum;
 		this.userId = userId;
@@ -36,6 +37,7 @@ public class Member {
 		this.lastIp = lastIp;
 		this.enrollDate = enrollDate;
 		this.isWithdraw = isWithdraw;
+		this.level = level;
 	}
 
 	public int getUserNum() {
@@ -142,6 +144,14 @@ public class Member {
 		this.isWithdraw = isWithdraw;
 	}
 
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userNum=" + userNum + ", userId=" + userId + ", userPwd=" + userPwd + ", nickName=" + nickName
@@ -149,5 +159,4 @@ public class Member {
 				+ ", isIdentified=" + isIdentified + ", lastIp=" + lastIp + ", enrollDate=" + enrollDate
 				+ ", isWithdraw=" + isWithdraw + "]";
 	}
-
 }
