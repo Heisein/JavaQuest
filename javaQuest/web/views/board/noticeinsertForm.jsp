@@ -57,13 +57,15 @@
 	
 	<div align="center">
 		<input type="submit" value="작성완료" id="insertQaa" >
-		<input type="reset" value="작성취소">
+		<input type="reset" value="작성취소" id="menu">
 	</div>
 	</form>
 	
 	
 	<script>
-	
+		$("#menu").click(function(){
+			
+		});
 		
 	</script>
 	

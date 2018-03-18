@@ -92,7 +92,7 @@
 			<button id="reportArea"> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
 			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
 			<% if(loginUser !=null && loginUser.getUserId().equals("admin")){ %>
-			<button>수정하기</button>
+			<button id ="updateReply">수정하기</button>
 			<% } %>
 		</div>
 		<br>
@@ -188,12 +188,7 @@
 			var count = <%= n.getRef_bid() %>
 			var writer = <%= loginUser.getUserNum() %>
 			var bid = <%= n.getBid() %>
-			console.log(count);
-			console.log(writer);
-			console.log(bid);
 			var content = $("#replyContent").val();
-			
-			
 			$.ajax({
 				url:"/jqt/insertReply.bo",
 				data:{"count":count,"writer":writer,"bid":bid,"content":content},
@@ -201,15 +196,12 @@
 				success:function(data){
 					var $replyArea = $("#replyArea");
 					$replyArea.find('tr[id != "notRemoveThis"]').remove();
-					console.log(data);
 					$("#reply2").text(data.length + "개의 댓글");
 					for(var key in data){
-						console.log(data[0]);
 						var $tr = $("<tr>");
 						var $writerTd = $("<td>").text(data[key].bwriter).css("width","50px");
 						var $contentTd = $("<td>").text(data[key].bcontext).css("width","200px");
 						var $dateTd = $("<td>").text(data[key].bdate).css("width","100px");
-						
 						$tr.append($writerTd);
 						$tr.append($contentTd);
 						$tr.append($dateTd);
@@ -220,6 +212,9 @@
 					alert("에러");
 				}
 			});
+		});
+		$("#updateReply").click(function(){
+			location.href='views/board/noticeinsertForm.jsp';
 		});
 
 	</script>
