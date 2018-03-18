@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.jqt.game.model.service.GameService;
 import com.jqt.game.model.service.RoomService;
 import com.jqt.game.model.vo.SelectGame;
+import com.jqt.member.model.vo.Member;
+import com.jqt.store.model.service.StoreService;
 
 @WebServlet("/oxquizList.g")
 public class OxquizListServlet extends HttpServlet {
@@ -25,6 +27,10 @@ public class OxquizListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String roomNumber = request.getParameter("roomNumber");
+		int userNum = ((Member)(request.getSession().getAttribute("loginUser"))).getUserNum();
+		
+		//시작했으니 포인트 소비함.
+		new StoreService().joinPay(userNum);
 		
 		//시작했으니까 데이터베이스 시작했다고 변경
 		new RoomService().roomStart(roomNumber);

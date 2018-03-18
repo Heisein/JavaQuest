@@ -78,6 +78,20 @@
 				$("#account").text("실시간으로 여러명과 자신의 지식을 겨루는 게임입니다. 기본적으로 O/X문제이며 참여 하실때 현재 보유하고 계신 포인트중 1포인트를 배팅하고 참여합니다 배팅금은 마지막 1위를 한 사람에게 지급되며," + 
 									"총 50문제가 랜덤으로 출제됩니다. 마지막 한명이 남을때까지 계속 진행을 하는데 만약 50문제가 끝날때 생존자가 한명 이상일시 배팅금은 공정하게 나뉩니다.");
 				$(".game-start").attr("onclick", "location.href='<%= request.getContextPath() %>/oxRoomList.g?type=allList'");
+				$.ajax({
+					url: "/jqt/pointCheck.g",
+					type: "post",
+					data: {"userNum": "<%= loginUser.getUserNum() %>"},
+					success: function(data){
+						if(data === "fail"){
+							$(".game-start").attr("onclick", "alert('이 게임을 참여하실려면 1포인트가 필요합니다. 포인트를 확인해주세요.')");
+						}
+					},
+					error: function(data){
+						
+					}
+				});
+				
 				break;
 			case "dual" : 
 				$("#con-title").text("코딩대결"); 

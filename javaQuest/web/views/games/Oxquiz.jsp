@@ -32,7 +32,7 @@
 			<div class="quiz-ox">
 				<button class="O"></button>
 				<button class="X"></button>
-				<div class="quiz-ox-con">문제입니다. <br>이걸 만드는게 쉬웠습니까?</div>
+				<div class="quiz-ox-con">이 게임은 5초마다 문제가 바뀌며 틀리신분들은 자동으로 나가집니다.<br/><br/> 총 30문제가 끝날동안 살아남으세요.</div>
 			</div>
 			<div id="hiddenAnswer" style="display: none;">gd</div>
 			<!-- quiz -->
@@ -78,7 +78,7 @@
 		
 		window.addEventListener("load", connect, false);    //창이 열리면 websocket 객체 호출
 		function connect() {                   // 웹소켓 생성
-			wsocket = new WebSocket("ws://localhost:8005/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
+			wsocket = new WebSocket("ws://192.168.0.22:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
 			wsocket.onmessage = onMessage;        // 메세지가 왔을때 호출할 메소드 지정
 		}
 		
@@ -151,76 +151,101 @@
 				break;
 				
 			case "O" :
-				$("."+nickName).attr("id", "O").css("background", "blue");
-				console.log(typeof($("."+nickName).attr("id")));
+				$("."+nickName).attr("id", "O").css({"background":"url(/jqt/images/o.png) no-repeat center", "background-size":"contain"});
 				break;
 			
 			case "X" : 
-				$("."+nickName).attr("id", "X").css("background", "red");
-				console.log($("."+nickName).attr("id"));
+				$("."+nickName).attr("id", "X").css({"background":"url(/jqt/images/x.png) no-repeat center", "background-size":"contain"});
 				break;
 			
 			case "start" :
 				var user = $(".answer").children();
-				console.log(user);
-				console.log(user[0].value);
-				console.log(user.length);
+				var total = user.length;
 				
 				$("#startBtn").remove();
 				
-					$.ajax({
-						url: "/jqt/oxquizList.g",
-						type: "get",
-						data: {"roomNumber": roomNumber},
-						success: function(data){
-							//게임 문제를 받아와서 해당 div에 갱신을 해준다.
-							//다만 시간이 지날때마다 문제가 바뀐다.
-							var i = 0;	//다음문제를 위한 변수
+				
+				$.ajax({
+					url: "/jqt/oxquizList.g",
+					type: "get",
+					data: {"roomNumber": roomNumber},
+					success: function(data){
+						//게임 문제를 받아와서 해당 div에 갱신을 해준다.
+						//다만 시간이 지날때마다 문제가 바뀐다.
+						var count = 5;
+						var i = 0;	//다음문제를 위한 변수
+						
+						$(".quiz-ox-con").text(count);
+						$("#hiddenAnswer").text(data[i].quizAnswer); //답을 올리는 공간
+
+						alert(data.length);
+						//시간을 설정하여 문제를 바뀌게 함
+						var content = setInterval(function(){ 
+							user = 	$(".answer").children();		
+							$("#startBtn").remove();
 							
-							$(".quiz-ox-con").text(data[i].quizContent); //문제 올리는 공간
-							$("#hiddenAnswer").text(data[i].quizAnswer); //답을 올리는 공간
-							
-							//시간을 설정하여 문제를 바뀌게 함
-							var content = setInterval(function(){ 
-								user = 	$(".answer").children();		
-								$("#startBtn").remove();
+							if(count > 0){
+								$(".quiz-ox-con").text(count);
+								count--;
 								
+								console.log(count);
+							}else {
+								$(".quiz-ox-con").text(data[i].quizContent); //문제 올리는 공간
+								count--;
+								console.log(count);
 								//현재 남은 사람의 인원수를 계산해 한명이 아닐경우.
-								if(user.length !== 1){
-									if($("#hiddenAnswer").text() === $(".<%= loginUser.getNickName() %>").attr("id")){
-										//정답일때
-										$(".quiz-ox-con").text("정답입니다.");
+								if(count === -5){
+									if(user.length !== 1){
+										//정답과 O,X를 누를때마다 바뀌는 아이디 값이 같은때
+										if($("#hiddenAnswer").text() === $(".<%= loginUser.getNickName() %>").attr("id")){
+											//정답일때
+											$(".quiz-ox-con").text("정답입니다.");
+										}else {
+											//오답일때
+											alert("오답입니다. 게임을 종료합니다.");
+											location.href="<%= request.getContextPath() %>/oxRoomList.g?type=minus&roomNumber="+roomNumber;
+										}
+										
+										//문제 바꾸기
+										$(".quiz-ox-con").text(data[i].quizContent);
+										$("#hiddenAnswer").text(data[i].quizAnswer);
+										i++;
+										
+										//마지막 문제일때 Interval을 멈춤.
+										if(i === data.length){
+											alert("게임 우승자가 한명 이상이므로 포인트는 분할 지급됩니다.");
+											clearInterval(content);
+										}
+									count = 5;
 									}else {
-										//오답일때
-										alert("오답입니다. 게임을 종료합니다.");
-										location.href="<%= request.getContextPath() %>/oxRoomList.g?type=minus&roomNumber="+roomNumber;
-									}
-									
-									
-										
-									//문제가 시작할때마다 전의 답과 비교를 하여 탈락자들을 나가게함.
-										
-									
-									//문제 바꾸기
-									$(".quiz-ox-con").text(data[i].quizContent);
-									i++;
-									
-									//마지막 문제일때 Interval을 멈춤.
-									if(i === data.length){
-										alert("게임 우승자가 한명 이상이므로 포인트는 분할 지급됩니다.");
 										clearInterval(content);
+										$(".btnArea").append("<button id='startBtn'>시작하기</button>");
+										alert("축하합니다  게임에서 우승하셨습니다.");
+										
+										$.ajax({
+											url: "/jqt/reward.g",
+											type: "post",
+											data: {
+												"reward": total,
+												"userNum": <%= loginUser.getUserNum() %>
+											},
+											success: function(data){
+												
+											},
+											error: function(data){
+												
+											}
+										});
+										
 									}
-								}else {
-									clearInterval(content);
-									$(".btnArea").append("<button id='startBtn'>시작하기</button>");
-									alert("축하합니다  게임에서 우승하셨습니다.");
 								}
-							}, 5000); 
-						},
-						error: function(msg){
-							console.log("에러!");
-						}
-					}); //ajax끝
+							}
+						}, 1000); 
+					},
+					error: function(msg){
+						console.log("에러!");
+					}
+				}); //ajax끝
 				
 				break;
 				
@@ -265,13 +290,15 @@
 			wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=X");
 		});
 		
+		
+		//시작버튼
 		$(document).on("click", "#startBtn", function(){
 			var user = $(".answer").children();//유저 인원
 
 			//게임 시작 최소인원
 			if(user.length >= 1){ //시작 할때 대기방에 잠깐 들려 버튼막기
 				wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=start");
-				var webSocket = new WebSocket("ws://localhost:8005/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
+				var webSocket = new WebSocket("ws://192.168.0.22:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
 				
 				setTimeout(function() {
 					webSocket.close();
@@ -282,6 +309,19 @@
 			}
 			
 		});
+		
+		function count(){
+			var i = 5;
+			var time = setInterval(function(){
+				$(".quiz-ox-con").text(i);
+				
+				i--;
+				
+				if(i == 1){
+					clearInterval(time);
+				}
+			});
+		}
 		
 		//방 나가기
 	  	function exit() { 

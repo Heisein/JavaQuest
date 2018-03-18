@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 
+
 .title{
 	width: 100%;
 	font-size: 30px;
@@ -12,6 +13,7 @@
 }
 
 .quiz-ox {
+	background: green;
 	border: 5px solid #dfdfdf;
 	padding: 0 30px;
 	width: 1200px;
@@ -20,10 +22,12 @@
 	vertical-align: middle;
 	position: relative;
 	border-radius: 80px;
+	
 }
 
 .O {
-	background: url(../images/O.jpg) no-repeat;
+	background: url(../images/o.png) no-repeat;
+	background-size: 200px 200px;
 	width: 595px;
 	height: 200px;
 	position : absolute;
@@ -33,9 +37,11 @@
 	border-top-left-radius : 79px;
 	border-bottom-left-radius : 79px;
 	border: hidden;
+	outline: 0;
 }
 .X {
-	background: url(../images/X.jpg) no-repeat right;
+	background: url(../images/x.png) no-repeat right;
+	background-size: 200px 200px;
 	width: 595px;
 	height: 200px;
 	position : absolute;
@@ -45,6 +51,7 @@
 	border-top-right-radius : 79px;
 	border-bottom-right-radius : 79px;
 	border: hidden;
+	outline: 0;
 }
 .O:hover, .X:hover {
 	cursor: pointer;
@@ -57,15 +64,20 @@
 	display: inline;
 	margin-right: 500px;
 	z-index: 1000px;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 .quiz-ox-con {
 	font-size:24px;
 	text-align: center;
+	color: white;
 }
 
 .answer{
+	height: 465px;
 	overflow: hidden;
+	/* border: 5px solid black; */
 }
 
 .answer li{
