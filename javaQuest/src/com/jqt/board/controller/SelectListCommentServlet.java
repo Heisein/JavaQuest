@@ -12,16 +12,16 @@ import com.jqt.board.model.service.BoardService;
 import com.jqt.board.model.vo.Board;
 
 /**
- * Servlet implementation class SelectLikeServlet
+ * Servlet implementation class SelectListCommentServlet
  */
-@WebServlet("/likeArea.bo")
-public class SelectLikeServlet extends HttpServlet {
+@WebServlet("/selectcomment.bo")
+public class SelectListCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectLikeServlet() {
+    public SelectListCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,17 @@ public class SelectLikeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bid = Integer.parseInt(request.getParameter("bid"));
+		System.out.println("댓글서블릿bid:"+bid);
+		Board b = new Board();
+		b.setRef_bid(bid);
+		System.out.println("찍어봅시다..."+b);
 		
-		int count = new BoardService().selectLike(bid);
+		int count = new BoardService().selectcomments(b);
 		
+		System.out.println("댓글서블릿count:"+count);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(count,response.getWriter());
-		
 	}
 
 	/**

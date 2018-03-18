@@ -95,7 +95,7 @@ button{
 				<td><%= n.getBtitle() %></td>
 				<td><%= n.getBwriter() %></td>
 				<td id="selectCt"></td>
-				<td><%= n.getRef_bid() %></td>
+				<td id="selectcomment"></td>
 				<td><%= n.getBdate() %></td>
 				<td><%= n.getBcount() %></td>
 			</tr>
@@ -112,7 +112,6 @@ button{
 	</table>
 	<br>
 	<p align="center">
-		<input type="button" value="목록">
 		<% if(loginUser !=null && loginUser.getUserId().equals("admin")){ %>
 		<input type="button" value="글쓰기" onclick="location.href='views/board/noticeinsertForm.jsp'">
 		<% } %>
@@ -159,6 +158,29 @@ button{
 
 	<script>
 	$(function(){
+		<% int iii = 0; // Tr을 가리킬 위치
+		for(Board n : list){ %>
+			var bid = <%= n.getBid() %>;
+			console.log("댓글수~bid:"+bid);
+			$.ajax({
+				url:"/jqt/selectcomment.bo",
+				data:{"bid":bid},
+				type:"post",
+				success:function(data){
+					console.log(data);
+					<% for(int i = 0; i< templ; i++){  // 게시글의 수
+						if(i == iii){ // 지금 반복문이 i번째 게시글을 가리킬때 %>
+							$('#selectTr<%= iii++ %>').find('#selectcomment').text(data);
+							console.log("#selectcomment<%= i %>");
+							<% i = templ; // 반복문을 종료함 (인덱스를 범위 밖으로 넘겨버려서 강제종료) %>
+						<% }
+					} %>
+				}
+			});
+		
+		<% } %>
+	});
+	$(function(){
 		<% int ii = 0; // Tr을 가리킬 위치
 		for(Board n : list){ %>
 			var bid = <%= n.getBid() %>;
@@ -168,11 +190,9 @@ button{
 				data:{"bid":bid},
 				type:"post",
 				success:function(data){
-					console.log(data);
 					<% for(int i = 0; i< templ; i++){  // 게시글의 수
 						if(i == ii){ // 지금 반복문이 i번째 게시글을 가리킬때 %>
 							$('#selectTr<%= ii++ %>').find('#selectCt').text(data);
-							console.log("#selectTr<%= i %>");
 							<% i = templ; // 반복문을 종료함 (인덱스를 범위 밖으로 넘겨버려서 강제종료) %>
 						<% }
 					} %>

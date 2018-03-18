@@ -594,9 +594,33 @@ public class BoardDao {
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}
-			System.out.println("dao카운트"+result);
 		} catch (SQLException e) {
 			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectcomments(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectComments");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, b.getRef_bid());
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			System.out.println("댓글dao:"+result);
+			System.out.println("dao rset:"+rset);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);

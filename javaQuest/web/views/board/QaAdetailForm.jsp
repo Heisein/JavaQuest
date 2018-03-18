@@ -108,9 +108,22 @@
 	</div>
 	<script>
 		$("#likeArea").click(function(){
-			var num = $(this).val();
-			console.log(num);
-			location.href="<%= request.getContextPath() %>/"
+			alert("좋아요!");
+			var user_num = <%= loginUser.getUserNum() %>
+			var bid = <%= n.getBid() %>
+			console.log(user_num);
+			console.log(bid);
+			$.ajax({
+				url:"/jqt/selectLike.bo",
+				data:{"user_num":user_num,"bid":bid},
+				type:"post",
+				succeess:function(){
+					
+				},
+				error:function(){
+					
+				}
+			});
 		});
 		
 		$("#reportArea").click(function(){

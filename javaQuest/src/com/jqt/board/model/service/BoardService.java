@@ -216,7 +216,14 @@ public class BoardService {
 	public int selectLike(int bid) {
 		Connection con = getConnection();
 		int result = new BoardDao().selectLike(con,bid);
-		System.out.println("서비스카운트:"+result);
+		close(con);
+		return result;
+	}
+	//공지사항 리스트 댓글수 보여주기~
+	public int selectcomments(Board b) {
+		Connection con = getConnection();
+		int result = new BoardDao().selectcomments(con,b);
+		System.out.println("댓글갯수서비스:"+result);
 		close(con);
 		return result;
 	}
