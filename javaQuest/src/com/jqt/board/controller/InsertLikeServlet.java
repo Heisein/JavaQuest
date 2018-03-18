@@ -1,8 +1,6 @@
 package com.jqt.board.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +14,16 @@ import com.jqt.board.model.vo.Board;
 
 
 /**
- * Servlet implementation class SelectReplyServlet
+ * Servlet implementation class SelectLikeServlet
  */
-@WebServlet("/selectReply.bo")
-public class SelectReplyServlet extends HttpServlet {
+@WebServlet("/selectLike.bo")
+public class InsertLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectReplyServlet() {
+    public InsertLikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,35 +32,23 @@ public class SelectReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String user_num = request.getParameter("user_num");	//좋아요누른사람
+		int bid = Integer.parseInt(request.getParameter("bid"));	//좋아요게시물
+		System.out.println("좋아요한 사람~"+user_num);
+		System.out.println("좋아요 당한 글!"+bid);
 		
-		String writer = request.getParameter("writer");
-		int bid = Integer.parseInt(request.getParameter("bid"));
-		String content = request.getParameter("content");
-		Date date = Date(request.getParameter("date"));
+		Board n = new Board();
+		n.setBwriter(user_num);
+		n.setBid(bid);
+		System.out.println("좋아요 ?:"+n);
 		
-		System.out.println("댓글작성자:"+writer);
-		System.out.println("댓글bid"+bid);
-		System.out.println("댓글내용"+content);
-		
-		Board b = new Board();
-		b.setBid(bid);
-		//b.setRef_bid(bid);
-		b.setBwriter(writer);
-		b.setBcontext(content);
-		b.setBdate(date);
-		
-		ArrayList<Board> replyList = new BoardService().selectReply(b);
-		System.out.println("자유게시판"+replyList);
+		int list = new BoardService().insertlike(n);
+		System.out.println("좋아요 list" + list);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(replyList,response.getWriter());
+		new Gson().toJson(list,response.getWriter());
 		
-	}
-
-	private Date Date(String parameter) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/**

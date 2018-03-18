@@ -200,6 +200,26 @@ public class BoardService {
 		}
 		return result;
 	}
+	//좋아요 갯수 리턴 받기!
+	public int insertlike(Board n) {
+		Connection con = getConnection();
+		int result = new BoardDao().insertlike(con,n);
+		System.out.println("service:"+result);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int selectLike(int bid) {
+		Connection con = getConnection();
+		int result = new BoardDao().selectLike(con,bid);
+		System.out.println("서비스카운트:"+result);
+		close(con);
+		return result;
+	}
 
 
 

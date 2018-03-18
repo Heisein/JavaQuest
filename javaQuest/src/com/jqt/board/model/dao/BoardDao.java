@@ -538,9 +538,6 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
 		return result;
 	}
 
@@ -561,6 +558,49 @@ public class BoardDao {
 		}finally {
 			close(pstmt);
 			close(con);
+		}
+		return result;
+	}
+
+	public int insertlike(Connection con, Board n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertlike");
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, n.getBwriter());
+			pstmt.setInt(2, n.getBid());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(con);
+		}
+		return result;
+	}
+
+	public int selectLike(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectLike");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			System.out.println("dao카운트"+result);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}

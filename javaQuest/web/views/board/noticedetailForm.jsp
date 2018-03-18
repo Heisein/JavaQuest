@@ -112,12 +112,26 @@
 	</div>
 	<script>
 		$("#likeArea").click(function(){
-			var num = $(this).val();
-			console.log(num);
-			location.href="<%= request.getContextPath() %>/selectOneQaa.bo?num="+num;
+			alert("좋아요!");
+			var user_num = <%= loginUser.getUserNum() %>
+			var bid = <%= n.getBid() %>
+			console.log(user_num);
+			console.log(bid);
+			$.ajax({
+				url:"/jqt/selectLike.bo",
+				data:{"user_num":user_num,"bid":bid},
+				type:"post",
+				succeess:function(){
+					
+				},
+				error:function(){
+					
+				}
+			});
 		});
+		
 		$("#reportArea").click(function(){
-			alert("게시물이 신고 되었습니다.");
+			alert("게시물이 신고 되었습니다.\n관리자가 검토후 처리하도록 하겠습니다.");
 			var rno = <%= loginUser.getUserNum() %>
 			var bid = <%= n.getBid() %>
 			 console.log(rno);
