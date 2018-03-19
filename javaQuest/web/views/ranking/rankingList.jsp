@@ -3,6 +3,7 @@
 <% 
 	ArrayList<Ranking> list = (ArrayList<Ranking>)request.getAttribute("list");
 	String type = (String)request.getAttribute("type");
+	
 %>
 <!DOCTYPE>
 <html>
