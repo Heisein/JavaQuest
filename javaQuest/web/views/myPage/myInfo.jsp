@@ -100,7 +100,7 @@ border : 0;
 
    <div class="container">
       <div class="leftBox">
-         <div class="visiArea">회원</div>
+         <div class="visiArea"><a><img src="/jqt/images/member1.png"/></a></div>
          <!-- visiArea -->
 
          <ul class="leftNav">
@@ -142,7 +142,6 @@ border : 0;
                   <th><label>핸드폰</label></th>
                   <td><input type="tel" name="phone"
                      value="<%=loginUser.getPhone()%>" readonly></td>
-
                </tr>
                <tr>
                   <th><label>레벨</label></th>
@@ -157,7 +156,6 @@ border : 0;
          </form>
       </div>
       <!-- conArea -->
-
 
    </div>
    <!-- container -->

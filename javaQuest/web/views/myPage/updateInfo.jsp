@@ -100,7 +100,6 @@ INPUT[type=text] {
       vertical-align:middle
 
 }
-
 </style>
 <title>Insert title here</title>
 </head>
@@ -108,7 +107,7 @@ INPUT[type=text] {
 <%@ include file = "/views/common/menubar.jsp" %>
    <div class="container">
       <div class="leftBox">
-         <div class="visiArea">회원</div>
+         <div class="visiArea"><a><img src="/jqt/images/member1.png"/></a></div>
          <!-- visiArea -->
 
          <ul class="leftNav">
@@ -133,8 +132,8 @@ INPUT[type=text] {
             <table class="con-table">
                <tr>
                   <th><label>아이디</label></th>
-                  <td><input type="text" name="userId"
-                     value="<%=loginUser.getUserId()%>" readonly></td>
+                  <td><input id="inputid" type="text" name="userId"
+                     value="<%=loginUser.getUserId()%>" readonly style="border:0"></td>
                </tr>
                <tr>
                   <th><label>비밀번호</label></th>
@@ -167,7 +166,7 @@ INPUT[type=text] {
                </tr>
                <tr>
                   <th><label>경험치</label></th>
-                  <td><input type="text" name="exp" value="<%=loginUser.getExp()%>" readonly></td>
+                  <td><input type="text" name="exp" value="<%=loginUser.getExp()%>" readonly style="border:0"></td>
                </tr>
 
             </table>

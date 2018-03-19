@@ -99,7 +99,7 @@ input {
 	<%@ include file="../common/loginOnly.jsp"%>
 	<div class="container">
 		<div class="leftBox">
-			<div class="visiArea">회원</div>
+			<div class="visiArea"><a><img src="/jqt/images/member1.png"/></a></div>
 			<!-- visiArea -->
 			<ul class="leftNav">
 				<li

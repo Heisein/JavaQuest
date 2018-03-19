@@ -66,7 +66,7 @@
 	<br>
 	<div class="container">
 		<div class="leftBox">
-			<div class="visiArea" align="center">Admin</div>
+			<div class="visiArea" align="center"><a><img src="/jqt/images/admin1.png"/></a></div>
 			<!-- visiArea -->
 
 			<ul class="leftNav">
