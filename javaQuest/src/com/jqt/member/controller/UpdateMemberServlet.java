@@ -70,7 +70,7 @@ public class UpdateMemberServlet extends HttpServlet {
 				
 				
 				if(result>0){
-					page = "views/common/successPage.jsp";
+					page = "views/common/updateSuccessPage.jsp";
 					request.setAttribute("msg", "회원 정보가 수정되었습니다.");
 					
 					System.out.println("result : " + result);
