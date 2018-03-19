@@ -39,23 +39,37 @@
 			
 			<ul class="menu-bar">
 			<% if(loginUser == null || loginUser.getType() != 3){ %>
-				<li><a href="<%= request.getContextPath() %>/views/myPage/myInfo.jsp">MY PAGE</a></li>
+				<li id="myPageLi"><a href="<%= request.getContextPath() %>/views/myPage/myInfo.jsp">MY PAGE</a></li>
 			<%}else{ %>
-				<li><a href="<%= request.getContextPath() %>/views/admin/selectAllResult.jsp">ADMIN PAGE</a></li>
+				<li id="adminLi"><a href="<%= request.getContextPath() %>/views/admin/selectAllResult.jsp">ADMIN PAGE</a></li>
 			<%} %>
-				<li><a href="<%= request.getContextPath() %>/selectList.st">STORE</a></li>
-				<li><a href="<%= request.getContextPath() %>/rankingList.ro?type=Level">RANKING</a></li>
-				<li><a href="<%= request.getContextPath() %>/selectqaa.no">BOARD</a></li>
-				<li><a href="<%= request.getContextPath() %>/views/games/gameMainPage.jsp">GAME</a></li>
+				<li id="storeLi"><a href="<%= request.getContextPath() %>/selectList.st">STORE</a></li>
+				<li id="rankingLi"><a href="<%= request.getContextPath() %>/rankingList.ro?type=Level">RANKING</a></li>
+				<li id="boardLi"><a href="<%= request.getContextPath() %>/selectqaa.no">BOARD</a></li>
+				<li id="gameLi"><a href="<%= request.getContextPath() %>/views/games/gameMainPage.jsp">GAME</a></li>
 				<li id="questLi"><a href="<%= request.getContextPath() %>/selectList.qu">QUEST</a></li>
 			</ul>
 		</div>
 		<!-- menu-Area -->
 		<script>
 			$(function(){
-				<% if(request.getRequestURL().indexOf("quest") > 0){ %>
+				<% String urlStr = request.getRequestURL().toString();
+				if(urlStr.indexOf("quest") > 0){ %>
 					document.getElementById("questLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("games") > 0){ %>
+					document.getElementById("gameLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("ranking") > 0){ %>
+					document.getElementById("rankingLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("store") > 0){ %>
+					document.getElementById("storeLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("admin") > 0){ %>
+					document.getElementById("adminLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("myPage") > 0){ %>
+					document.getElementById("myPageLi").id = "selectedLi";
+				<% }else if(urlStr.indexOf("board") > 0){ %>
+					document.getElementById("boardLi").id = "selectedLi";
 				<% } %>
+				
 			})
 		</script>
 	</div>
