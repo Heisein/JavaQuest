@@ -26,11 +26,11 @@
 			</tr>
 			<tr>
 				<td><label>닉네임</label></td>
-				<td><input type = "text" name = "nickName" value = "<%= loginUser.getUserNickname() %>" readonly/></td>
+				<td><input type = "text" name = "nickName" value = "<%= loginUser.getNickName() %>" readonly/></td>
 			</tr>
 			<tr>
 				<td><label>상태 메세지</label></td>
-				<td><input type = "text" name = "userMsg" value = "<%= loginUser.getUserMsg() %>" /></td>
+				<td><input type = "text" name = "userMsg" value = "<%= loginUser.getMsg() %>" /></td>
 			</tr>
 			<tr>
 				<td><label>이메일</label></td>

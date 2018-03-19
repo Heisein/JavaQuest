@@ -55,6 +55,11 @@ public class RankingListServlet extends HttpServlet {
 			list = new RankingService().QuizRanking(code);
 		}
 		
+		if(type.equals("OX")){
+			code = 2;
+			list = new RankingService().QuizRanking(code);
+		}
+		
 		System.out.println(list);
 		
 		if(list != null){

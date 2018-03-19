@@ -23,7 +23,7 @@
 		float: left;
 		background:#ffffff;
 		width:30%;
-		height:90%;
+		height:95%;
 		font-family:"나눔고딕";
 		border:5px solid lightgray;
 		padding:0% 0% 1% 0%;
@@ -35,9 +35,9 @@
 		background: blue;
 		background-color: #263238;
 		float: left;
-		width:66%;
+		width:68%;
 		margin-left:0.5%;
-		height:60%;
+		height:70%;
 		border:5px solid lightgray;
 		padding:0% 0% 1% 0%;
 	/*	padding:2% 2% 0 4%; /* 패딩 순서 위 오 아 왼 */
@@ -46,9 +46,9 @@
 		background: blue;
 		background-color: #263238;
 		float: left;
-		width:66%;
+		width:68%;
 		margin-left:0.5%;
-		height:26.5%;
+		height:22%;
 		border:5px solid lightgray;
 		padding:0% 0% 1% 0%;
 		overflow-x:hidden;

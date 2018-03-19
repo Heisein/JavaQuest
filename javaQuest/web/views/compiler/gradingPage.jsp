@@ -72,11 +72,11 @@
 							if(resultBool[j] == false) {
 								console.log("틀림");
 								isWrong = true;
-							}
+							} 
 						}
 						
 						if(isWrong == false){ // 성공시
-							$("#clearDiv").html("퀘스트 클리어!<br>평균 실행시간 : " + avr / elapsedTime.length + "초<br>경험치 " + <%= q.getRewardExp() %> + " 획득.");
+							$("#clearDiv").html("퀘스트 클리어!<br>평균 실행시간 : " + Math.round(avr, 3) / elapsedTime.length + "초<br>경험치 " + <%= q.getRewardExp() %> + " 획득.");
 						
 							setTimeout(function(){ // 2초 대기후 리절트창으로
 								location.href="<%= request.getContextPath() %>/questResult.qu";

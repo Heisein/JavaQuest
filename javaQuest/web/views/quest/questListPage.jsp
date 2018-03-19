@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, com.jqt.quest.model.vo.*" %>
 <%
 	ArrayList<Quest> list = (ArrayList<Quest>)request.getAttribute("list");
+	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
@@ -199,7 +200,7 @@
 			</ul>
 		</div>
 		<div class="conArea" id="subArea" style="display:none; overflow:scroll; overflow-x: hidden;">
-			<h3>Select Your Quest</h3>
+			<h3 style="margin-top:0;">Select Your Quest</h3>
 			
 			<p>
 				<div class="levelNav">
