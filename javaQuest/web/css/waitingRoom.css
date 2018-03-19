@@ -20,15 +20,12 @@
 	float: left;
 	width: 400px;
 	border: 5px solid #dfdfdf;
-	margin: 70px 100px 0 100px;
+	margin: 70px 80px 0 80px;
 	box-sizing: border-box;
 	padding: 20px;
 	font-size: 20px;
 	text-align: center;
 	border-radius: 30px;
-}
-.room li:nth-child(2n){
-	margin-right: 0;
 }
 .room li:hover{
 	cursor: pointer;
@@ -38,35 +35,29 @@
 }
 
 .btnArea {
-	position: absolute; 
-	right: 0px;
-	bottom: 0px;
+	position : fixed; 
+	right: 920px;
+	bottom: 400px;
 }
-
- 
  
 #modalLayer {
 	display: none; 
 	position: relative;
 }
+
+
 #modalLayer .modalContent {
 	width: 440px; 
 	height: 200px; 
 	padding: 20px; 
-	border: 5px solid #ccc; 
+	border: 5px solid darkblue; 
+	box-shadow : 4px 4px 2px 1px darkgray;
 	position: fixed; 
 	left: 50%; 
 	top: 50%; 
 	z-index: 11; 
-	background: black;
+	background: darkblue;
 	
-}
-#modalLayer .modalContent button {
-	padding: 0 5px;
-	position: absolute; 
-	right: 0; 
-	bottom: 0; 
-	cursor: pointer;
 }
 
 .contentA {
@@ -76,9 +67,18 @@
 
 .contentA tr {
 	text-align: center;
-	font-size: 40px;
+	font-size: 20px;
 }
 
+.roomTitle {
+	margin-top: 30px;
+	width: 100%;
+}
+
+.modalbtnArea {
+	margin-top: 40px;
+	margin-left: 250px;
+}
 .title {
 	width: 80%;
 	height: 50px;

@@ -11,9 +11,7 @@
 	font-size: 30px;
 	height: 40px;
 	text-align: center;
-}
-.exit{
-	background: red;
+	color: white;
 }
 .quiz{
 	background: green;

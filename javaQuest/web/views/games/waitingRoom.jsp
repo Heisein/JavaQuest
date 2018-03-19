@@ -30,18 +30,19 @@
 		<div class="titleArea">대기실	</div>
 			<div class="roomNumber" style="display:none;"></div>
 			<div class="present" style="display:none;"></div>			
+			
 			<ul class="room">
 			</ul>
 	
 			<div class="btnArea">
-				<button class="create">방 만들기</button>
+				<button id="create" class="btn btn-info">방 만들기</button>
 			</div>
 		
 			<div id="modalLayer">
 				<div class="modalContent">
 					<table class="contentA">
 						<tr>
-							<td>방제목</td>
+							<td style="color: white;">방제목</td>
 						</tr>
 						<tr>
 							<td>
@@ -49,8 +50,10 @@
 							</td>
 						</tr>
 					</table>
-			  		<button type="button" id="newRoom">생성하기</button>
-			  		<button type="button" id="close">닫기</button>
+					<div class="modalbtnArea">
+						<button type="button" id="newRoom" class="btn btn-warning">생성하기</button>
+						<button type="button" id="close" class="btn btn-warning">닫기</button>
+					</div>
 				</div>
 			</div>
 		</div>	
@@ -71,28 +74,33 @@
 	var marginTop = modalCont.outerHeight()/2;
 	
 	
-	var	wsocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/waiting?type=<%= type %>&roomNumber=<%= roomNumber %>&present=<%= present %>");
+	var	wsocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/waiting?type=<%= type %>&roomNumber=<%= roomNumber %>&present=<%= present %>");
 	wsocket.onmessage = onMessage;  // 메세지가 왔을때 호출할 메소드 지정
 	
 	<% for(int i = 0; i < list.size(); i++) { %>
+		
 		var roomNumber = <%= list.get(i).getRoomNo() %>;
 		var title = "<%= list.get(i).getRoomTitle() %>";
 		var present = <%= list.get(i).getPresentNo() %>;
 		var total = <%= list.get(i).getTotal() %>;
 		var started = "<%= list.get(i).getStarted() %>";
 		if(started === "0"){
+			
 			$(".room").append("<li class='number' value='"+ roomNumber + "' id='" + roomNumber +"'>" 
 					+ roomNumber + "번<br/>" 
 					+ "<label id='title'>" + title + "</label>" + "<br/>" 
 					+ "<label id='present'>" + present + "</label>/"
 					+ total + "</li>");
+			
 		}else if(started === "1"){
+			
 			$(".room").append("<li class='number' value='"+ roomNumber + "' id='" + start +"'>" 
 					+ roomNumber + "번<br/>" 
 					+ "<label id='title'>" + title + "</label>" + "<br/>" 
 					+ "<label id='present'>" + present + "</label>/"
 					+ total + "</li>");
 		}
+		
 	<% } %>
 	
 	function onMessage(event) {  // 서버로부터 메세지가 왔을때 호출되는 메소드
@@ -141,7 +149,7 @@
 			break;
 		
 		case "delete" :
-			console.log("지워버려!!!1");
+			console.log("지워버려!!!");
 			$("#"+roomNumber).remove();
 			break;
 			
@@ -161,7 +169,7 @@
 		}
 		
 	}
-	$(".create").click(function(){
+	$("#create").click(function(){
 		
 		modalLayer.fadeIn("slow");
 		modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
@@ -175,6 +183,11 @@
 		wsocket.send("type=create");
 	});
 	
+	$(document).on("click", "#close", function(){
+		modalLayer.fadeOut("slow");
+	    modalLink.focus();
+	});
+	
 	$(document).on("click", ".number", function(){
 		var present = $(this).find("#present").text();
 		var title = $(this).find("#title").text();
@@ -185,6 +198,8 @@
 			alert("해당방의 인원이 초과하였습니다.");
 		}
 	});
+	
+	
 	</script>
 </body>
 </html>
