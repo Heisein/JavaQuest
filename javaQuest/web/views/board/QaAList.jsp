@@ -16,34 +16,71 @@
 <html>
 <head>
 <style>
-
 <!-- 공지사항 -->
 * {font-size: 9pt !important;}
 .btn_align {width: 600px !important; text-align: right !important;}
-table tbody tr th {
-	background-color: gray !important;
-	text-align:center !important;
-}
+
 tr, th, td{
 border:1px solid black !important;
 }
 table{
 	border:1px solid black !important;
+	width:100% !important;
+	text-align:center !important;
 }
 
-#label1{
-	margin-left:;
-}
-button{
+	.wrap{
+		display:inline-block !important;
+	}
+	.choice{
+		text-align:center !important;
+		width:auto !important;
+		padding:0 30px !important;
+	}
+	.choice:hover{
+		text-decoration:underline !important;
+		cursor:pointer !important;
+		background:lightgray !important;
+	}
+	.nowType{
+		background:#428bca !important;
+		color:white !important;
+	}
+	input{
+		width:120px !important;
+		height:30px !important;
+		margin-left:5px !important;
+		background:white !important;
+		border:1px solid white !important;
+	}
+	button{
 		border-radius:10px !important;
 		
 	}
 	button:hover{
-		background-color:;
+		cursor:pointer;
 	}
 	td:hover{
 		background-color: #e6ecff !important;
+		cursor:pointer;
 	}
+	#thText th{
+		text-align:center;
+		border-bottom:2px solid black !important;
+		height:40px !important;
+		vertical-align:middle !important;
+	}
+	tr:nth-child(2n){
+		background:#ededed !important;
+	}
+	.trArea:hover{
+		background:#68a2ff !important;
+	}
+	.my-hr2 {
+    border: 0;
+    height: 1px;
+    background: black;
+  }
 
 </style>
 
@@ -57,15 +94,14 @@ button{
 </head>
 <body>
 <%@ include file= "/views/common/menubar.jsp" %>
-<br>
 <div class="container">
-	
-	<div id="label1">
-		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/
-		<label><a href="<%= request.getContextPath() %>/selectFb.no">자유게시판</a></label>/
-		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
+	<div class="wrap">
+		<input type="button" class="choice" value="공지사항" onclick="noticeList();">
+		<input type="button" class="choice" value="자유게시판" onclick="freeList();">
+		<input type="button" class="choice nowType" value="질문답게시판" onclick="QaaList();">
 	</div>
-	<table border="1" align="center" id="listArea">
+	<hr class="my-hr2">
+	<table border="1" id="listArea">
 		<caption>질문답게시판</caption>
 		<colgroup>
 			<col width="50" />
@@ -77,15 +113,15 @@ button{
 			<col width="70">
 		</colgroup>
 		<thead>
-			<tr>
+			<tr id="thText">
 			<!-- no. 닉네임, 제목 , 추천수, 댓글수, 작성일자, 조회수 배경 -->
-				<th align="center">no.</th>
-				<th align="center">제목</th>
-				<th align="center">닉네임</th>
-				<th align="center">추천수</th>
-				<th align="center">댓글수</th>
-				<th align="center">작성일자</th>
-				<th align="center">조회수</th>
+				<th style="font-weight: bold">no.</th>
+				<th style="font-weight: bold">제목</th>
+				<th style="font-weight: bold">닉네임</th>
+				<th style="font-weight: bold">추천수</th>
+				<th style="font-weight: bold">댓글수</th>
+				<th style="font-weight: bold">작성일자</th>
+				<th style="font-weight: bold">조회수</th>
 			</tr>
 		</thead>	
 			<% int templ = 0; %>
@@ -111,9 +147,7 @@ button{
 	</table>
 	<br>
 	<p align="center">
-		
 		<input type="button" value="글쓰기" onclick="location.href='views/board/QaAinsertForm.jsp'">
-		
 	</p>
 	<div class="text-center" class="pagination">
 		<button onclick="location.href='<%= request.getContextPath() %>/selectQuestion.bo?currentPage=1'"><<</button>
@@ -204,6 +238,15 @@ button{
 				location.href="<%= request.getContextPath() %>/selectOneQt.bo?num="+num;
 			});
 		});
+		function noticeList(){
+			location.href="<%= request.getContextPath() %>/selectqaa.no";
+		}
+		function freeList(){
+			location.href="<%= request.getContextPath() %>/selectFb.no";
+		}
+		function QaaList(){
+			location.href="<%= request.getContextPath() %>/selectQuestion.bo"
+		}
 		
 	</script>
 	

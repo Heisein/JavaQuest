@@ -33,9 +33,9 @@
 		background-color:;
 	}
 	#tableform{
-		margin-left:500px;
+		margin-left:450px;
 		background:rgba(255,255,255,1);
-		width:400px;
+		width:450px;
 		padding:30px;
 	}
 </style>
@@ -68,12 +68,16 @@
 		          	</div>
 		            <div>
 		              <label for="InputPassword1">비밀번호</label>
-		              <input type="password" placeholder="비밀번호" name="userPwd">
+		              <input type="password" placeholder="비밀번호" name="userPwd" id="password1">
 		            </div>
 		            <div>
 		              <label for="InputPassword2">비밀번호 확인</label>
-		              <input type="password"placeholder="비밀번호 확인" name="userPwd2">
+		              <input type="password"placeholder="비밀번호 확인" name="userPwd2" id="password2">
+		              <span>
+		              	<button type="button" class="btn btn-primary" id="passwordCheck">중복확인</button>
+		              </span>
 		            </div>
+		            
 		            <div>
 		              <label for="InputEmail">이메일 주소</label>
 		              <input type="email" placeholder="이메일 주소" name="email">
@@ -99,22 +103,36 @@
 		    </div> <!-- end of container -->
 		</div>
         <script>
-        	<!-- 아이디,닉네임 중복확인, 이메일인증  -->
+        	<!-- 아이디,닉네임 중복확인, 이메일인증x, 정규식표현 -->
+        		$("#passwordCheck").click(function(){
+        			var password = $("#password1").val();
+        			var password2 = $("#password2").val();
+        			if(password != password2){
+        				alert("패스워드가다릅니다. 확인 바랍니다.");
+        			}else{
+        				alert("패스워드가 확인되었습니다.");
+        			}
+        		});
         		$("#idCheck").click(function(){
         			var userId = $("#userId").val();
 					console.log(userId);
-					
 					$.ajax({
 						url:"/jqt/idCheck.me",
 						type:"post",
 						data:{"userId":userId},
 						success:function(data){
 							console.log(data);
+							var pattern = /(^[a-zA-Z])/;
+							var pattern2 = /([^a-zA-Z0-9-_])/;
+							var userId = $("#userId").val();
 							if(data === "fail"){
 								alert("중복된 아이디입니다.");
+							}else if(!pattern.test(userId)){
+								alert("아이디 첫글자는 영문이거나 영문,숫자,-,_만 사용할 수 있습니다.");
 							}else{
 								alert("사용 가능한 아이디입니다.");
 							}
+							
 						},
 						error:function(msg){
 							console.log(data)
@@ -122,7 +140,6 @@
 						}
         			});
         		});
-        		
         		$("#nickCheck").click(function(){
         			var userNickName = $("#userNickName").val();
         			console.log(userNickName);
@@ -131,8 +148,12 @@
         				data:{"userNickName":userNickName},
         				success:function(data){
         					console.log(data);
+        					var pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,20}$/;
+        					var userNickName = $("#userNickName").val();
         					if(data ==="fail"){
         						alert("중복된 닉네임입니다.");
+        					}else if(!pattern.test(userNickName)){
+        						alert("닉네임은2~20글자로 입력해주세요!");
         					}else{
         						alert("사용 가능한 닉네임입니다.");
         					}

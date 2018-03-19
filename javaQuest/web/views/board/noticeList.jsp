@@ -15,34 +15,72 @@
 <html>
 <head>
 <style>
-
 <!-- 공지사항 -->
 * {font-size: 9pt !important;}
 .btn_align {width: 600px !important; text-align: right !important;}
-table tbody tr th {
-	background-color: gray !important;
-	text-align:center !important;
-}
+
 tr, th, td{
 border:1px solid black !important;
 }
 table{
 	border:1px solid black !important;
+	width:100% !important;
+	text-align:center !important;
 }
 
-#label1{
-	margin-left:;
-}
-button{
+	.wrap{
+		display:inline-block !important;
+	}
+	.choice{
+		text-align:center !important;
+		width:auto !important;
+		padding:0 30px !important;
+	}
+	.choice:hover{
+		text-decoration:underline !important;
+		cursor:pointer !important;
+		background:lightgray !important;
+	}
+	.nowType{
+		background:#428bca !important;
+		color:white !important;
+	}
+	input{
+		width:120px !important;
+		height:30px !important;
+		margin-left:5px !important;
+		background:white !important;
+		border:1px solid white !important;
+	}
+	button{
 		border-radius:10px !important;
 		
 	}
 	button:hover{
-		background-color:;
+		cursor:pointer;
 	}
 	td:hover{
 		background-color: #e6ecff !important;
+		cursor:pointer;
 	}
+	#thText th{
+		text-align:center;
+		border-bottom:2px solid black !important;
+		height:40px !important;
+		vertical-align:middle !important;
+	}
+	tr:nth-child(2n){
+		background:#ededed !important;
+	}
+	.trArea:hover{
+		background:#68a2ff !important;
+	}
+	.my-hr2 {
+    border: 0;
+    height: 1px;
+    background: black;
+  }
+	
 
 </style>
 
@@ -56,13 +94,14 @@ button{
 </head>
 <body>
 <%@ include file= "/views/common/menubar.jsp" %>
-<br/>
-<div class="container" align="center">
-	<div id="label1" align="left">
-		<label><a href="<%= request.getContextPath() %>/selectqaa.no">공지사항</a></label>/
-		<label><a href="<%= request.getContextPath() %>/selectFb.no">자유게시판</a></label>/
-		<label><a href="<%= request.getContextPath() %>/selectQuestion.bo">Q % A</a></label>
+<div class="container">
+	<!-- 카테고리 맞추기! -->
+	<div class="wrap">
+		<input type="button" class="choice nowType" value="공지사항" onclick="noticeList();">
+		<input type="button" class="choice" value="자유게시판" onclick="freeList();">
+		<input type="button" class="choice" value="질문답게시판" onclick="QaaList();">
 	</div>
+	<hr class="my-hr2">
 	<table border="1" id="listArea">
 		<caption>공지사항</caption>
 		<colgroup>
@@ -75,20 +114,20 @@ button{
 			<col width="70">
 		</colgroup>
 		<thead>
-			<tr>
+			<tr id="thText">
 			<!-- no. 닉네임, 제목 , 추천수, 댓글수, 작성일자, 조회수 배경 -->
-				<th align="center">no.</th>
-				<th align="center">제목</th>
-				<th align="center">닉네임</th>
-				<th align="center">추천수</th>
-				<th align="center">댓글수</th>
-				<th align="center">작성일자</th>
-				<th align="center">조회수</th>
+				<th style="font-weight: bold">no.</th>
+				<th style="font-weight: bold">제목</th>
+				<th style="font-weight: bold">닉네임</th>
+				<th style="font-weight: bold">추천수</th>
+				<th style="font-weight: bold">댓글수</th>
+				<th style="font-weight: bold">작성일자</th>
+				<th style="font-weight: bold">조회수</th>
 			</tr>
 		</thead>
 			<% int templ = 0; %>
 			<% for(Board n: list){ %>
-			<tr id="selectTr<%= templ++ %>">
+			<tr class="trArea" id="selectTr<%= templ++ %>">
 				<input type="hidden" value="<%= n.getBid() %>">
 				<td><%= n.getBno() %></td>
 				<td><%= n.getBtitle() %></td>
@@ -99,13 +138,10 @@ button{
 				<td><%= n.getBcount() %></td>
 			</tr>
 			<% } %>
-			
-			
 		<tfoot>
 			<tr>
 				<td align="center" colspan="7">
 				</td>
-				
 			</tr>
 		</tfoot>
 	</table>
@@ -208,6 +244,16 @@ button{
 				location.href="<%= request.getContextPath() %>/selectOneQaa.bo?num="+num;
 			});
 		});
+		
+		function noticeList(){
+			location.href="<%= request.getContextPath() %>/selectqaa.no";
+		}
+		function freeList(){
+			location.href="<%= request.getContextPath() %>/selectFb.no";
+		}
+		function QaaList(){
+			location.href="<%= request.getContextPath() %>/selectQuestion.bo"
+		}
 		
 	</script>
 	
