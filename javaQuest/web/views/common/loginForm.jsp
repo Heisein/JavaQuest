@@ -37,7 +37,7 @@
             </div>
             <div>
                <div class="id-pwd">
-                  <a href="#">아이디&nbsp;/&nbsp;비밀번호찾기</a>
+                  <a href="../member/memberSearchForm.jsp">아이디&nbsp;/&nbsp;비밀번호찾기</a>
                </div>
                <div class="btnArea">
                   <button type="submit" class="btn btn-danger">로그인</button>

@@ -20,9 +20,9 @@
 		margin-bottom:10px;
 	}
 
-	.choice {
-		width:100px;
-		height:70px;
+	#choice {
+		width:210px;
+		height:50px;
 		text-align:center;
 		vertical-align:middle;
 	}
@@ -86,7 +86,6 @@
 				<input type="button" id="choice" name="ox" value="OX">
 				<input type="button" id="choice" name="multichoice" value="Quiz">
 				<input type="button" id="choice" name="timeAttack" value="Timeattack">
-				<input type="button" id="choice" name="realtime" value="Realtime">
 			</div>
 			<table align="center">
 				<tr>

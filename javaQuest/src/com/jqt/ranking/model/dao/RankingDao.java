@@ -90,8 +90,8 @@ public class RankingDao {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
+			list = new ArrayList<Ranking>();
 			while(rset.next()){
-				list = new ArrayList<Ranking>();
 				Ranking r = new Ranking();
 				
 				r.setrNum(rset.getInt("rnum"));
@@ -126,8 +126,8 @@ public class RankingDao {
 			pstmt.setInt(1, code);
 			rset = pstmt.executeQuery();
 			
+			list = new ArrayList<Ranking>();
 			while(rset.next()){
-				list = new ArrayList<Ranking>();
 				Ranking r = new Ranking();
 				
 				r.setrNum(rset.getInt("rnum"));

@@ -80,4 +80,20 @@ public class MemberService {
 		return result;
 	}
 
+	public Member searchId(String email) {
+		Connection con = getConnection();
+		Member m = new MemberDao().searchId(con, email);
+		
+		close(con);
+		return m;
+	}
+
+	public Member searchPwd(String id, String email) {
+		Connection con = getConnection();
+		Member m =new MemberDao().searchPwd(con, id, email);
+		
+		close(con);
+		return m;
+	}
+
 }
