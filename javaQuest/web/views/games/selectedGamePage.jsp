@@ -26,11 +26,12 @@
 <link rel="stylesheet" href="/jqt/css/game.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
 	<div class="container">
-	<div align="right"><button class="exit" onclick="exit();">나가기</button></div>
+	<div align="right"><button class="btn btn-danger" onclick="exit();">나가기</button></div>
 	<div align="center" class="title">사지선다</div>
 	<br/>
 		<div class="quiz">
@@ -68,7 +69,6 @@
 			
 			content[<%= i %>] = ["<%= content[i] %>"];
 			answers[<%= i %>] = ["<%= answers[i] %>"];
-			no[<%= i %>] = [<%= no[i] %>];
 			
 		<% } %>
 		

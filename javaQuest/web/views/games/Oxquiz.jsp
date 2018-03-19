@@ -17,51 +17,50 @@
 <link rel="stylesheet" href="/jqt/css/common.css">
 <link rel="stylesheet" href="/jqt/css/Oxquiz.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/jqt/js/ParamSpliter.js"></script>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	
-		<div class="topArea" align="right">
-			<p class="quiz-no">99번 문제</p>
-			<button class="exit" onclick="exit();">나가기</button>
-		</div>
-		
-			<!-- quiz -->
-			<div class="quiz-ox">
-				<button class="O"></button>
-				<button class="X"></button>
-				<div class="quiz-ox-con">이 게임은 5초마다 문제가 바뀌며 틀리신분들은 자동으로 나가집니다.<br/><br/> 총 30문제가 끝날동안 살아남으세요.</div>
-			</div>
-			<div id="hiddenAnswer" style="display: none;">gd</div>
-			<!-- quiz -->
-			<div class="btnArea">
-			
-			</div>
-			
-			
-			<!-- answer -->
-			<div class="answer-wrap">
-				<ul class="answer">
-				</ul>
-			</div>
-			<!-- answer -->
-			<fieldset>
-		        <textarea id="textArea" rows="10" cols="168" readonly style="resize: none;"></textarea>
-		        <br/>
-		        <input id="inputMessage" type="text" onkeyup="enterkey()"/>
-		        <input type="submit" value="send" onclick="send()"/>
-		    </fieldset>
+	<div class="topArea" align="right">
+		<p class="quiz-no">99번 문제</p>
+		<button class="btn btn-danger" onclick="exit();">나가기</button>
 	</div>
-	<!-- container -->
+	
+		<!-- quiz -->
+	<div class="quiz-ox">
+		<button class="O"></button>
+		<button class="X"></button>
+		<div class="quiz-ox-con">이 게임은 5초마다 문제가 바뀌며 틀리신분들은 자동으로 나가집니다.<br/><br/> 총 30문제가 끝날동안 살아남으세요.</div>
+	</div>
+	<div id="hiddenAnswer" style="display: none;">gd</div>
+	<!-- quiz -->
+	<div class="btnArea" align="center">
+	
+	</div>
+	
+		<!-- answer -->
+	<div class="answer-wrap">
+		<ul class="answer">
+		</ul>
+	</div>
+	<!-- answer -->
+	<fieldset>
+        <textarea id="textArea" rows="10" cols="140" readonly style="resize: none;"></textarea>
+        <br/>
+        <input id="inputMessage" type="text" onkeyup="enterkey()"/>
+        <input type="submit" class="btn btn-primary" value="send" onclick="submitMessage()"/>
+    </fieldset>
+</div>
 	<script>
 		//뒤로가기 막기
 		history.pushState(null, document.title, location.href); 
 		window.addEventListener('popstate', function(event) {
 			history.pushState(null, document.title, location.href); 
 		});	
-	
+
 		//새로고침 막기
 		function LockF5(){
 			if (event.keyCode == 116) {
@@ -78,7 +77,7 @@
 		
 		window.addEventListener("load", connect, false);    //창이 열리면 websocket 객체 호출
 		function connect() {                   // 웹소켓 생성
-			wsocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
+			wsocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
 			wsocket.onmessage = onMessage;        // 메세지가 왔을때 호출할 메소드 지정
 		}
 		
@@ -126,16 +125,16 @@
 					}else if(oldMember[i] === "<%= loginUser.getNickName() %>"){
 						$(".answer").append("<li class='"+ oldMember[i] + "' style='border: 5px solid green'>" + oldMember[i] + "</li>");
 					}else {
-						$(".answer").append("<li class='"+ oldMember[i] + "'>" + oldMember[i] + "</li>");
+						$(".answer").append("<li class='"+ oldMember[i] + "'>" + oldMember[i] + "	</li>");
 					}
 					
 				}
 				
 				if(oldMember[oldMember.length-1] === "<%= loginUser.getNickName() %>") {
-					$(".btnArea").append("<button id='startBtn'>시작하기</button>");
+					$(".btnArea").append("<button id='startBtn' class='btn btn-info'>시작하기</button>");
 				}
 				
-				textarea.innerHTML+= message;
+				textarea.innerHTML += message;
 				textarea.scrollTop = textarea.scrollHeight;		
 				
 				break;
@@ -178,7 +177,6 @@
 						$(".quiz-ox-con").text(count);
 						$("#hiddenAnswer").text(data[i].quizAnswer); //답을 올리는 공간
 
-						alert(data.length);
 						//시간을 설정하여 문제를 바뀌게 함
 						var content = setInterval(function(){ 
 							user = 	$(".answer").children();		
@@ -219,7 +217,7 @@
 									count = 5;
 									}else {
 										clearInterval(content);
-										$(".btnArea").append("<button id='startBtn'>시작하기</button>");
+										$(".btnArea").append("<button id='startBtn' class='btn btn-info'>시작하기</button>");
 										alert("축하합니다  게임에서 우승하셨습니다.");
 										
 										$.ajax({
@@ -298,7 +296,7 @@
 			//게임 시작 최소인원
 			if(user.length >= 1){ //시작 할때 대기방에 잠깐 들려 버튼막기
 				wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=start");
-				var webSocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
+				var webSocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
 				
 				setTimeout(function() {
 					webSocket.close();
@@ -309,7 +307,7 @@
 			}
 			
 		});
-		
+	/* 	
 		function count(){
 			var i = 5;
 			var time = setInterval(function(){
@@ -321,7 +319,7 @@
 					clearInterval(time);
 				}
 			});
-		}
+		} */
 		
 		//방 나가기
 	  	function exit() { 

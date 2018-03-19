@@ -1,17 +1,25 @@
 @CHARSET "UTF-8";
 
 body {
-	background: #dedede;
+	background: white;
 }
 
 .topArea {
-	width: 1200px;
+	width: 1150px;
 }
 
 .container {
 	/* background: url(../images/background3.png) no-repeat; */
 	
 }
+
+.btnArea {
+	z-index: 1;
+    position: absolute;
+    left: 48%;
+    top: 50%;
+}
+
 .title{
 	width: 100%;
 	font-size: 30px;
@@ -19,13 +27,8 @@ body {
 	text-align: center;
 }
 
-.exit{
-	background: red;
-}
-
 .quiz-ox {
-	background: green;
-	border: 5px solid #dfdfdf;
+	background: lightgray;
 	padding: 0 30px;
 	width: 1120px;
 	height: 200px;
@@ -87,10 +90,13 @@ body {
 
 .answer-wrap {
 	width: 1200px;
+	background: url(../images/ox_background.png) no-repeat;
+	background-size: 100% 100%;
 }
 
 .answer{
-	height: 465px;
+	
+	height: 420px;
 	overflow: hidden;
 	/* border: 5px solid black; */
 }
@@ -111,11 +117,13 @@ body {
 	cursor: pointer;
 }
 #textArea {
+	border: 5px solid gray;
 	margin-top: 20px;
 	font-size: 14px;
 }
 
 #inputMessage {
-	width: 1150px;
+	border: 5px solid gray;
+	width: 1075px;
 }
 

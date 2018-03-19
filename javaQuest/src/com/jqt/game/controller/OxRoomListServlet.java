@@ -24,10 +24,6 @@ public class OxRoomListServlet extends HttpServlet {
 		System.out.println("리스트 뽑아보자");
 		String type = request.getParameter("type");
 		String roomNumber = request.getParameter("roomNumber");
-		//String present = request.getParameter("present");
-		System.out.println("list type : " + type);
-		System.out.println("list roomNumber : " + roomNumber);
-	//	System.out.println("list present : " + present);
 		
 		if(type.equals("allList")){
 			ArrayList<Room> list = new RoomService().allList();
@@ -37,7 +33,6 @@ public class OxRoomListServlet extends HttpServlet {
 				request.setAttribute("list", list);
 				request.setAttribute("type", type);
 				request.setAttribute("roomNumber", roomNumber);
-			//	request.setAttribute("present", present);
 			}
 		}
 		else if(type.equals("delete")){
@@ -64,19 +59,6 @@ public class OxRoomListServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("views/games/waitingRoom.jsp").forward(request, response);
-		
-		/*
-		ArrayList<Room> list = new RoomService().allList();
-
-		if(list != null){
-			System.out.println("안녕하세요~~~");
-			request.setAttribute("list", list);
-			request.setAttribute("type", type);
-			request.setAttribute("roomNumber", roomNumber);
-			//request.setAttribute("present", present);
-			request.getRequestDispatcher("views/games/waitingRoom.jsp").forward(request, response);
-		}*/
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
