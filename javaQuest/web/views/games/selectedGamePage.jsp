@@ -55,8 +55,7 @@
 	
 	
 	<script>
-		var j = 0;					//배열 이용을 위한 변수.
-		var no = new Array();		//문제 번호
+		var j = 0;					//배열 이용을 위한 변수.(문제 번호로도 사용)
 		var content = new Array();	//문제 지문
 		var answers = new Array();	//정답
 		var choice = new Array(new Array(<%= content.length %>));	//문제수에 맞춰 보기 배열 생성
@@ -86,7 +85,7 @@
 			$(".answer").append("<li class='number'>" + choice[j][<%= i %>] + "</li>");
 		<% } %>
 
-		quiz_no.innerHTML = no[j] + "번 문제"; //문제 번호 올리기
+		quiz_no.innerHTML = j+1 + "번 문제"; //문제 번호 올리기
 		quiz_con.innerHTML = content[j];	//문제 올리기
 		hiddenAnswer.innerHTML = answers[j];		//답 올리기
 		
@@ -94,13 +93,15 @@
 		//보기클릭시 발생하는 이벤트.
 		$(document).on('click', '.number', function(){
 			//정답일때
-			if($(this).text() === hiddenAnswer.innerHTML){
+			console.log($(this).text());
+			if($(this).text() === hiddenAnswer.innerText){
 				console.log($(this).text());
 				$(".quiz-con").html("");
 				$(".quiz").css({"border" : "5px solid blue"});
-				$(".quiz-con").html("정답입니다.<br/>다음 문제를 도전하시겠습니까?<br/><br/><button class='next' onclick='next();'>다음문제</button>");
+				$(".quiz-con").html("정답입니다.<br/>다음 문제를 도전하시겠습니까?<br/><br/><button class='next' onclick='next();'>다음문제</button>").css("color", "white");
 			}else {
 				//오답일때
+				$(".quiz-con").html("");
 				$(".quiz").css({"border" : "5px solid red"});
 				var temp = $(".quiz-con").html();
 				$(".quiz-con").html(temp + "<br/><br/>아니다.").css("color", "red");
@@ -109,18 +110,23 @@
 		
 		//다음 문제 클릭시 발생하는 이벤트
 		function next(){
+			
 			j++;
-			$(".quiz-con").css("color", "black");	//초기화
-			$(".quiz").css({"border" : "5px solid #dfdfdf"});	//전광판 리셋
-			$(".answer").html("");					//초기화.
-			quiz_no.innerHTML = no[j] + "번 문제";	//문제 번호 교체
-			quiz_con.innerHTML = content[j];		//문제 교체
-			
-			<% for(int q = 0; q < 4; q++) { %>
-				$(".answer").append("<li class='number'>" + choice[j][<%= q %>] + "</li>"); //보기 교체
-			<% } %>
-			
-			hiddenAnswer.innerHTML = answers[j];	//다음문제 답으로 교체
+			if(j < content.length){
+				$(".quiz-con").css("color", "white");	//초기화
+				$(".quiz").css({"border" : "5px solid #dfdfdf"});	//전광판 리셋
+				$(".answer").html("");					//초기화.
+				quiz_no.innerHTML = j+1 + "번 문제";	//문제 번호 교체
+				quiz_con.innerHTML = content[j];		//문제 교체
+				
+				<% for(int q = 0; q < 4; q++) { %>
+					$(".answer").append("<li class='number'>" + choice[j][<%= q %>] + "</li>"); //보기 교체
+				<% } %>
+				
+				hiddenAnswer.innerHTML = answers[j];	//다음문제 답으로 교체
+			}else {
+				$(".quiz-con").html("축하드립니다! 준비된 모든 문제를 푸셨습니다. 게임을 종료하시겠습니까?<br/><br/><button class='next' onclick=location.href='<%= request.getContextPath() %>/views/games/gameMainPage.jsp'>종료하기</button>").css("color", "white");
+			}
 		}
 		
 		function exit(){

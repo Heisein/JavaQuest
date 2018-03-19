@@ -13,10 +13,10 @@ public class GameService {
 	
 	
 	//사지선다 문제 추출용 메소드
-	public ArrayList<SelectGame> selectGame() {
+	public HashSet<SelectGame> selectGame() {
 		Connection con = getConnection();
 		
-		ArrayList<SelectGame> list = new GameDao().selectGame(con);
+		HashSet<SelectGame> list = new GameDao().selectGame(con);
 		
 		close(con);
 		

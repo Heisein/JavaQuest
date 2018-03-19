@@ -1,6 +1,11 @@
 @CHARSET "UTF-8";
 
 /*  사지선다  */
+
+.container {
+	width: 1200px;
+	background: url(../images/background3.png) no-repeat;
+}
 .title{
 	width: 100%;
 	font-size: 30px;
@@ -11,17 +16,19 @@
 	background: red;
 }
 .quiz{
-	border: 5px solid #dfdfdf;
-	padding: 0 30px;
+	background: green;
 	width: 1200px;
 	height: 500px;
+	border: 5px solid #dfdfdf;
+	border-radius: 80px;
+	padding: 0 30px;
 	display: table-cell;
 	vertical-align: middle;
 	position: relative;
-	border-radius: 80px;
 	
 }
 .quiz-no{
+	color: white;
 	position: absolute;
 	width: 100px;
 	height: 50px;
@@ -32,6 +39,7 @@
 	left: calc(1100px/2);
 }
 .quiz-con{
+	color: white;	
 	font-size:24px;
 	text-align: center;
 	line-height: 30px;
@@ -41,13 +49,15 @@
 	overflow: hidden;
 }
 .answer li{
+	background: gray;
 	float: left;
 	width: 400px;
-	border: 5px solid #dfdfdf;
+	border: 5px solid black;
 	margin: 70px 100px 0 100px;
 	box-sizing: border-box;
 	padding: 20px;
 	font-size: 20px;
+	color: white;
 	text-align: center;
 	border-radius: 30px;
 }
@@ -58,18 +68,18 @@
 	cursor: pointer;
 	color: red;
 	border: 5px solid black;
-	box-shadow : 4px 4px 2px 1px #808080;
+	box-shadow : 4px 4px 2px 1px black;
 }
 .next {
 	width: 150px;
 	height: 50px;
 	background: white;
-	border: 5px solid #dfdfdf;
+	border: 5px solid black;
 	border-radius: 30px;
 }
 .next:hover {
 	cursor: pointer;
 	border: 5px solid black;
-	box-shadow : 4px 4px 2px 1px #808080;
+	box-shadow : 4px 4px 2px 1px black;
 }
 

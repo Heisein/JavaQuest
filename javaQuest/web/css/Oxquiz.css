@@ -1,6 +1,17 @@
 @CHARSET "UTF-8";
 
+body {
+	background: #dedede;
+}
 
+.topArea {
+	width: 1200px;
+}
+
+.container {
+	/* background: url(../images/background3.png) no-repeat; */
+	
+}
 .title{
 	width: 100%;
 	font-size: 30px;
@@ -16,7 +27,7 @@
 	background: green;
 	border: 5px solid #dfdfdf;
 	padding: 0 30px;
-	width: 1200px;
+	width: 1120px;
 	height: 200px;
 	display: table-cell;
 	vertical-align: middle;
@@ -74,6 +85,10 @@
 	color: white;
 }
 
+.answer-wrap {
+	width: 1200px;
+}
+
 .answer{
 	height: 465px;
 	overflow: hidden;
@@ -101,6 +116,6 @@
 }
 
 #inputMessage {
-	width: 95%;
+	width: 1150px;
 }
 
