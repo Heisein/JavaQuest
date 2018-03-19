@@ -24,7 +24,7 @@ public class CountGameServlet extends HttpServlet {
 			System.out.println("들어오냐");
 	
 			//이번주에 내는 게임 번호를 입력
-			int qid = 41;
+			int qid = 18;
 			Quest q = new QuestService().selectOne(qid);
 			
 			String page = null;

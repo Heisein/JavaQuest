@@ -13,7 +13,7 @@
 	<%@ include file="../common/menubar.jsp" %>
 	<%@ include file="../common/loginOnly.jsp" %>
 	<!-- container -->
-	<div class="container">
+	<div class="container" style="height: 550px;">
 
 		<div class="leftBox">
 			<div class="visiArea">
@@ -30,7 +30,7 @@
 		</div>
 	<!-- leftBox -->
 
-		<div class="conArea">
+		<div class="conArea" style="height: 270px;">
 			<div class="right-con" id="right-con">
 				<h3 id="con-title">GAME CONTENT</h3>
 				

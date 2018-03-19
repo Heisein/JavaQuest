@@ -3,6 +3,8 @@ package com.jqt.game.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,9 +25,17 @@ public class SelectGameServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<SelectGame> list = new GameService().selectGame();
-
-		if(list != null){
+		HashSet<SelectGame> set = new GameService().selectGame();
+		
+		
+		if(set != null){
+			ArrayList<SelectGame> list = new ArrayList<SelectGame>();
+			
+			Iterator<SelectGame> it = set.iterator();
+			while(it.hasNext()){
+				list.add(it.next());
+			}
+			System.out.println("변환 후 리스트 사이즈 : " + list.size());
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/views/games/selectedGamePage.jsp").forward(request, response);
 		}

@@ -32,10 +32,10 @@ public class GameDao {
 	}
 	
 	
-	public ArrayList<SelectGame> selectGame(Connection con) {
+	public HashSet<SelectGame> selectGame(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		ArrayList<SelectGame> list = null;
+		HashSet<SelectGame> list = null;
 		
 		String query = prop.getProperty("selectGame");
 		
@@ -45,7 +45,7 @@ public class GameDao {
 			
 			rset = stmt.executeQuery(query);
 			
-			list = new ArrayList<SelectGame>();
+			list = new HashSet<SelectGame>();
 				while(rset.next()){
 					SelectGame sg = new SelectGame();
 					sg.setQuizNo(rset.getInt("quiz_no"));
