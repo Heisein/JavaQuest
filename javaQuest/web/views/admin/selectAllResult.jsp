@@ -73,8 +73,7 @@ table {
 		</div>
 		<!-- leftBox -->
 		<div class="conArea">
-
-			<h3>회원 정보 전체 보기</h3>
+			<h3 style="margin-top:0;">회원 정보 전체 보기</h3>
 			<div class="adminSelect">
 				<div class="selectBox" align="center">
 					<form>

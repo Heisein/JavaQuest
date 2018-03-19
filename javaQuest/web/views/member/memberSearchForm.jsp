@@ -37,7 +37,7 @@ div .container {
 .container .tabs .tab {
   display: inline-block;
   margin-bottom: -1px;
-  padding: 20px 15px 10px;
+  padding: 10px 15px 10px;
   cursor: pointer;
   letter-spacing: 0;
   border-bottom: 1px solid #d9d9d9;
@@ -258,35 +258,37 @@ div .container {
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp" %>
-	<div class="container">
+	<div class="container alert alert-info">
 		<h1>아이디/비밀번호 찾기</h1>
 		<div class="tabs">
-			<span class="tab signin active"><a href="#signin">아이디 찾기</a></span>
-			<span class="tab signup"><a href="#signup">비밀번호 찾기</a></span>
+			<span class="tab signin active"  style="background:#b0ddf4; opcaity:0.5;"><a href="#signin">아이디 찾기</a></span>
+			<span class="tab signup"  style="background:#b0ddf4; opcaity:0.5;"><a href="#signup">비밀번호 찾기</a></span>
 		</div>
 		<div class="content">
 			<div class="signin-cont cont">
 				<form action="<%= request.getContextPath()%>/searchMember.me" method="post" >
-					<input type="email" name="email" id="email" class="inpt" required="required" placeholder="이메일 입력">
+					<input type="email" name="email" id="email" class="inpt" required="required" placeholder="이메일 입력" style="background:white;">
 					
 					<div class="submit-wrap">
-						<input type="submit" value="찾기" class="submit">
+						<input type="submit" value="찾기" class="submit" style="background:white;">
 					</div>
         		</form>
     		</div>
     		<div class="signup-cont cont">
                 <form action="<%= request.getContextPath()%>/searchMember.me" method="post">
-					<input type="text" name="id" id="id" class="inpt" required="required" placeholder="아이디 입력">
+					<input type="text" name="id" id="id" class="inpt" required="required" placeholder="아이디 입력" style="background:white;">
 					
-                    <input type="email" name="email" id="email" class="inpt" required="required" placeholder="이메일 입력">
+                    <input type="email" name="email" id="email" class="inpt" required="required" placeholder="이메일 입력" style="background:white;">
 					
 					<div class="submit-wrap">
-						<input type="submit" value="찾기" class="submit">
+						<input type="submit" value="찾기" class="submit" style="background:white;">
 					</div>
         		</form>
             </div>
 		</div>
 	</div>
+	
+	<%@ include file="/views/common/footer.jsp" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 <script type="text/javascript">
@@ -296,15 +298,18 @@ $('.tabs .tab').click(function(){
         $(this).addClass('active');
         $('.cont').hide();
         $('.signin-cont').show();
-        <%-- $(".signin-cont").children().children("div").children("input").click(function(){
-        	alert("아이디는<%= m.getUserId()%>입니다")
-        }); --%>
+        $(".signin-cont").children().children("div").children("input").click(function(){
+        	alert("회원님의 이메일로 아이디가 발송되었습니다.");
+        });
     } 
     if ($(this).hasClass('signup')) {
         $('.tabs .tab').removeClass('active');
         $(this).addClass('active');
         $('.cont').hide();
         $('.signup-cont').show();
+        $(".signup-cont").children().children("div").children("input").click(function(){
+        	alert("회원님의 이메일로 비밀번호 변경 폼이 발송되었습니다.");
+        });
     }
 });
 

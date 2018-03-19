@@ -4,15 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/jqt/css/slider.css">
 <title>Insert title here</title>
 <style>
-
-
 /* 광고판 이미지 공간 */
-.carousel-inner {
+.slider {
 	width: 100%;
 	height: 500px;
 }
@@ -103,23 +102,6 @@
 	padding-bottom: 60px;
 	padding-left: 0px;
 }*/
-
-/* 광고/공지판 버튼크기 */
-.carousel-control {
-	position: absolute;
-	top: 40%;
-	bottom: 0;
-	left: 0;
-	width: 5%;
-	height: 100px; font-size : 20px;
-	color: #fff;
-	text-align: center;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-	background-color: rgba(0, 0, 0, 0);
-	filter: alpha(opacity = 50);
-	opacity: .5;
-	font-size: 20px;
-}
 	.javaquest{
 		font-size:42px;
 		margin-top:42px;
@@ -133,87 +115,84 @@
 </head>
 <body>
 	<%@ include file = "/views/common/menubar.jsp" %>
-	<br/>
-	<br/>
-	<!-- 광고판/공지 영역 -->  
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    
-		<!-- 광고판 아래 순서표시 -->
-    	<ol class="carousel-indicators">
-		    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    		<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-    	</ol>
-		
-		<!-- 광고판 실제 내용 -->
-		<div class="carousel-inner">
-	     	<div class="item active" >
-		        <img src="images/pic1.jpg" alt="Los Angeles" style="width:100%;" class = "image">
-	     	</div>
 	
-      		<div class="item">
-	        	<img src="images/pic2.jpg" alt="Chicago" style="width:100%;" class = "image">
-        	</div>
-	    
-        	<div class="item">
-	        	<img src="images/pic3.jpg" alt="New york" style="width:100%;" class = "image">
-        	</div>
-    	</div>
-	
-		<!-- 좌우 버튼 -->
-	    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      		<span class="glyphicon glyphicon-chevron-left"></span>
-      		<span class="sr-only">Previous</span>
-    	</a>
-    	<a class="right carousel-control" href="#myCarousel" data-slide="next">
-      		<span class="glyphicon glyphicon-chevron-right"></span>
-      		<span class="sr-only">Next</span>
-    	</a>
+	<div class="slider" id="slider">
+		<div class="slItems">
+			<div class="slItem" style="background-image: url('/jqt/images/car1.png');">
+				<div class="slText">
+				</div>
+			</div>
+			<div class="slItem" style="background-image: url('/jqt/images/car2.png');">
+				<div class="slText">
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="/jqt/js/slider.min.js"></script>
+	<script>
+	$(function(){
+		$('#slider').rbtSlider({
+			height: '700px', 
+			'dots': true,
+			'arrows': true,
+			'auto': 3
+		});
+	});
+	</script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-36251023-1']);
+	  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+  </script>
 	
 	<div class="container" style="width:100%;padding-right:0px;padding-left:0px;">	
-	
-	<!-- 중간 소개글 -->
-	<div class = "tempClass" align = "center" >
-		<h1 class="javaquest">JavaQuest</h1>
-	</div>
-	<!-- 문제 수 영역  -->
-	<div class="parallax-counter-v1 parallaxBg">
-	    <div class="container-">
-	        <div class="row margin-bottom-10">
-	            <div class="col-sm-3 col-xs-6">
-	                <div class="counters">
-	                    <span class="counter">14494</span>   
-	                    <h4>전체 문제</h4>
-	                </div>
-	            </div>
-	            <div class="col-sm-3 col-xs-6">
-	                <div class="counters">
-	                    <span class="counter">11989</span> 
-	                    <h4>채점 가능한 문제</h4>
-	                </div>    
-	            </div>
-	            <div class="col-sm-3 col-xs-6">
-	                <div class="counters">
-	                    <span class="counter">9999</span>
-	                    <h4>풀린 문제</h4>
-	                </div>    
-	            </div>
-	            <div class="col-sm-3 col-xs-6">
-	                <div class="counters">
-	                    <span class="counter">62</span>
-	                    <h4>채점 가능한 언어</h4>
-	                </div>    
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	
-	<!-- 테스트용 빈 공간 -->
-	<div class = "tempClass">
-		
-	</div>
-	</div>
+		<!-- 중간 소개글 -->
+		<div class = "tempClass" align = "center" >
+			<h1 class="javaquest" style="border-bottom:3px dashed black;">Java Quest</h1>
+			<br>
+		</div>
+		<!-- 문제 수 영역  -->
+		<div class="parallax-counter-v1 parallaxBg">
+		    <div class="container-">
+		        <div class="row margin-bottom-10">
+		            <div class="col-sm-3 col-xs-6">
+		                <div class="counters">
+		                    <span class="counter">14494</span>   
+		                    <h4>전체 문제</h4>
+		                </div>
+		            </div>
+		            <div class="col-sm-3 col-xs-6">
+		                <div class="counters">
+		                    <span class="counter">11989</span> 
+		                    <h4>채점 가능한 문제</h4>
+		                </div>    
+		            </div>
+		            <div class="col-sm-3 col-xs-6">
+		                <div class="counters">
+		                    <span class="counter">9999</span>
+		                    <h4>풀린 문제</h4>
+		                </div>    
+		            </div>
+		            <div class="col-sm-3 col-xs-6">
+		                <div class="counters">
+		                    <span class="counter">62</span>
+		                    <h4>채점 가능한 언어</h4>
+		                </div>    
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div> <!-- container -->
 	<!-- 제일 아래 푸터 -->
 	<%@ include file = "/views/common/footer.jsp" %>     
 </body>
