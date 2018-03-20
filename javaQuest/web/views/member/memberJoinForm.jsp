@@ -48,9 +48,9 @@
 	<div id="backgroundImage" style="height:600px; background-image:url('<%= request.getContextPath() %>/images/join_background.jpg');">
 		<div id="container">
 			<br/>
-			<h3 style="margin-left:630px; color:white;">회원가입</h3>  
+			<h3 style="margin-left:900px; color:white;">회원가입</h3>  
 			<br>
-			<div id="tableform">
+			<div id="tableform" style="margin-left:730px;">
 				<form id="joinForm" action="<%= request.getContextPath() %>/insertMember.me" method="post">
 					<div>
 		          		<label>아이디</label>
@@ -102,6 +102,9 @@
 		        </div>
 		    </div> <!-- end of container -->
 		</div>
+		
+		<%@ include file="/views/common/footer.jsp" %>
+		
         <script>
         	<!-- 아이디,닉네임 중복확인, 이메일인증x, 정규식표현 -->
         		$("#passwordCheck").click(function(){

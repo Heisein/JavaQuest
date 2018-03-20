@@ -31,33 +31,16 @@ public class RankingListServlet extends HttpServlet {
 		ArrayList<Ranking> list = null;
 		System.out.println(type);
 		
-		int code = 0;
 		if(type.equals("Level")){
 			list = new RankingService().RankingList();			
 		}
 		
-		if(type.equals("TimeaAttack")){
+		if(type.equals("TimeAttack")){
 			list = new RankingService().TimeAttackRanking();
 		}
 		
-		if(type.equals("Quiz")){
-			code = 3;
-			list = new RankingService().QuizRanking(code);
-		}
-		
-		if(type.equals("RealTime")){
-			code = 4;
-			list = new RankingService().QuizRanking(code);
-		}
-		
-		if(type.equals("Battle")){ 
-			code = 5;
-			list = new RankingService().QuizRanking(code);
-		}
-		
-		if(type.equals("OX")){
-			code = 2;
-			list = new RankingService().QuizRanking(code);
+		if(type.equals("Ox")){
+			list = new RankingService().OxQuizRanking();
 		}
 		
 		System.out.println(list);

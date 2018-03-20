@@ -39,8 +39,7 @@ public class RejectRequestServlet extends HttpServlet {
 		//페이지 연결
 		String page = "";
 		if(result > 0){
-			page = "views/quest/requestListPage.jsp";
-			request.setAttribute("list", new QuestService().selectRequestList());
+			page = "/selectRequest.ad";
 		}else{
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "요청 거부에 실패했습니다.");

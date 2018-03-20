@@ -147,7 +147,7 @@ table{
 	</table>
 	<br>
 	<p align="center">
-		<% if(loginUser !=null && loginUser.getUserId().equals("admin")){ %>
+		<% if(loginUser !=null && loginUser.getType() == 3){ %>
 		<input type="button" value="글쓰기" onclick="location.href='views/board/noticeinsertForm.jsp'">
 		<% } %>
 	</p>

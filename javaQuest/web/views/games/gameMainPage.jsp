@@ -17,9 +17,7 @@
 	<div class="container" style="height: 550px;">
 
 		<div class="leftBox">
-			<div class="visiArea">
-				Game Content
-			</div>
+			<div class="visiArea"><img src="/jqt/images/quest.png"></div>
 			<!-- visiArea -->
 			
 			<ul class="leftNav">
@@ -35,7 +33,7 @@
 			<div class="right-con" id="right-con">
 				<h3 id="con-title">GAME CONTENT</h3>
 				
-				<p id="account">이곳은 공부를 게임으로 하는 곳 입니다. 좌측에서 하고싶은 게임을 선택하시면 <br/>
+				<p class="alert alert-info" id="account">이곳은 공부를 게임으로 하는 곳 입니다. 좌측에서 하고싶은 게임을 선택하시면 <br/>
 				이 글이 있는 영역에 해당 게임에 대한 설명이 기록됩니다. 읽어보시고 맘에 드는 게임을 골라 시작해보세요.</p>
 				
 			</div>

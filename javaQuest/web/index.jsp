@@ -167,26 +167,26 @@
 		        <div class="row margin-bottom-10">
 		            <div class="col-sm-3 col-xs-6">
 		                <div class="counters">
-		                    <span class="counter">14494</span>   
+		                    <span class="counter">13</span>   
 		                    <h4>전체 문제</h4>
 		                </div>
 		            </div>
 		            <div class="col-sm-3 col-xs-6">
 		                <div class="counters">
-		                    <span class="counter">11989</span> 
+		                    <span class="counter">13</span> 
 		                    <h4>채점 가능한 문제</h4>
 		                </div>    
 		            </div>
 		            <div class="col-sm-3 col-xs-6">
 		                <div class="counters">
-		                    <span class="counter">9999</span>
-		                    <h4>풀린 문제</h4>
+		                    <span class="counter">5</span>
+		                    <h4>이번주의 타임어택 참가자</h4>
 		                </div>    
 		            </div>
 		            <div class="col-sm-3 col-xs-6">
 		                <div class="counters">
-		                    <span class="counter">62</span>
-		                    <h4>채점 가능한 언어</h4>
+		                    <span class="counter">모집 중..</span>
+		                    <h4>제휴 회사 수</h4>
 		                </div>    
 		            </div>
 		        </div>

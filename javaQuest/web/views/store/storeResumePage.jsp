@@ -97,7 +97,7 @@ tr:hover{
 	<div class="container">
 
 		<div class="leftBox">
-			<div class="visiArea">웹사이트 회원</div>
+			<div class="visiArea"><img src="/jqt/images/store.png"/></div>
 			<!-- visiArea -->
 
 			<ul class="leftNav">
@@ -149,6 +149,9 @@ tr:hover{
 		<!-- conArea -->
 	</div>
 	<!-- container -->
+	
+	<%@ include file = "/views/common/footer.jsp" %>
+	
 	<script>
 		
 	</script>

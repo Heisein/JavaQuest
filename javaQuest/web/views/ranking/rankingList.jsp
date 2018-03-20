@@ -108,10 +108,10 @@
 			<% }else{ %>
 			<input type="button" class="choice" name="timeAttack" value="TimeAttack">
 			<% } %>
-			<% if(type.equals("BattleRoyale")){ %>
-			<input type="button" class="choice nowType" name="battle" value="BattleRoyale">
+			<% if(type.equals("Ox")){ %>
+			<input type="button" class="choice nowType" name="battle" value="Ox">
 			<% }else{ %>
-			<input type="button" class="choice" name="battle" value="BattleRoyale">
+			<input type="button" class="choice" name="battle" value="Ox">
 			<% } %>
 		</div>
 		<br/>
@@ -128,7 +128,11 @@
 					<th>닉네임</th>
 					<th>상태메세지</th>
 					<th>클리어 퀘스트</th>
-					<th>승수</th>
+					<% String thMsg = "";
+						if(type.equals("Level")){ thMsg = "승수"; }
+						else if(type.equals("Ox")){ thMsg = "우승횟수"; }
+						else if(type.equals("TimeAttack")){ thMsg = "걸린시간"; } %>
+					<th><%= thMsg %></th>
 				</tr>
 				<%	int count = 1;
 					if(list != null){ %>
@@ -144,7 +148,13 @@
 						<td><%= r.getUserMsg() %></td>
 						<% } %>
 						<td><%= r.getClearQuest() %></td>
+						<% if(type.equals("Level")){ %>
 						<td><%= r.getWinRate() %></td>
+						<% }else if(type.equals("Ox")){ %>
+						<td><%= r.getOxWin() %></td>
+						<% }else if(type.equals("TimeAttack")){ %>
+						<td><%= r.getQuizTime() %></td>
+						<% } %>
 					</tr>
 					<% } %>
 				<% } %>

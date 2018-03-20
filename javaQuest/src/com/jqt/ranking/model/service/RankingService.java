@@ -27,17 +27,17 @@ public class RankingService {
 		return list;
 	}
 
-	public ArrayList<Ranking> QuizRanking(int code) {
+	public Ranking SearchNickName(String nickName, String order) {
 		Connection con = getConnection();
-		ArrayList<Ranking> list = new RankingDao().QuizRanking(con, code);
+		Ranking list = new RankingDao().SearchNickName(con, nickName, order);
 		
 		close(con);
 		return list;
 	}
 
-	public Ranking SearchNickName(String nickName, String order) {
+	public ArrayList<Ranking> OxQuizRanking() {
 		Connection con = getConnection();
-		Ranking list = new RankingDao().SearchNickName(con, nickName, order);
+		ArrayList<Ranking> list = new RankingDao().OxQuizRanking(con);
 		
 		close(con);
 		return list;

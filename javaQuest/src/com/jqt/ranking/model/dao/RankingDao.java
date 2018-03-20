@@ -89,20 +89,35 @@ public class RankingDao {
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
-			
 			list = new ArrayList<Ranking>();
+			
 			while(rset.next()){
 				Ranking r = new Ranking();
 				
 				r.setrNum(rset.getInt("rnum"));
 				r.setUserNum(rset.getInt("user_num"));
 				r.setUserNickName(rset.getString("user_nickname"));
+				r.setUserExp(rset.getInt("user_exp"));
 				r.setUserType(rset.getInt("user_type"));
 				r.setUserMsg(rset.getString("user_msg"));
 				r.setIsWithDraw(rset.getString("is_withdraw"));
+				r.setQuizTime(rset.getInt("QUIZ_TIME"));
+				
+				// 레벨 설정
+				int exp = r.getUserExp();
+				
+				if(exp >= 6400) r.setUserLevel(10);
+				else if(exp >= 3200) r.setUserLevel(9);
+				else if(exp >= 1600) r.setUserLevel(8);
+				else if(exp >= 800) r.setUserLevel(7);
+				else if(exp >= 400) r.setUserLevel(6);
+				else if(exp >= 200) r.setUserLevel(5);
+				else if(exp >= 100) r.setUserLevel(4);
+				else if(exp >= 50) r.setUserLevel(3);
+				else if(exp >= 10) r.setUserLevel(2);
+				else r.setUserLevel(1);
 				
 				list.add(r);
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,6 +194,56 @@ public class RankingDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Ranking> OxQuizRanking(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Ranking> list = null;
+		
+		String query = prop.getProperty("oxQuizRanking");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<Ranking>();
+			
+			while(rset.next()){
+				Ranking r = new Ranking();
+				
+				r.setrNum(rset.getInt("rnum"));
+				r.setUserNum(rset.getInt("user_num"));
+				r.setUserNickName(rset.getString("user_nickname"));
+				r.setUserExp(rset.getInt("user_exp"));
+				r.setUserType(rset.getInt("user_type"));
+				r.setUserMsg(rset.getString("user_msg"));
+				r.setIsWithDraw(rset.getString("is_withdraw"));
+				r.setOxWin(rset.getInt("OX_WIN"));
+				
+				// 레벨 설정
+				int exp = r.getUserExp();
+				
+				if(exp >= 6400) r.setUserLevel(10);
+				else if(exp >= 3200) r.setUserLevel(9);
+				else if(exp >= 1600) r.setUserLevel(8);
+				else if(exp >= 800) r.setUserLevel(7);
+				else if(exp >= 400) r.setUserLevel(6);
+				else if(exp >= 200) r.setUserLevel(5);
+				else if(exp >= 100) r.setUserLevel(4);
+				else if(exp >= 50) r.setUserLevel(3);
+				else if(exp >= 10) r.setUserLevel(2);
+				else r.setUserLevel(1);
+				
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
 			close(rset);
 		}
 		

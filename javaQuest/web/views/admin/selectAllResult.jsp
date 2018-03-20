@@ -57,7 +57,7 @@ table {
 	<%@ include file="/views/common/menubar.jsp" %>
 	<%@ include file="/views/common/loginOnly.jsp" %>
 	<br>
-	<div class="container">
+	<div class="container"> 
 		<div class="leftBox">
 			<div class="visiArea" align="center"><a><img src="/jqt/images/admin1.png"/></a></div>
 			<!-- visiArea -->

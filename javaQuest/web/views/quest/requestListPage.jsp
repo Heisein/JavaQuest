@@ -70,18 +70,12 @@
 
 	<!-- 메뉴 바는 불러올것  -->
 	<div class="leftBox">
-		<div class="visiArea">
-			<% if(loginUser != null) { %>
-				<%=loginUser.getNickName() %> 로그인
-			<% } else{ %>
-				로그인이 필요한 서비스입니다.
-			<% } %>
-		</div>
+		<div class="visiArea"><img src="/jqt/images/quest.png"/></div>
 		<!-- visiArea -->
 		
 		<ul class="leftNav">
-			<li onclick="<%= request.getContextPath() %>/selectList.qu""><i class="fa fa-quora"></i>메인 퀘스트</li>
-			<li onclick="<%= request.getContextPath() %>/selectList.qu""><i class="fa fa-quora"></i>서브 퀘스트</li>
+			<li onclick="<%= request.getContextPath() %>/selectList.qu"><i class="fa fa-quora"></i>메인 퀘스트</li>
+			<li onclick="<%= request.getContextPath() %>/selectList.qu"><i class="fa fa-quora"></i>서브 퀘스트</li>
 		</ul>
 		<br>
 		<ul class="leftNav">
@@ -135,6 +129,8 @@
 
 </div>
 <!-- container -->
+
+	<%@ include file = "/views/common/footer.jsp" %>
 
 </body>
 </html>

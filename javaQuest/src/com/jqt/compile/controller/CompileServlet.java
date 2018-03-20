@@ -70,7 +70,7 @@ public class CompileServlet extends HttpServlet {
 	    long startTime = System.currentTimeMillis();
 	    
 	    // cmd에 입력할 커맨드, 인코딩 없으면 한글 깨짐, 프로젝트 설정마다 상이함
-		String command = "cmd /C javac " + javaFilePath + " -encoding UTF-8";
+		String command = "cmd /C javac " + javaFilePath; //+ " -encoding UTF-8";
 		Process child = Runtime.getRuntime().exec(command); // runTime으로 cmd에 command넣고 실행
 
 		//저장된 process에서 에러스트림을 가져옴

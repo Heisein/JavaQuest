@@ -147,9 +147,7 @@
 	<div class="container">
 		<!-- 메뉴 바는 불러올것  -->
 		<div class="leftBox">
-			<div class="visiArea">
-				웹사이트 회원
-			</div>
+			<div class="visiArea"><img src="/jqt/images/quest.png"/></div>
 			<!-- visiArea -->
 			
 			<ul class="leftNav">
@@ -169,7 +167,7 @@
 		<!-- leftBox -->
 		
 		<div class="conArea" id="mainArea" style="overflow:scroll; overflow-x: hidden;">
-			<h3 style="margin-top:0;">Select Your Quest</h3>
+			<h3 style="margin-top:0;" class="alert alert-info">Select Your Quest</h3>
 			<div class="levelNav">
 				 <label id="l1-0" onclick="levelBtn(this)">All</label>
 				 <label id="l1-1" onclick="levelBtn(this)">Level1</label>
@@ -177,11 +175,11 @@
 				 <label id="l1-3" onclick="levelBtn(this)">Level3</label>
 				 <label id="l1-4" onclick="levelBtn(this)">Level4</label>
 				 <label id="l1-5" onclick="levelBtn(this)">Level5</label>
-				 <label id="l1-6" onclick="levelBtn(this)">Level6</label>
+				 <!-- <label id="l1-6" onclick="levelBtn(this)">Level6</label>
 				 <label id="l1-7" onclick="levelBtn(this)">Level7</label>
 				 <label id="l1-8" onclick="levelBtn(this)">Level8</label> 
 				 <label id="l1-9" onclick="levelBtn(this)">Level9</label>
-				 <label id="l1-10" onclick="levelBtn(this)">Level10</label> 
+				 <label id="l1-10" onclick="levelBtn(this)">Level10</label>  -->
 			</div>
 			<br>
 			<ul id="mainQuestUl">
@@ -200,7 +198,7 @@
 			</ul>
 		</div>
 		<div class="conArea" id="subArea" style="display:none; overflow:scroll; overflow-x: hidden;">
-			<h3 style="margin-top:0;">Select Your Quest</h3>
+			<h3 style="margin-top:0;" class="alert alert-info">Select Your Quest</h3>
 			
 			<p>
 				<div class="levelNav">
@@ -210,11 +208,11 @@
 				 <label id="l2-3" onclick="levelBtn(this)">Level3</label>
 				 <label id="l2-4" onclick="levelBtn(this)">Level4</label>
 				 <label id="l2-5" onclick="levelBtn(this)">Level5</label>
-				 <label id="l2-6" onclick="levelBtn(this)">Level6</label>
+				 <!-- <label id="l2-6" onclick="levelBtn(this)">Level6</label>
 				 <label id="l2-7" onclick="levelBtn(this)">Level7</label>
 				 <label id="l2-8" onclick="levelBtn(this)">Level8</label> 
 				 <label id="l2-9" onclick="levelBtn(this)">Level9</label>
-				 <label id="l2-10" onclick="levelBtn(this)">Level10</label> 
+				 <label id="l2-10" onclick="levelBtn(this)">Level10</label>  -->
 				</div>
 				<br>
 				<ul id="subQuestUl">

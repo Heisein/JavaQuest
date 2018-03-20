@@ -92,7 +92,7 @@ tr, td, th {
 	<div class="container">
 
 		<div class="leftBox">
-			<div class="visiArea">웹사이트 회원</div>
+			<div class="visiArea"><img src="/jqt/images/store.png"/></div>
 			<!-- visiArea -->
 
 			<ul class="leftNav">
@@ -117,13 +117,16 @@ tr, td, th {
 				<hr>
 				<!-- 가로줄 -->
 				<% } %>
-				<button onclick="buy()">구매하기</button>
+				<button class="btn btn-primary" onclick="buy()">구매하기</button>
 			</div>
 
 		</div>
 		<!-- conArea -->
 	</div>
 	<!-- container -->
+	
+	<%@ include file = "/views/common/footer.jsp" %>
+	
 	<script>
 		function buy(){
 			var pc = $("input[name='pd']:checked").val(); // product code
