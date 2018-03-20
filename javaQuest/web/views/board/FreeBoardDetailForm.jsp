@@ -6,19 +6,20 @@
 <html>
 <head>
 <style>
-	
-	form{
-		border:1px solid black;
-	}
-	#tableArea1 td{
-		border:1px solid black;
+#tableArea1 td{
+		border:1px solid lightgray;
+		text-align:left;
 	}
 	.tableArea{
-		border:1px solid black;
+		border:1px solid lightgray;
 		width:800px;
-		height:350px;
+		height:295px;
 		margin-left:auto;
 		margin-right:auto;
+		
+	}
+	.h1{
+		margin-left:350px;
 	}
 	#content{
 		height:230px;
@@ -28,13 +29,22 @@
 		
 	}
 	button:hover{
-		background-color:;
+		cusor:pointer;
 	}
 	span,p{
 		font-size:14px;
 		color:gray;
 	}
-	
+	.detailArea{
+		font-size:18px;
+	}
+	.detailArea2{
+		font-size:18px;
+	}
+	#likeArea,#reportArea,#updatenotice,#addReply,#addReply2{
+		
+		background:no-repeat;
+	}
 </style>
 
 <meta charset="UTF-8">
@@ -42,68 +52,80 @@
 </head>
 <body>
 	<%@ include file= "/views/common/menubar.jsp" %>
-	<h1>자유게시판 상세보기</h1>
-	
-	
+	<h1 class="h1" style="font-weight:bold">자유게시판 상세보기</h1>
 	<div class="tableArea" >
 		<table id="tableArea1" align="center" width="800px" border="1">
-				<tr>
-					<td>글번호</td>
+				<tr class ="detailArea" style="background:LightBlue">
+					<td style="font-weight: bold">글번호</td>
 					<td>
 						<span><%= n.getBno() %></span>
 					</td>	
-					<td>제목</td>
+					<td style="font-weight: bold">제목</td>
 					<td colspan="4">
 						<span><%= n.getBtitle() %></span>
 					</td>
 				</tr>
-				<tr>
-					<td>작성자</td>
+				<tr class ="detailArea" style="background:LightBlue">
+					<td style="font-weight: bold">작성자</td>
 					<td>
 						<span><%= n.getBwriter() %></span>
 					</td>
-					<td>조회수</td>
-					<td>
+					<td style="font-weight: bold">조회수</td>
+					<td width="50px">
 						<span><%= n.getBcount() %></span>
 					</td>
-					<td>날짜</td>
+					<td style="font-weight: bold">날짜</td>
 					<td>
 						<span><%= n.getBdate() %></span>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="6">내용</td>
+				
+				<tr class ="detailArea2" style="background:WhiteSmoke">
+					<td colspan="6"></td>
 				</tr>
 				<tr>
-					<td colspan="6">
+					<td colspan="6" style="background:WhiteSmoke ">
 						<p id="content"><%= n.getBcontext() %></p>
 					</td>
 				</tr>
 		
 		</table>
-		<div>
+		<div class="etc">
 			<button id="likeArea"> <img src="<%= request.getContextPath() %>/images/like.PNG" width="25px" height="25px"></button>
 			<button id="reportArea"> <img src="<%= request.getContextPath() %>/images/unlike.png" width="25px" height="25px"></button>
-			<!-- 수정하기 버튼 사이즈 버튼 바꿔야함~~~~~~~~~~~~~~~~~ -->
-			<button>수정하기</button>
+			<button id="updateFreebd">수정하기</button>
 		</div>
 		<br>
-		<table id="replyArea">
+		<table>
 			<tr id="notRemoveThis">
-				<td id="reply2"></td>	
+				<td id="reply2"></td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr id="notRemoveThis">
 				<td>
-					<textarea style="resize:none" id="replyContent" cols="60" rows="3"></textarea>
-				</td>
-				<td>
+					<textarea style="resize:none" id="replyContent" cols="67" rows="4"></textarea>
 					<button id="addReply">작성</button>
-					<button type="button" onclick="location.href='<%= request.getContextPath() %>/selectFb.no'">목록으로 돌아가기</button>
-				</td>
+					<button id="addReply2" type="button" onclick="location.href='<%= request.getContextPath() %>/selectFb.no'">목록으로 돌아가기</button>
+				</td>	
 			</tr>
-			
 		</table>
-	</div>
+		<div>
+			<table>
+				<tr>
+				<td width="80px" style="background:LightBlue">작성자</td>
+				<td width="600px" style="background:LightBlue">내용</td>
+				<td width="120px" style="background:LightBlue">날짜</td>
+				</tr>
+			</table>
+		</div>
+	<div>
+		<table id="replyArea">
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+		</div>
 <script>
 	$("#likeArea").click(function(){
 		alert("좋아요!");
@@ -143,41 +165,51 @@
 			}
 		 });
 	});
-
-
-$(function(){
-	var count = <%= n.getRef_bid() %>
-	var writer = <%= loginUser.getUserNum() %>
-	var bid = <%= n.getBid() %>
-	var content = $("#replyContent").val();
-	console.log(count);
-	console.log(writer);
-	console.log(bid);
-	$.ajax({
-		url:"/jqt/selectReply.bo",
-		data:{"count":count,"writer":writer,"bid":bid,"content":content},
-		type:"post",
-		success:function(data){
-			var $replyArea = $("#replyArea");
-			$("#reply2").text(data.length + "개의 댓글");
-			for(var key in data){
-				var $tr = $("<tr>");
-				var $writerTd = $("<td>").text(data[key].bwriter).css("width","");
-				var $contentTd = $("<td>").text(data[key].bcontext);
-				var $dateTd = $("<td>").text(data[key].bdate);
-				
-				$tr.append($writerTd);
-				$tr.append($contentTd);
-				$tr.append($dateTd);
-				$replyArea.append($tr);	
-			}	
-		}
-	});
-})
-	$("#addReply").click(function(){
+	$(function(){
 		var count = <%= n.getRef_bid()  %>
-		var writer = <%= loginUser.getUserNum() %>;
-		var bid = <%= n.getBid() %>;
+		var writer = <%= loginUser.getUserNum() %>
+		var bid = <%= n.getBid() %>
+		var content = $("#replyContent").val();
+		console.log(count);
+		console.log(writer);
+		console.log(bid);
+		$.ajax({
+			url:"/jqt/selectReply.bo",
+			data:{"count":count,"writer":writer,"bid":bid,"content":content},
+			type:"post",
+			success:function(data){
+				var $replyArea = $("#replyArea");
+				$("#reply2").text(data.length + "개의 댓글").css("font-size","25px");
+					for(var key in data){
+					var $tr = $("<tr>").css("border-bottom","solid 1px black");
+					var $writerTd = $("<td>").text(data[key].bwriter).css({
+						width:"80px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke "
+						});
+					var $contentTd = $("<td>").text(data[key].bcontext).css({
+						width:"600px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke"
+					});
+					var $dateTd = $("<td>").text(data[key].bdate).css({
+						width:"120px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke"
+					});
+					$tr.append($writerTd);
+					$tr.append($contentTd);
+					$tr.append($dateTd);
+					$replyArea.append($tr);	
+				}	
+			}
+		});
+	})
+	$("#addReply").click(function(){
+		//-- 1. 댓글수  2.작성자. 3.작성내용 . 4.작성날짜 --
+		var count = <%= n.getRef_bid() %>
+		var writer = <%= loginUser.getUserNum() %>
+		var bid = <%= n.getBid() %>
 		console.log(count);
 		console.log(writer);
 		console.log(bid);
@@ -190,14 +222,24 @@ $(function(){
 				var $replyArea = $("#replyArea");
 				$replyArea.find('tr[id != "notRemoveThis"]').remove();
 				console.log(data);
-				$("#reply2").text(data.length + "개의 댓글");
+				$("#reply2").text(data.length + "개의 댓글").css("font-size","25px");
 				for(var key in data){
-					console.log(data[0]);
-					var $tr = $("<tr>");
-					var $writerTd = $("<td>").text(data[key].bwriter).css("width","50px");
-					var $contentTd = $("<td>").text(data[key].bcontext).css("width","200px");
-					var $dateTd = $("<td>").text(data[key].bdate).css("width","100px");
-					
+					var $tr = $("<tr>").css("border-bottom","solid 1px black");
+					var $writerTd = $("<td>").text(data[key].bwriter).css({
+						width:"80px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke "
+					});
+					var $contentTd = $("<td>").text(data[key].bcontext).css({
+						width:"600px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke"
+						})
+					var $dateTd = $("<td>").text(data[key].bdate).css({
+						width:"120px",
+						shadow: "1px 1px 1px #fff",
+						background:"WhiteSmoke"
+					});
 					$tr.append($writerTd);
 					$tr.append($contentTd);
 					$tr.append($dateTd);
@@ -208,6 +250,10 @@ $(function(){
 				alert("에러");
 			}
 		});
+	});
+
+	$("#updateFreebd").click(function(){
+		location.href="/views/board/FreeBoardUpdateForm.jsp";
 	});
 </script>
 </body>
