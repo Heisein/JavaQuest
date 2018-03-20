@@ -75,11 +75,9 @@
 	    var inputMessage = document.getElementById('inputMessage');
 		var roomNumber = <%= roomNumber %>;
 		
-		window.addEventListener("load", connect, false);    //창이 열리면 websocket 객체 호출
-		function connect() {                   // 웹소켓 생성
-			wsocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
-			wsocket.onmessage = onMessage;        // 메세지가 왔을때 호출할 메소드 지정
-		}
+		// 웹소켓 생성
+		wsocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/broadcasting?roomNumber=" + roomNumber + "&nickName=<%= loginUser.getNickName() %>");
+		wsocket.onmessage = onMessage;        // 메세지가 왔을때 호출할 메소드 지정
 		
 		function onMessage(event) {  // 서버로부터 메세지가 왔을때 호출되는 메소드
 			var roomNumber = paramSpliter(event.data, "roomNumber");
@@ -213,8 +211,24 @@
 										if(i === data.length){
 											alert("게임 우승자가 한명 이상이므로 포인트는 분할 지급됩니다.");
 											clearInterval(content);
+											$.ajax({
+												url: "/jqt/reward.g",
+												type: "post",
+												data: {
+													"reward": total/user.length,
+													"userNum": <%= loginUser.getUserNum() %>
+												},
+												success: function(data){
+													
+												},
+												error: function(data){
+													
+												}
+											});
 										}
-									count = 5;
+										
+										count = 5;
+										
 									}else {
 										clearInterval(content);
 										$(".btnArea").append("<button id='startBtn' class='btn btn-info'>시작하기</button>");
@@ -254,16 +268,56 @@
 			}
 
 		}
-	
-		//엔터키
-		function enterkey() {
-	        if (window.event.keyCode == 13) {
-	        	submitMessage();
-	            //스크롤바 아래로 내리기
-		        textarea.scrollTop = textarea.scrollHeight;
-	        }
-	        
-	    }
+		
+		//파라미터를 쪼개는 메소드
+		function paramSpliter(object, paramName) {
+			var array = object.split("&"); // 키,값을 배열에 담는다. (type=data)
+			var newParams=new Array();	   
+			for(var cnt = 0; cnt < array.length; cnt++){ //key, value를 담은 배열의 사이즈 만큼 반복
+				var split = array[cnt].split("="); 		//key와 value를 나눔
+				var param = split[0];					//key값을 담고
+				var value = split[1];					//value값을 담고
+				newParams.push(param);					//임시로 만든 배열에 밀어준다.
+				newParams.push(value);
+			}
+
+			var result;
+			for(var cnt = 0; cnt < newParams.length; cnt++) { 
+				if(newParams[cnt] == paramName) { //내가 원하는 value값을 가지고있는 key값과 value값과 같을때
+					result = newParams[cnt+1];	  //변수에 key값 다음에 있는 value값을 담는다.
+				}
+			}
+			return result;	//value 리턴
+		}
+		
+		//시작버튼
+		$(document).on("click", "#startBtn", function(){
+			var user = $(".answer").children();//유저 인원
+
+			//게임 시작 최소인원
+			if(user.length >= 3){ //시작 할때 대기방에 잠깐 들려 버튼막기
+				wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=start");
+				var webSocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
+				
+				setTimeout(function() {
+					webSocket.close();
+				}, 3000);
+				
+			}else {
+				alert("최소인원은 3명입니다.");
+			}
+			
+		});
+		
+		//o,x버튼
+		$(".O").click(function(){
+			$(".<%= loginUser.getNickName() %>").attr("id", "O");
+			wsocket.send("roomNumber="+roomNumber+"&nickName=<%= loginUser.getNickName() %>"+"&type=O");
+		});
+		$(".X").click(function(){
+			$(".<%= loginUser.getNickName() %>").attr("id", "X");
+			wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=X");
+		});
 		
 		//메세지 전송 메소드
 	  	function submitMessage(event) {    
@@ -278,48 +332,16 @@
 				wsocket.send(data);
 			}
 		}
-		//o,x버튼
-		$(".O").click(function(){
-			$(".<%= loginUser.getNickName() %>").attr("id", "O");
-			wsocket.send("roomNumber="+roomNumber+"&nickName=<%= loginUser.getNickName() %>"+"&type=O");
-		});
-		$(".X").click(function(){
-			$(".<%= loginUser.getNickName() %>").attr("id", "X");
-			wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=X");
-		});
 		
-		
-		//시작버튼
-		$(document).on("click", "#startBtn", function(){
-			var user = $(".answer").children();//유저 인원
-
-			//게임 시작 최소인원
-			if(user.length >= 1){ //시작 할때 대기방에 잠깐 들려 버튼막기
-				wsocket.send("roomNumber="+roomNumber+"&nickName=<%=loginUser.getNickName() %>"+"&type=start");
-				var webSocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/waiting?type=start&roomNumber=<%= roomNumber %>&present=99");
-				
-				setTimeout(function() {
-					webSocket.close();
-				}, 3000);
-				
-			}else {
-				alert("최소인원은 3명입니다.");
-			}
-			
-		});
-	/* 	
-		function count(){
-			var i = 5;
-			var time = setInterval(function(){
-				$(".quiz-ox-con").text(i);
-				
-				i--;
-				
-				if(i == 1){
-					clearInterval(time);
-				}
-			});
-		} */
+	 	//엔터키
+		function enterkey() {
+	        if (window.event.keyCode == 13) {
+	        	submitMessage();
+	            //스크롤바 아래로 내리기
+		        textarea.scrollTop = textarea.scrollHeight;
+	        }
+	        
+	    }
 		
 		//방 나가기
 	  	function exit() { 

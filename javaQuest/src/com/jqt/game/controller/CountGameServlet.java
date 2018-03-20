@@ -21,8 +21,6 @@ public class CountGameServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("들어오냐");
-	
 			//이번주에 내는 게임 번호를 입력
 			int qid = 18;
 			Quest q = new QuestService().selectOne(qid);

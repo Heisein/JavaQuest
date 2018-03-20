@@ -2,7 +2,7 @@
  * get방식으로 받은 파라미터를 분리하는 라이브러리
  */
 
-
+/*
 var params = new Array();
 spliter();
 function spliter() {
@@ -52,4 +52,4 @@ function getParam(value) {
 		}
 	}
 	return result;
-}
+}*/

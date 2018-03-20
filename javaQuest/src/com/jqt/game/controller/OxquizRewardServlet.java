@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jqt.game.model.service.GameService;
 import com.jqt.store.model.service.StoreService;
 
 @WebServlet("/reward.g")
@@ -23,7 +24,7 @@ public class OxquizRewardServlet extends HttpServlet {
 		
 		new StoreService().reward(userNum, point);
 		
-		
+		new GameService().insertWinner(userNum);
 	
 	}
 
