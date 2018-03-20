@@ -53,7 +53,7 @@ public class MemberDao {
 				loginUser.setUserId(rset.getString("user_id"));
 				loginUser.setUserPwd(rset.getString("user_pwd"));
 				loginUser.setNickName(rset.getString("user_nickName"));
-				loginUser.setEmail(rset.getString("email"));
+				loginUser.setEmail(rset.getString("email")); 
 				loginUser.setPhone(rset.getString("phone"));
 				loginUser.setExp(rset.getInt("user_exp"));
 				loginUser.setType(rset.getInt("user_type"));
