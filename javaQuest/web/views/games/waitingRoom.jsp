@@ -74,7 +74,7 @@
 	var marginTop = modalCont.outerHeight()/2;
 	
 	
-	var	wsocket = new WebSocket("ws://192.168.43.17:8222/<%= request.getContextPath() %>/waiting?type=<%= type %>&roomNumber=<%= roomNumber %>&present=<%= present %>");
+	var	wsocket = new WebSocket("ws://192.168.30.83:8222/<%= request.getContextPath() %>/waiting?type=<%= type %>&roomNumber=<%= roomNumber %>&present=<%= present %>");
 	wsocket.onmessage = onMessage;  // 메세지가 왔을때 호출할 메소드 지정
 	
 	<% for(int i = 0; i < list.size(); i++) { %>
@@ -149,7 +149,6 @@
 			break;
 		
 		case "delete" :
-			console.log("지워버려!!!");
 			$("#"+roomNumber).remove();
 			break;
 			

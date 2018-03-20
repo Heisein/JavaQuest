@@ -204,6 +204,7 @@ public class Broadsocket {
 		}
 	}
 	
+	//방을 나갔을때 실행하는 메소드
 	public void exitRoom(Session s) {
 		
 		String queryString = decoder(this.session.getQueryString());

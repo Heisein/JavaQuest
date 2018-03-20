@@ -35,4 +35,21 @@ public class GameService {
 		return list;
 	}
 
+	//ox게임 우승 카운트 올리기용 메소드
+	public void insertWinner(int userNum) {
+		Connection con = getConnection();
+		
+		int result = new GameDao().insertWinner(con, userNum);
+		
+		if(result > 0){
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+	}
+
+	
+	
 }

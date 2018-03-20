@@ -33,9 +33,7 @@ public class WaitingRoomServer {
 		String roomNumber = getParameter(queryString, "roomNumber");
 		String present = getParameter(queryString, "present");
 		String msg = "type="+type+"&roomNumber="+roomNumber+"&presentNo="+present;
-		System.out.println("onOpen present : " + present);
 		
-		System.out.println("대기방 열림 : " + type);
 		send(msg, session);
 	}
 	
@@ -46,9 +44,6 @@ public class WaitingRoomServer {
 		String roomNumber = getParameter(message, "roomNumber");
 		String title = getParameter(message, "title");
 		String presentNo = getParameter(message, "presentNo");
-		System.out.println("onMessage : " + type);
-		System.out.println("presentNo : " + presentNo);
-		System.out.println("roomNumber : " + roomNumber);
 		String msg = "type="+type+"&roomNumber="+roomNumber+"&title="+title+"&presentNo="+presentNo;
 		switch(type){
 		case "create" : 
@@ -57,7 +52,6 @@ public class WaitingRoomServer {
 			break;
 		case "upCount" : 
 			int temp = Integer.parseInt(presentNo) + 1;
-			System.out.println("temp : " + temp);
 			msg = "type="+type+"&roomNumber="+roomNumber+"&title="+title+"&presentNo="+String.valueOf(temp);
 			send(msg, session);
 			break;
@@ -68,7 +62,6 @@ public class WaitingRoomServer {
 			break;
 		
 		default : 
-			//send();
 			
 			break;
 		}
@@ -77,7 +70,6 @@ public class WaitingRoomServer {
 
 	@OnClose
 	public void onClose(Session session) {
-		// Remove session from the connected sessions set
 		clients.remove(session);
 	}
 	
@@ -102,7 +94,6 @@ public class WaitingRoomServer {
 	    
 	    int cnt = result.indexOf(paramName);
 	    paramResult = (String)result.get(cnt + 1);
-	    System.out.println("paramResult : " + paramResult);
 	    return paramResult;
 	}
 	

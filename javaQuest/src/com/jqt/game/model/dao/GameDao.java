@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,7 @@ public class GameDao {
 	private Properties prop = new Properties();
 	
 	public GameDao(){
-		String fileName = GameDao.class.getResource("/sql/game/selectGame.properties").getPath();
+		String fileName = GameDao.class.getResource("/sql/game/game.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -31,7 +32,7 @@ public class GameDao {
 		
 	}
 	
-	
+	//사지선다 게임 문제 뽑기
 	public HashSet<SelectGame> selectGame(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -66,8 +67,8 @@ public class GameDao {
 		
 		return list;
 	}
-
-	//리스트보다는 set으로 받는게 좋을듯
+	
+	//ox게임 문제 추출용
 	public ArrayList<SelectGame> oxGameList(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -96,6 +97,30 @@ public class GameDao {
 			close(stmt);
 		}
 		return list;
+	}
+
+	
+	//ox 우승자 추가
+	public int insertWinner(Connection con, int userNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWinner");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNum);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
